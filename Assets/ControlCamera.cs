@@ -33,7 +33,7 @@ public class ControlCamera : MonoBehaviour
             cameraPivot.transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
         }
 
-        float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+        float mouseScroll = Input.GetAxis("Mouse ScrollWheel") * 1000 / zoomSpeed ; //Default speed is 1000
         
         Debug.Log(currentZoom);
         if ((mouseScroll < 0 &&  currentZoom > minZoom) || (mouseScroll > 0 && currentZoom < maxZoom))
