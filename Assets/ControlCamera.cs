@@ -10,7 +10,7 @@ public class ControlCamera : MonoBehaviour
     [SerializeField] private KeyCode rotateRight = KeyCode.E;
 
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private float zoomSpeed;
+    private float zoomSpeed = 1000;
     [SerializeField] private float maxZoom;
     [SerializeField] private float minZoom;
     private float currentZoom = 0;
@@ -33,7 +33,7 @@ public class ControlCamera : MonoBehaviour
             cameraPivot.transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
         }
 
-        float mouseScroll = Input.GetAxis("Mouse ScrollWheel") * 1000 / zoomSpeed ; //Default speed is 1000
+        float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
         
         Debug.Log(currentZoom);
         if ((mouseScroll < 0 &&  currentZoom > minZoom) || (mouseScroll > 0 && currentZoom < maxZoom))
