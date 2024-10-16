@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -7,18 +9,13 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private float health = 10;
     private float maxHealth;
 
-    [SerializeField] private GameObject healthUI;
-    private Image healthImage;
+    [SerializeField] private Image healthImage;
 
     [SerializeField] private float entityHeight;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameObject tempUI = Instantiate(healthUI, transform);
-        healthImage = tempUI.GetComponentInChildren<TAG_HealthUI>().gameObject.GetComponent<Image>();
-        tempUI.transform.position += new Vector3(0f, entityHeight, 0f);
-
         maxHealth = health;
 
         healthImage.fillAmount = health/maxHealth;
@@ -34,8 +31,28 @@ public class HealthSystem : MonoBehaviour
     {
         health -= damage;
         Debug.Log("lost hp");
-        healthImage.fillAmount = health / maxHealth;
+  
+        if (health <= 0) transform.parent.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
 
-        if (health <= 0) Destroy(transform.parent.gameObject, 0.1f);
+        StartCoroutine(LoseHpUI());
+    }
+
+    private IEnumerator LoseHpUI()
+    {
+
+        float currentFill = healthImage.fillAmount;
+        float finalFill = health / maxHealth;
+
+        float lerpValue = 0;
+
+        while(lerpValue <= 1)
+        {
+            Debug.Log(lerpValue);
+            healthImage.fillAmount = Mathf.Lerp(currentFill, finalFill, lerpValue);
+            
+            lerpValue += Time.deltaTime;
+            yield return null;
+        }
+
     }
 }

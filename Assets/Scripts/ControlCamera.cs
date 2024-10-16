@@ -35,7 +35,6 @@ public class ControlCamera : MonoBehaviour
 
         float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
         
-        Debug.Log(currentZoom);
         if ((mouseScroll < 0 &&  currentZoom > minZoom) || (mouseScroll > 0 && currentZoom < maxZoom))
         {
             currentZoom += mouseScroll;

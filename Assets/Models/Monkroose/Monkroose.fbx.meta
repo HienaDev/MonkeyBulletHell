@@ -3,7 +3,32 @@ guid: dc29fd3ef50731e4fa2ac4dd85ec4bf9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_Black
+    second: {fileID: 2100000, guid: 64da1ed3a3328c6449bc8a6e6f1f0226, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye_White
+    second: {fileID: 2100000, guid: 6cb3e8b3ad4c0ab4dbe48392b3df6438, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Monkroose_Ears
+    second: {fileID: 2100000, guid: 5f065e504c6ef554facaa7437eb609b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Monkroose_Main
+    second: {fileID: 2100000, guid: 34100f70f3deb5b4eadcb9ddc889c13d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Monkroose_Secondary
+    second: {fileID: 2100000, guid: 838625fc2a2e13b4dbb2fa2331b54131, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
