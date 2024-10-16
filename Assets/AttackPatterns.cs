@@ -7,6 +7,9 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private GameObject firePointOnHead;
     [SerializeField] private GameObject player;
 
+    [SerializeField] private FollowTarget cameraLogic;
+    [SerializeField] private float shakeDuration = 0.3f;
+
     [Header("AOEAttack"), SerializeField] private float numberOfProjectiles = 5;
     [SerializeField] private float shotSpeed = 10f;
     [SerializeField] private float attackCooldown = 5f; // Duration of the arc movement
@@ -37,10 +40,10 @@ public class AttackPatterns : MonoBehaviour
 
     private void StartRandomAttack()
     {
-        int rng = Random.Range(0, 2);
-        if (rng == 0)
+        int rng = Random.Range(0, 4);
+        if (rng == 3)
             StartCoroutine(LaserAttack());
-        else if (rng == 1)
+        else
             StartCoroutine(MoveAlongArc());
     }
 
@@ -170,11 +173,21 @@ public class AttackPatterns : MonoBehaviour
 
         // Ensure the object ends at the exact target position
         transform.position = endPosition;
+        StartCoroutine(ShakeCamera());
 
         AoeAttackOnHead();
 
         yield return new WaitForSeconds(attackCooldown);
 
         StartRandomAttack();
+    }
+
+    private IEnumerator ShakeCamera()
+    {
+        cameraLogic.ShakeCameraToggle(true);
+
+        yield return new WaitForSeconds(shakeDuration);
+
+        cameraLogic.ShakeCameraToggle(false);
     }
 }

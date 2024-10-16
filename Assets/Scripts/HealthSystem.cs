@@ -1,7 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using System.Collections;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -9,30 +8,46 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private float health = 10;
     private float maxHealth;
 
-    [SerializeField] private Image healthImage;
+    [SerializeField] private GameObject healthUI;
+    [SerializeField] private Image healthImageUI;
 
     [SerializeField] private float entityHeight;
+    [SerializeField] private GameObject destroyOnDeath;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        if(healthImageUI == null)
+        {
+            GameObject tempUI = Instantiate(healthUI, transform);
+            healthImageUI = tempUI.GetComponentInChildren<TAG_HealthUI>().gameObject.GetComponent<Image>();
+            tempUI.transform.position += new Vector3(0f, entityHeight, 0f);
+        }
+        
+
         maxHealth = health;
 
-        healthImage.fillAmount = health/maxHealth;
+        healthImageUI.fillAmount = health/maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void DealDamage(float damage)
     {
         health -= damage;
         Debug.Log("lost hp");
-  
-        if (health <= 0) transform.parent.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+
+        if (health <= 0)
+        {
+            if(destroyOnDeath != null)
+            {
+                Destroy(destroyOnDeath, 0.1f);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         StartCoroutine(LoseHpUI());
     }
@@ -40,16 +55,16 @@ public class HealthSystem : MonoBehaviour
     private IEnumerator LoseHpUI()
     {
 
-        float currentFill = healthImage.fillAmount;
+        float currentFill = healthImageUI.fillAmount;
         float finalFill = health / maxHealth;
 
         float lerpValue = 0;
 
-        while(lerpValue <= 1)
+        while (lerpValue <= 1)
         {
             Debug.Log(lerpValue);
-            healthImage.fillAmount = Mathf.Lerp(currentFill, finalFill, lerpValue);
-            
+            healthImageUI.fillAmount = Mathf.Lerp(currentFill, finalFill, lerpValue);
+
             lerpValue += Time.deltaTime;
             yield return null;
         }

@@ -22,7 +22,8 @@ public class PlayerShot : MonoBehaviour
         if(other.GetComponent<TAG_Enemy>() != null)
         {
             Debug.Log("is enemy: " + other.name);
-            other.GetComponent<HealthSystem>().DealDamage(damage);
+
+                other.GetComponent<HealthSystem>().DealDamage(damage);
         }
     }
 }
