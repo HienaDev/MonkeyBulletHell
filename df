@@ -1,0 +1,53 @@
+[33mcommit f8968a02179f5dcf086557954f51de81e5d23135[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Wed Oct 16 16:19:59 2024 +0100
+
+    Change folder of scripts
+
+[33mcommit e270aba6acf21172bd5b561c53b5d82db061cf25[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Wed Oct 16 16:19:31 2024 +0100
+
+    Add moai boss fight
+
+[33mcommit a45998d7f4014ac03e501ba00ce1ad2951b3274e[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Wed Oct 16 15:35:06 2024 +0100
+
+    Add moai boss
+
+[33mcommit d9c95b0d3bfbe603fa43b355fe6696bb1d9074c9[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Tue Oct 15 11:47:29 2024 +0100
+
+    put files on folder
+
+[33mcommit 7420e1de14929ad97a9fa1a8919cc11e89f5e2a0[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Thu Oct 10 16:03:54 2024 +0100
+
+    change camera angle
+
+[33mcommit fbaebd17f73aafc2f0891e9ce176e69e77facdf2[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Tue Oct 8 22:47:37 2024 +0100
+
+    Change camera script
+
+[33mcommit fd92d6297b2c1b31b3c0dcb8d8dfd9eb79c9b79c[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Thu Sep 26 11:56:13 2024 +0100
+
+    Something
+
+[33mcommit 573643dfaa962a41142d724798b1b47949285925[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Thu Sep 26 11:47:22 2024 +0100
+
+    Add enemies and camera rotation
+
+[33mcommit 92dee3d24a183128a95dc5d2314b6913f7560c66[m
+Author: HienaDev <ant.rodrigues1999@gmail.com>
+Date:   Tue Sep 24 21:23:21 2024 +0100
+
+    First commit
