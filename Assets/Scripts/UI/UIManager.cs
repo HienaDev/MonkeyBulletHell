@@ -11,12 +11,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color selectedSlotColor;
     [SerializeField] private Color deselectedSlotColor;
 
-    private int selectedSlot = 0;
+    private int selectedSlot;
     private PlayerInventory playerInventory;
     private List<int> occupiedSlots = new List<int>();
 
     void Start()
     {
+        selectedSlot = 0;
         playerInventory = FindAnyObjectByType<PlayerInventory>();
         HideInventoryIcons();
         HideInventoryNumbers();

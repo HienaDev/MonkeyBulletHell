@@ -4,10 +4,17 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private int maxWeapons = 2;
-    [SerializeField] private int maxMaterialsAndTools = 6;
+    [SerializeField] private List<ItemSO> items;
 
-    private List<ItemSO> items;
+    private int maxWeapons;
+    private int maxMaterialsAndTools;
+
+    private void Start()
+    {
+        items = new List<ItemSO>();
+        maxWeapons = 2;
+        maxMaterialsAndTools = 6;
+    }
 
     public void AddItem(ItemSO item)
     {
