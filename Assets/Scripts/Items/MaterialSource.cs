@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MaterialSource : MonoBehaviour
 {
-    [SerializeField]
-    private MaterialSourceSO materialSource;
+    [SerializeField] private MaterialSourceSO materialSource;
     private int hitsRemaining;
 
     private PlayerInventory playerInventory;

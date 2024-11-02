@@ -3,23 +3,39 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public List<ItemSO> items;
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private int maxWeapons = 2;
+    [SerializeField] private int maxMaterialsAndTools = 6;
+
+    private List<ItemSO> items;
 
     public void AddItem(ItemSO item)
     {
         items.Add(item);
+        uiManager.UpdateInventoryDisplay();
         Debug.Log($"{item.itemName} added to inventory");
     }
 
     public void RemoveItem(ItemSO item)
     {
         items.Remove(item);
+        uiManager.UpdateInventoryDisplay();
         Debug.Log($"{item.itemName} removed from inventory");
     }
 
     public ItemSO GetItem(string name)
     {
         return items.Find(item => item.itemName == name);
+    }
+
+    public bool WeaponSlotsFull()
+    {
+        return GetItemCountByType(ItemType.Weapon) >= maxWeapons;
+    }
+
+    public bool MaterialAndToolSlotsFull()
+    {
+        return GetItemCountByType(ItemType.Material) + GetItemCountByType(ItemType.Tool) >= maxMaterialsAndTools;
     }
 
     private void Update()
@@ -57,12 +73,28 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    public List<ItemSO> GetItems()
+    {
+        return items;
+    }
+
     public int GetItemCount(ItemSO item)
     {
         int count = 0;
         foreach (ItemSO i in items)
         {
             if (i == item)
+                count++;
+        }
+        return count;
+    }
+
+    public int GetItemCountByType(ItemType itemType)
+    {
+        int count = 0;
+        foreach (ItemSO i in items)
+        {
+            if (i.itemType == itemType)
                 count++;
         }
         return count;

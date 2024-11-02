@@ -8,9 +8,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image[] inventorySlots;
     [SerializeField] private Image[] inventoryIcons;
     [SerializeField] private TextMeshProUGUI[] itemCounts;
+    [SerializeField] private Color selectedSlotColor;
+    [SerializeField] private Color deselectedSlotColor;
 
-    private int selectedSlot = 0;  // Start with first slot selected
+    private int selectedSlot = 0;
     private PlayerInventory playerInventory;
+    private List<int> occupiedSlots = new List<int>();
 
     void Start()
     {
@@ -22,12 +25,15 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        // Navigate through inventory slots with arrow keys
-        if (Input.GetKeyDown(KeyCode.RightArrow)) SelectInventorySlot((selectedSlot + 1) % 8);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) SelectInventorySlot((selectedSlot + 7) % 8);
-
-        // Refresh inventory UI display
-        DisplayInventory();
+        if (occupiedSlots.Count > 0)
+        {
+            // Cycle through inventory slots using the M key
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                selectedSlot = (selectedSlot + 1) % occupiedSlots.Count;
+                SelectInventorySlot(occupiedSlots[selectedSlot]);
+            }
+        }
     }
 
     public void HideInventoryIcons()
@@ -55,63 +61,100 @@ public class UIManager : MonoBehaviour
 
     public void SelectInventorySlot(int index)
     {
-        selectedSlot = index;
+        foreach (Image slot in inventorySlots)
+            slot.color = deselectedSlotColor;
+
+        if (index != -1)
+            inventorySlots[index].color = selectedSlotColor;
+    }
+
+    public void UpdateInventoryDisplay()
+    {
+        DisplayInventory();
     }
 
     private void DisplayInventory()
     {
         HideInventoryIcons();
         HideInventoryNumbers();
+        occupiedSlots.Clear(); // Reset the list of occupied slots
 
-        // Dictionary to track materials and their total counts
         Dictionary<ItemSO, int> materialCounts = new Dictionary<ItemSO, int>();
+        Dictionary<ItemSO, int> materialSlotIndex = new Dictionary<ItemSO, int>();
 
-        // Populate material counts only once for each material type
-        foreach (var item in playerInventory.items)
+        // Populate material counts once for each material type
+        foreach (var item in playerInventory.GetItems())
         {
             if (item.itemType == ItemType.Material)
             {
                 if (!materialCounts.ContainsKey(item))
+                {
                     materialCounts[item] = playerInventory.GetItemCount(item);
+                }
             }
         }
 
-        int weaponSlotIndex = 0;  // Track index for weapon slots (first two slots)
-        int otherSlotIndex = 2;   // Track index for material and tool slots (slots 2-7)
+        int weaponSlotIndex = 0;
+        int otherSlotIndex = 2;
 
-        // Display items in the inventory UI
-        foreach (var item in playerInventory.items)
+        foreach (var item in playerInventory.GetItems())
         {
+            int slotIndex = -1; // Track the actual slot index used
+
             if (item.itemType == ItemType.Weapon && weaponSlotIndex < 2)
             {
-                // Display weapons in the first two slots
-                ShowInventorySlot(weaponSlotIndex);
-                ShowInventoryIcon(weaponSlotIndex, item.inventoryIcon);
+                slotIndex = weaponSlotIndex;
+                ShowInventorySlot(slotIndex);
+                ShowInventoryIcon(slotIndex, item.inventoryIcon);
                 weaponSlotIndex++;
             }
             else if ((item.itemType == ItemType.Material || item.itemType == ItemType.Tool) && otherSlotIndex < inventorySlots.Length)
             {
-                // Display materials/tools in slots 2-7
-                if (item.itemType == ItemType.Material && materialCounts.ContainsKey(item))
+                if (item.itemType == ItemType.Material)
                 {
-                    ShowInventorySlot(otherSlotIndex);
-                    ShowInventoryIcon(otherSlotIndex, item.inventoryIcon);
+                    // Check if this material has already been displayed in a slot
+                    if (materialSlotIndex.ContainsKey(item))
+                    {
+                        // Update only the count in the existing slot
+                        slotIndex = materialSlotIndex[item];
+                        itemCounts[slotIndex].text = materialCounts[item].ToString();
+                        itemCounts[slotIndex].gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        // Display the material in a new slot and store the slot index
+                        slotIndex = otherSlotIndex;
+                        ShowInventorySlot(slotIndex);
+                        ShowInventoryIcon(slotIndex, item.inventoryIcon);
+                        itemCounts[slotIndex].text = materialCounts[item].ToString();
+                        itemCounts[slotIndex].gameObject.SetActive(true);
 
-                    // Show the total count for this material in one slot
-                    itemCounts[otherSlotIndex].text = materialCounts[item].ToString();
-                    itemCounts[otherSlotIndex].gameObject.SetActive(true);
-
-                    // Remove from dictionary after showing, to avoid filling multiple slots
-                    materialCounts.Remove(item);
+                        // Record the slot index for this material
+                        materialSlotIndex[item] = slotIndex;
+                        otherSlotIndex++;
+                    }
                 }
                 else if (item.itemType == ItemType.Tool)
                 {
-                    ShowInventorySlot(otherSlotIndex);
-                    ShowInventoryIcon(otherSlotIndex, item.inventoryIcon);
+                    // Display tools in slots 2-7 without duplication
+                    slotIndex = otherSlotIndex;
+                    ShowInventorySlot(slotIndex);
+                    ShowInventoryIcon(slotIndex, item.inventoryIcon);
+                    otherSlotIndex++;
                 }
-
-                otherSlotIndex++;
             }
+
+            // Only add unique occupied slots to the list if a slot was assigned
+            if (slotIndex != -1 && !occupiedSlots.Contains(slotIndex))
+            {
+                occupiedSlots.Add(slotIndex);
+            }
+        }
+
+        // Ensure the selected slot stays within occupied slots
+        if (occupiedSlots.Count > 0)
+        {
+            SelectInventorySlot(occupiedSlots[selectedSlot % occupiedSlots.Count]);
         }
     }
 }

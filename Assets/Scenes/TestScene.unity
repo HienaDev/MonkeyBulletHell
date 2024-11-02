@@ -170,7 +170,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -433,7 +433,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 2, z: 3}
+  m_Size: {x: 3, y: 5, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &173476756
 MeshRenderer:
@@ -1417,7 +1417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ea30101c9cb504cb28044eb710325c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  uiManager: {fileID: 770655147}
+  maxWeapons: 2
+  maxMaterialsAndTools: 6
+  items:
+  - {fileID: 11400000, guid: 2a6c335209efe0f4f966a87f20e7b3e7, type: 2}
 --- !u!1 &364288601
 GameObject:
   m_ObjectHideFlags: 0
@@ -3092,7 +3096,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3.23
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -3361,6 +3365,8 @@ MonoBehaviour:
   - {fileID: 509330946}
   - {fileID: 433641530}
   - {fileID: 821566028}
+  selectedSlotColor: {r: 0.9008031, g: 1, b: 0, a: 0.5882353}
+  deselectedSlotColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0.5882353}
 --- !u!1 &779130565
 GameObject:
   m_ObjectHideFlags: 0
