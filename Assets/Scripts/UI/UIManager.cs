@@ -158,4 +158,37 @@ public class UIManager : MonoBehaviour
             SelectInventorySlot(occupiedSlots[selectedSlot % occupiedSlots.Count]);
         }
     }
+
+    public ItemSO GetSelectedItem()
+    {
+        if (selectedSlot >= 0 && selectedSlot < playerInventory.GetItems().Count)
+        {
+            return playerInventory.GetItems()[selectedSlot];
+        }
+
+        return null;
+    }
+
+    public void ClearSelectedSlot()
+    {
+        selectedSlot = -1;
+
+        foreach (Image slot in inventorySlots)
+        {
+            slot.color = deselectedSlotColor;
+        }
+    }
+
+    public void SelectFirstAvailableSlot()
+    {
+        if (occupiedSlots.Count > 0)
+        {
+            selectedSlot = 0;
+            SelectInventorySlot(occupiedSlots[selectedSlot]);
+        }
+        else
+        {
+            ClearSelectedSlot();
+        }
+    }
 }

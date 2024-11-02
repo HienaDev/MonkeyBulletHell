@@ -18,9 +18,15 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(ItemSO item)
     {
+        bool wasEmpty = items.Count == 0;
         items.Add(item);
         uiManager.UpdateInventoryDisplay();
         Debug.Log($"{item.itemName} added to inventory");
+
+        if (wasEmpty)
+        {
+            uiManager.SelectFirstAvailableSlot();
+        }
     }
 
     public void RemoveItem(ItemSO item)
@@ -28,6 +34,15 @@ public class PlayerInventory : MonoBehaviour
         items.Remove(item);
         uiManager.UpdateInventoryDisplay();
         Debug.Log($"{item.itemName} removed from inventory");
+
+        if (items.Count == 0)
+        {
+                uiManager.ClearSelectedSlot();
+        }
+        else
+        {
+            uiManager.SelectFirstAvailableSlot();
+        }
     }
 
     public ItemSO GetItem(string name)
@@ -45,38 +60,33 @@ public class PlayerInventory : MonoBehaviour
         return GetItemCountByType(ItemType.Material) + GetItemCountByType(ItemType.Tool) >= maxMaterialsAndTools;
     }
 
+    public void DropSelectedItem()
+    {
+        ItemSO selectedItem = uiManager.GetSelectedItem();
+
+        if (selectedItem != null && (selectedItem.itemType == ItemType.Material || selectedItem.itemType == ItemType.Tool))
+        {
+            /*GameObject droppedItem = Instantiate(selectedItem.prefab, transform.position + transform.forward, Quaternion.identity);
+            Debug.Log($"{selectedItem.itemName} dropped from inventory");*/
+
+            RemoveItem(selectedItem);
+
+            if (items.Count == 0)
+            {
+                uiManager.ClearSelectedSlot();
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot drop this item, or no item selected.");
+        }
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.N))
         {
-            Dictionary<ItemType, Dictionary<string, List<ItemSO>>> categorizedItems = new Dictionary<ItemType, Dictionary<string, List<ItemSO>>>();
-
-            // Organize items by category and name
-            foreach (ItemSO item in items)
-            {
-                if (!categorizedItems.ContainsKey(item.itemType))
-                {
-                    categorizedItems[item.itemType] = new Dictionary<string, List<ItemSO>>();
-                }
-
-                if (!categorizedItems[item.itemType].ContainsKey(item.itemName))
-                {
-                    categorizedItems[item.itemType][item.itemName] = new List<ItemSO>();
-                }
-
-                categorizedItems[item.itemType][item.itemName].Add(item);
-            }
-
-            // Print categorized items
-            foreach (var category in categorizedItems)
-            {
-                Debug.Log($"Category: {category.Key}");
-
-                foreach (var itemGroup in category.Value)
-                {
-                    Debug.Log($"- {itemGroup.Key} (Count: {itemGroup.Value.Count})");
-                }
-            }
+            DropSelectedItem();
         }
     }
 
