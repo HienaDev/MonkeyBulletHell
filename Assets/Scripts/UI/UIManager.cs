@@ -159,6 +159,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateItemQuantity(ItemSO item)
+    {
+        if (occupiedSlots.Count > 0)
+        {
+            int slotIndex = occupiedSlots.FindIndex(slot => inventoryIcons[slot].sprite == item.inventoryIcon);
+            if (slotIndex != -1)
+            {
+                itemCounts[slotIndex].text = playerInventory.GetItemCount(item).ToString();
+            }
+        }
+    }
+
     public ItemSO GetSelectedItem()
     {
         if (selectedSlot >= 0 && selectedSlot < playerInventory.GetItems().Count)

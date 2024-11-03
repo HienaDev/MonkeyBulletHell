@@ -31,17 +31,30 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(ItemSO item)
     {
-        items.Remove(item);
-        uiManager.UpdateInventoryDisplay();
-        Debug.Log($"{item.itemName} removed from inventory");
-
-        if (items.Count == 0)
+        int itemCount = GetItemCount(item);
+        
+        if (itemCount > 1)
         {
-                uiManager.ClearSelectedSlot();
+            // Apenas reduz a quantidade no inventário
+            items.Remove(item); // Reduz uma instância
+            uiManager.UpdateInventoryDisplay();
+            Debug.Log($"{item.itemName} quantity decreased. Remaining: {itemCount - 1}");
         }
         else
         {
-            uiManager.SelectFirstAvailableSlot();
+            // Remove o item completamente se restar apenas 1
+            items.Remove(item);
+            uiManager.UpdateInventoryDisplay();
+            Debug.Log($"{item.itemName} removed from inventory");
+
+            if (items.Count == 0)
+            {
+                uiManager.ClearSelectedSlot();
+            }
+            else
+            {
+                uiManager.SelectFirstAvailableSlot();
+            }
         }
     }
 
@@ -69,24 +82,73 @@ public class PlayerInventory : MonoBehaviour
             /*GameObject droppedItem = Instantiate(selectedItem.prefab, transform.position + transform.forward, Quaternion.identity);
             Debug.Log($"{selectedItem.itemName} dropped from inventory");*/
 
-            RemoveItem(selectedItem);
-
-            if (items.Count == 0)
+            if (GetItemCount(selectedItem) > 1)
             {
-                uiManager.ClearSelectedSlot();
+                items.Remove(selectedItem);
+                uiManager.UpdateItemQuantity(selectedItem);
+
+                Debug.Log($"{selectedItem.itemName} quantity decreased. Remaining: {GetItemCount(selectedItem)}");
             }
+            else
+            {
+                items.Remove(selectedItem);
+                Debug.Log($"{selectedItem.itemName} removed from inventory");
+
+                if (items.Count == 0)
+                {
+                    uiManager.ClearSelectedSlot();
+                }
+                else
+                {
+                    uiManager.SelectFirstAvailableSlot();
+                }
+            }
+
+            uiManager.UpdateInventoryDisplay();
         }
         else
         {
             Debug.Log("Cannot drop this item, or no item selected.");
         }
-    }
+}
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
             DropSelectedItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Dictionary<ItemType, Dictionary<string, List<ItemSO>>> categorizedItems = new Dictionary<ItemType, Dictionary<string, List<ItemSO>>>();
+
+            // Organize items by category and name
+            foreach (ItemSO item in items)
+            {
+                if (!categorizedItems.ContainsKey(item.itemType))
+                {
+                    categorizedItems[item.itemType] = new Dictionary<string, List<ItemSO>>();
+                }
+
+                if (!categorizedItems[item.itemType].ContainsKey(item.itemName))
+                {
+                    categorizedItems[item.itemType][item.itemName] = new List<ItemSO>();
+                }
+
+                categorizedItems[item.itemType][item.itemName].Add(item);
+            }
+
+            // Print categorized items
+            foreach (var category in categorizedItems)
+            {
+                Debug.Log($"Category: {category.Key}");
+
+                foreach (var itemGroup in category.Value)
+                {
+                    Debug.Log($"- {itemGroup.Key} (Count: {itemGroup.Value.Count})");
+                }
+            }
         }
     }
 
