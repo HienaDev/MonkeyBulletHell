@@ -6,13 +6,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private List<ItemSO> items;
 
-    private int maxWeapons;
     private int maxMaterialsAndTools;
 
     private void Start()
     {
         items = new List<ItemSO>();
-        maxWeapons = 2;
         maxMaterialsAndTools = 6;
     }
 
@@ -32,17 +30,15 @@ public class PlayerInventory : MonoBehaviour
     public void RemoveItem(ItemSO item)
     {
         int itemCount = GetItemCount(item);
-        
+
         if (itemCount > 1)
         {
-            // Apenas reduz a quantidade no inventário
-            items.Remove(item); // Reduz uma instância
+            items.Remove(item);
             uiManager.UpdateInventoryDisplay();
             Debug.Log($"{item.itemName} quantity decreased. Remaining: {itemCount - 1}");
         }
         else
         {
-            // Remove o item completamente se restar apenas 1
             items.Remove(item);
             uiManager.UpdateInventoryDisplay();
             Debug.Log($"{item.itemName} removed from inventory");
@@ -65,7 +61,7 @@ public class PlayerInventory : MonoBehaviour
 
     public bool WeaponSlotsFull()
     {
-        return GetItemCountByType(ItemType.Weapon) >= maxWeapons;
+        return items.Count >= 2 && items[0] != null && items[1] != null && items[0].itemType == ItemType.Weapon && items[1].itemType == ItemType.Weapon;
     }
 
     public bool MaterialAndToolSlotsFull()
@@ -79,14 +75,10 @@ public class PlayerInventory : MonoBehaviour
 
         if (selectedItem != null && (selectedItem.itemType == ItemType.Material || selectedItem.itemType == ItemType.Tool))
         {
-            /*GameObject droppedItem = Instantiate(selectedItem.prefab, transform.position + transform.forward, Quaternion.identity);
-            Debug.Log($"{selectedItem.itemName} dropped from inventory");*/
-
             if (GetItemCount(selectedItem) > 1)
             {
                 items.Remove(selectedItem);
                 uiManager.UpdateItemQuantity(selectedItem);
-
                 Debug.Log($"{selectedItem.itemName} quantity decreased. Remaining: {GetItemCount(selectedItem)}");
             }
             else
@@ -110,7 +102,144 @@ public class PlayerInventory : MonoBehaviour
         {
             Debug.Log("Cannot drop this item, or no item selected.");
         }
-}
+    }
+
+    public bool HasMaterials(List<ItemRequirement> requiredMaterials)
+    {
+        foreach (var requirement in requiredMaterials)
+        {
+            int playerMaterialCount = items.FindAll(item => item == requirement.material).Count;
+
+            if (playerMaterialCount < requirement.quantity)
+            {
+                Debug.Log($"Insufficient material: {requirement.material.itemName}. Required: {requirement.quantity}, Available: {playerMaterialCount}");
+                return false;
+            }
+        }
+        Debug.Log("All required materials are available.");
+        return true;
+    }
+
+    public void ConsumeMaterials(List<ItemRequirement> requiredMaterials)
+    {
+        foreach (var requirement in requiredMaterials)
+        {
+            int quantityToRemove = requirement.quantity;
+
+            for (int i = items.Count - 1; i >= 0 && quantityToRemove > 0; i--)
+            {
+                if (items[i] == requirement.material)
+                {
+                    items.RemoveAt(i);
+                    quantityToRemove--;
+                }
+            }
+        }
+
+        uiManager.UpdateInventoryDisplay();
+        NotifyAllRecipeUIs();
+    }
+
+    public void EquipWeapon(int slot, ItemSO weapon)
+    {
+        if (weapon.itemType != ItemType.Weapon)
+        {
+            Debug.LogWarning("Cannot equip a non-weapon item in a weapon slot.");
+            return;
+        }
+
+        if (slot == 1)
+        {
+            if (items.Count == 0)
+            {
+                items.Add(weapon);
+            }
+            else if (items.Count >= 1)
+            {
+                items[0] = weapon;
+            }
+            else if (items.Count > 1)
+            {
+                items.Insert(0, weapon);
+            }
+
+            Debug.Log($"{weapon.itemName} equipped in slot 1");
+        }
+        else if (slot == 2)
+        {
+            if (items.Count < 2)
+            {
+                while (items.Count < 2)
+                    items.Add(null);
+                items[1] = weapon;
+            }
+            else if (items.Count >= 2)
+            {
+                items[1] = weapon;
+            }
+
+            Debug.Log($"{weapon.itemName} equipped in slot 2");
+        }
+        else
+        {
+            Debug.LogError($"Invalid slot index: {slot}. Cannot equip weapon.");
+            return;
+        }
+
+        uiManager.UpdateInventoryDisplay();
+        NotifyAllRecipeUIs();
+    }
+
+    private void NotifyAllRecipeUIs()
+    {
+        RecipeUI[] recipeUIs = FindObjectsByType<RecipeUI>(FindObjectsSortMode.None);
+        foreach (var recipeUI in recipeUIs)
+        {
+            recipeUI.UpdateUI();
+        }
+    }
+
+
+    public bool IsWeaponEquippedInSlot(int slot)
+    {
+        if (slot == 1 && items.Count > 0)
+            return items[0] != null;
+        else if (slot == 2 && items.Count > 1)
+            return items[1] != null;
+        return false;
+    }
+
+
+    public void ReorganizeInventorySlots()
+    {
+        uiManager.UpdateInventoryDisplay();
+    }
+
+    public bool IsWeaponEquippedInSlot(int slot, ItemSO weapon)
+    {
+        if (slot == 1 && items.Count > 0)
+        {
+            return items[0] == weapon;
+        }
+        else if (slot == 2 && items.Count > 1)
+        {
+            return items[1] == weapon;
+        }
+        return false;
+    }
+
+    public bool IsSlotOccupied(int slot, ItemType itemType)
+    {
+        if (slot == 1 && items.Count > 0)
+        {
+            return items[0] != null && items[0].itemType == itemType;
+        }
+        else if (slot == 2 && items.Count > 1)
+        {
+            return items[1] != null && items[1].itemType == itemType;
+        }
+        return false;
+    }
 
     private void Update()
     {
@@ -123,7 +252,6 @@ public class PlayerInventory : MonoBehaviour
         {
             Dictionary<ItemType, Dictionary<string, List<ItemSO>>> categorizedItems = new Dictionary<ItemType, Dictionary<string, List<ItemSO>>>();
 
-            // Organize items by category and name
             foreach (ItemSO item in items)
             {
                 if (!categorizedItems.ContainsKey(item.itemType))
@@ -139,7 +267,6 @@ public class PlayerInventory : MonoBehaviour
                 categorizedItems[item.itemType][item.itemName].Add(item);
             }
 
-            // Print categorized items
             foreach (var category in categorizedItems)
             {
                 Debug.Log($"Category: {category.Key}");
@@ -159,23 +286,16 @@ public class PlayerInventory : MonoBehaviour
 
     public int GetItemCount(ItemSO item)
     {
-        int count = 0;
-        foreach (ItemSO i in items)
-        {
-            if (i == item)
-                count++;
-        }
-        return count;
+        return items.FindAll(i => i == item).Count;
     }
 
     public int GetItemCountByType(ItemType itemType)
     {
-        int count = 0;
-        foreach (ItemSO i in items)
-        {
-            if (i.itemType == itemType)
-                count++;
-        }
-        return count;
+        return items.FindAll(i => i != null && i.itemType == itemType).Count;
+    }
+
+    public bool HasItem(ItemSO item)
+    {
+        return items.Contains(item);
     }
 }

@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70caef5ae952c23449097df735f0ec67, type: 3}
-  m_Name: Stone
+  m_Script: {fileID: 11500000, guid: 1b33137ab7535e94da2f1b69be2bf3fa, type: 3}
+  m_Name: Moai Cannon
   m_EditorClassIdentifier: 
-  itemName: Stone
-  itemType: 3
-  inventoryIcon: {fileID: 21300000, guid: 930660046a9da5b4db2728afbf3c79a2, type: 3}
+  itemName: Moai Cannon
+  itemType: 1
+  inventoryIcon: {fileID: 21300000, guid: 718f1b19c9d58b446920680263cf482d, type: 3}
+  speedWithWeapon: 2
+  projectilePrefab: {fileID: 0}

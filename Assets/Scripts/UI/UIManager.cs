@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -35,6 +36,13 @@ public class UIManager : MonoBehaviour
                 SelectInventorySlot(occupiedSlots[selectedSlot]);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            UpdateInventoryDisplay();
+        }
+
+        Debug.Log($"Selected item: {GetSelectedItem()}");
     }
 
     public void HideInventoryIcons()
@@ -78,15 +86,14 @@ public class UIManager : MonoBehaviour
     {
         HideInventoryIcons();
         HideInventoryNumbers();
-        occupiedSlots.Clear(); // Reset the list of occupied slots
+        occupiedSlots.Clear();
 
         Dictionary<ItemSO, int> materialCounts = new Dictionary<ItemSO, int>();
         Dictionary<ItemSO, int> materialSlotIndex = new Dictionary<ItemSO, int>();
 
-        // Populate material counts once for each material type
         foreach (var item in playerInventory.GetItems())
         {
-            if (item.itemType == ItemType.Material)
+            if (item != null && item.itemType == ItemType.Material)
             {
                 if (!materialCounts.ContainsKey(item))
                 {
@@ -95,64 +102,64 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        int weaponSlotIndex = 0;
-        int otherSlotIndex = 2;
+        if (playerInventory.GetItems().Count > 0)
+        {
+            if (playerInventory.GetItems().Count >= 1 && playerInventory.GetItems()[0] != null && playerInventory.GetItems()[0].itemType == ItemType.Weapon)
+            {
+                ShowInventorySlot(0);
+                ShowInventoryIcon(0, playerInventory.GetItems()[0].inventoryIcon);
+                occupiedSlots.Add(0);
+            }
 
+            if (playerInventory.GetItems().Count >= 2 && playerInventory.GetItems()[1] != null && playerInventory.GetItems()[1].itemType == ItemType.Weapon)
+            {
+                ShowInventorySlot(1);
+                ShowInventoryIcon(1, playerInventory.GetItems()[1].inventoryIcon);
+                occupiedSlots.Add(1);
+            }
+        }
+
+        int otherSlotIndex = 2;
         foreach (var item in playerInventory.GetItems())
         {
-            int slotIndex = -1; // Track the actual slot index used
+            if (item == null || item.itemType == ItemType.Weapon) continue;
 
-            if (item.itemType == ItemType.Weapon && weaponSlotIndex < 2)
+            int slotIndex = -1;
+
+            if (item.itemType == ItemType.Material)
             {
-                slotIndex = weaponSlotIndex;
-                ShowInventorySlot(slotIndex);
-                ShowInventoryIcon(slotIndex, item.inventoryIcon);
-                weaponSlotIndex++;
-            }
-            else if ((item.itemType == ItemType.Material || item.itemType == ItemType.Tool) && otherSlotIndex < inventorySlots.Length)
-            {
-                if (item.itemType == ItemType.Material)
+                if (materialSlotIndex.ContainsKey(item))
                 {
-                    // Check if this material has already been displayed in a slot
-                    if (materialSlotIndex.ContainsKey(item))
-                    {
-                        // Update only the count in the existing slot
-                        slotIndex = materialSlotIndex[item];
-                        itemCounts[slotIndex].text = materialCounts[item].ToString();
-                        itemCounts[slotIndex].gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        // Display the material in a new slot and store the slot index
-                        slotIndex = otherSlotIndex;
-                        ShowInventorySlot(slotIndex);
-                        ShowInventoryIcon(slotIndex, item.inventoryIcon);
-                        itemCounts[slotIndex].text = materialCounts[item].ToString();
-                        itemCounts[slotIndex].gameObject.SetActive(true);
-
-                        // Record the slot index for this material
-                        materialSlotIndex[item] = slotIndex;
-                        otherSlotIndex++;
-                    }
+                    slotIndex = materialSlotIndex[item];
+                    itemCounts[slotIndex].text = materialCounts[item].ToString();
+                    itemCounts[slotIndex].gameObject.SetActive(true);
                 }
-                else if (item.itemType == ItemType.Tool)
+                else
                 {
-                    // Display tools in slots 2-7 without duplication
                     slotIndex = otherSlotIndex;
                     ShowInventorySlot(slotIndex);
                     ShowInventoryIcon(slotIndex, item.inventoryIcon);
+                    itemCounts[slotIndex].text = materialCounts[item].ToString();
+                    itemCounts[slotIndex].gameObject.SetActive(true);
+
+                    materialSlotIndex[item] = slotIndex;
                     otherSlotIndex++;
                 }
             }
+            else if (item.itemType == ItemType.Tool)
+            {
+                slotIndex = otherSlotIndex;
+                ShowInventorySlot(slotIndex);
+                ShowInventoryIcon(slotIndex, item.inventoryIcon);
+                otherSlotIndex++;
+            }
 
-            // Only add unique occupied slots to the list if a slot was assigned
             if (slotIndex != -1 && !occupiedSlots.Contains(slotIndex))
             {
                 occupiedSlots.Add(slotIndex);
             }
         }
 
-        // Ensure the selected slot stays within occupied slots
         if (occupiedSlots.Count > 0)
         {
             SelectInventorySlot(occupiedSlots[selectedSlot % occupiedSlots.Count]);
