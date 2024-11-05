@@ -7,6 +7,8 @@ public class MaterialSource : MonoBehaviour
 
     private PlayerInventory playerInventory;
 
+    private bool playerInside = false;
+
     private void Start()
     {
         hitsRemaining = materialSource.hitsToBreak;
@@ -36,11 +38,29 @@ public class MaterialSource : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        if (playerInside && Input.GetKeyDown(KeyCode.F))
         {
             GatherResource();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInside = true;
+            
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInside = false;
+
         }
     }
 }

@@ -6,6 +6,8 @@ public class MaterialOnGround : MonoBehaviour
     
     private PlayerInventory playerInventory;
 
+    private bool playerInside = false;
+
     private void Start()
     {
         playerInventory = FindFirstObjectByType<PlayerInventory>();
@@ -26,12 +28,29 @@ public class MaterialOnGround : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // If the player is inside the collider and presses the F key, gather the material
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        if (playerInside && Input.GetKeyDown(KeyCode.F))
         {
             GatherMaterial();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInside = true;
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInside = false;
+
         }
     }
 }
