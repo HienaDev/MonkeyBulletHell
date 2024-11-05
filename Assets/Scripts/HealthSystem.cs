@@ -49,25 +49,12 @@ public class HealthSystem : MonoBehaviour
             }
         }
 
-        StartCoroutine(LoseHpUI());
+        LoseHpUI();
     }
 
-    private IEnumerator LoseHpUI()
+    private void LoseHpUI()
     {
-
-        float currentFill = healthImageUI.fillAmount;
-        float finalFill = health / maxHealth;
-
-        float lerpValue = 0;
-
-        while (lerpValue <= 1)
-        {
-            Debug.Log(lerpValue);
-            healthImageUI.fillAmount = Mathf.Lerp(currentFill, finalFill, lerpValue);
-
-            lerpValue += Time.deltaTime;
-            yield return null;
-        }
-
+        healthImageUI.fillAmount = health / maxHealth;
     }
+
 }
