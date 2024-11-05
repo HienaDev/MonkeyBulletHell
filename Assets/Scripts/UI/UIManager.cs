@@ -125,6 +125,10 @@ public class UIManager : MonoBehaviour
         {
             SelectInventorySlot(occupiedSlots[selectedSlot % occupiedSlots.Count]);
         }
+        else        
+        {
+            ClearSelectedSlot();
+        }
     }
 
     public void UpdateItemQuantity(ItemSO item)
