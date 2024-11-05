@@ -78,7 +78,6 @@ public class RecipeUI : MonoBehaviour
             }
 
             playerInventory.EquipWeapon(slot, recipe.result);
-            playerInventory.ReorganizeInventorySlots();
 
             UpdateUI();
         }

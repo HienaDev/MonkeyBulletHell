@@ -88,76 +88,30 @@ public class UIManager : MonoBehaviour
         HideInventoryNumbers();
         occupiedSlots.Clear();
 
-        Dictionary<ItemSO, int> materialCounts = new Dictionary<ItemSO, int>();
-        Dictionary<ItemSO, int> materialSlotIndex = new Dictionary<ItemSO, int>();
-
-        foreach (var item in playerInventory.GetItems())
+        // Display weapons in the first two slots
+        for (int i = 0; i < 2; i++)
         {
-            if (item != null && item.itemType == ItemType.Material)
+            var weapon = playerInventory.GetWeaponInSlot(i + 1);
+            if (weapon != null)
             {
-                if (!materialCounts.ContainsKey(item))
-                {
-                    materialCounts[item] = playerInventory.GetItemCount(item);
-                }
-            }
-        }
-
-        if (playerInventory.GetItems().Count > 0)
-        {
-            if (playerInventory.GetItems().Count >= 1 && playerInventory.GetItems()[0] != null && playerInventory.GetItems()[0].itemType == ItemType.Weapon)
-            {
-                ShowInventorySlot(0);
-                ShowInventoryIcon(0, playerInventory.GetItems()[0].inventoryIcon);
-                occupiedSlots.Add(0);
-            }
-
-            if (playerInventory.GetItems().Count >= 2 && playerInventory.GetItems()[1] != null && playerInventory.GetItems()[1].itemType == ItemType.Weapon)
-            {
-                ShowInventorySlot(1);
-                ShowInventoryIcon(1, playerInventory.GetItems()[1].inventoryIcon);
-                occupiedSlots.Add(1);
+                ShowInventorySlot(i);
+                ShowInventoryIcon(i, weapon.inventoryIcon);
+                occupiedSlots.Add(i);
             }
         }
 
         int otherSlotIndex = 2;
-        foreach (var item in playerInventory.GetItems())
+
+        // Display materials and tools starting from slot index 2
+        foreach (var item in playerInventory.GetMaterialsAndTools())
         {
-            if (item == null || item.itemType == ItemType.Weapon) continue;
+            ShowInventorySlot(otherSlotIndex);
+            ShowInventoryIcon(otherSlotIndex, item.Key.inventoryIcon);
+            itemCounts[otherSlotIndex].text = item.Value.ToString();
+            itemCounts[otherSlotIndex].gameObject.SetActive(true);
 
-            int slotIndex = -1;
-
-            if (item.itemType == ItemType.Material)
-            {
-                if (materialSlotIndex.ContainsKey(item))
-                {
-                    slotIndex = materialSlotIndex[item];
-                    itemCounts[slotIndex].text = materialCounts[item].ToString();
-                    itemCounts[slotIndex].gameObject.SetActive(true);
-                }
-                else
-                {
-                    slotIndex = otherSlotIndex;
-                    ShowInventorySlot(slotIndex);
-                    ShowInventoryIcon(slotIndex, item.inventoryIcon);
-                    itemCounts[slotIndex].text = materialCounts[item].ToString();
-                    itemCounts[slotIndex].gameObject.SetActive(true);
-
-                    materialSlotIndex[item] = slotIndex;
-                    otherSlotIndex++;
-                }
-            }
-            else if (item.itemType == ItemType.Tool)
-            {
-                slotIndex = otherSlotIndex;
-                ShowInventorySlot(slotIndex);
-                ShowInventoryIcon(slotIndex, item.inventoryIcon);
-                otherSlotIndex++;
-            }
-
-            if (slotIndex != -1 && !occupiedSlots.Contains(slotIndex))
-            {
-                occupiedSlots.Add(slotIndex);
-            }
+            occupiedSlots.Add(otherSlotIndex);
+            otherSlotIndex++;
         }
 
         if (occupiedSlots.Count > 0)
@@ -183,11 +137,10 @@ public class UIManager : MonoBehaviour
         if (selectedSlot >= 0 && selectedSlot < occupiedSlots.Count)
         {
             int slotIndex = occupiedSlots[selectedSlot];
-            return playerInventory.GetItems()[slotIndex];
+            return playerInventory.GetItemAtSlot(slotIndex);
         }
         return null;
     }
-
 
     public void ClearSelectedSlot()
     {
