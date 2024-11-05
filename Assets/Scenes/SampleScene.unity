@@ -884,11 +884,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shoot: 323
-  shotSpeed: 100
+  shotSpeed: 20
   fireRate: 0.5
   firePoint: {fileID: 1078672843}
   shotManager: {fileID: 1867047125}
-  shotPrefab: {fileID: 9143849981931036120, guid: 3e77d53f5ced51a4ea39a19b24111142,
+  shotPrefab: {fileID: 7109929068213687972, guid: 00ae52b496499ff419ef4340ae800a73,
     type: 3}
 --- !u!114 &364040115
 MonoBehaviour:
@@ -906,9 +906,12 @@ MonoBehaviour:
   rotationSpeed: 100
   rotateLeft: 113
   rotateRight: 101
+  zoomIn: 111
+  zoomOut: 112
   cameraTransform: {fileID: 330585546}
-  maxZoom: 2
-  minZoom: -0.3
+  zoomSpeed: 0.2
+  maxZoom: 0
+  minZoom: 1.6
 --- !u!114 &364040116
 MonoBehaviour:
   m_ObjectHideFlags: 0
