@@ -906,9 +906,12 @@ MonoBehaviour:
   rotationSpeed: 100
   rotateLeft: 113
   rotateRight: 101
+  zoomIn: 111
+  zoomOut: 112
   cameraTransform: {fileID: 330585546}
-  maxZoom: 2
-  minZoom: -0.3
+  zoomSpeed: 0.2
+  maxZoom: 0
+  minZoom: 1.6
 --- !u!114 &364040116
 MonoBehaviour:
   m_ObjectHideFlags: 0

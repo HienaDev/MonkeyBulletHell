@@ -8,22 +8,27 @@ public class ControlCamera : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private KeyCode rotateLeft = KeyCode.Q;
     [SerializeField] private KeyCode rotateRight = KeyCode.E;
+    [SerializeField] private KeyCode zoomIn = KeyCode.O;
+    [SerializeField] private KeyCode zoomOut = KeyCode.P;
 
     [SerializeField] private Transform cameraTransform;
-    private float zoomSpeed = 1000;
+    [SerializeField] private float zoomSpeed = 10;
     [SerializeField] private float maxZoom;
     [SerializeField] private float minZoom;
-    private float currentZoom = 0;
+    private float currentZoom = 1;
+    private Transform playerTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerTransform = transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 dir = playerTransform.position - cameraTransform.position;
+
         if (Input.GetKey(rotateLeft))
         {
             cameraPivot.transform.Rotate(0f, -rotationSpeed * Time.deltaTime, 0f);
@@ -33,13 +38,28 @@ public class ControlCamera : MonoBehaviour
             cameraPivot.transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
         }
 
-        float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
-        
-        if ((mouseScroll < 0 &&  currentZoom > minZoom) || (mouseScroll > 0 && currentZoom < maxZoom))
+        if(Input.GetKeyDown(zoomIn) && currentZoom - zoomSpeed > maxZoom)
         {
-            currentZoom += mouseScroll;
-            cameraTransform.Translate(Vector3.forward * mouseScroll * zoomSpeed * Time.deltaTime);
+            currentZoom -= zoomSpeed;
+            cameraTransform.position += dir * zoomSpeed;
         }
+        if(Input.GetKeyDown(zoomOut) && currentZoom + zoomSpeed < minZoom)
+        {
+            currentZoom += zoomSpeed;
+            cameraTransform.position -= dir * zoomSpeed;
+        }
+
+        //if (cameraTransform.position.y > minZoom)
+        //{
+        //    cameraTransform.position -= dir * zoomSpeed;
+        //}
+        //if (cameraTransform.position.y < maxZoom)
+        //{
+        //    cameraTransform.position += dir * zoomSpeed;
+        //}
+
         
+
+
     }
 }
