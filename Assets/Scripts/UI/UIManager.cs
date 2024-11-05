@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -29,7 +28,6 @@ public class UIManager : MonoBehaviour
     {
         if (occupiedSlots.Count > 0)
         {
-            // Cycle through inventory slots using the M key
             if (Input.GetKeyDown(KeyCode.M))
             {
                 selectedSlot = (selectedSlot + 1) % occupiedSlots.Count;
@@ -88,7 +86,6 @@ public class UIManager : MonoBehaviour
         HideInventoryNumbers();
         occupiedSlots.Clear();
 
-        // Display weapons in the first two slots
         for (int i = 0; i < 2; i++)
         {
             var weapon = playerInventory.GetWeaponInSlot(i + 1);
@@ -102,13 +99,23 @@ public class UIManager : MonoBehaviour
 
         int otherSlotIndex = 2;
 
-        // Display materials and tools starting from slot index 2
-        foreach (var item in playerInventory.GetMaterialsAndTools())
+        foreach (var itemPair in playerInventory.GetInventoryItems())
         {
+            if (otherSlotIndex >= inventorySlots.Length)
+                break;
+
             ShowInventorySlot(otherSlotIndex);
-            ShowInventoryIcon(otherSlotIndex, item.Key.inventoryIcon);
-            itemCounts[otherSlotIndex].text = item.Value.ToString();
-            itemCounts[otherSlotIndex].gameObject.SetActive(true);
+            ShowInventoryIcon(otherSlotIndex, itemPair.Key.inventoryIcon);
+            
+            if (itemPair.Key.itemType == ItemType.Material)
+            {
+                itemCounts[otherSlotIndex].text = itemPair.Value.ToString();
+                itemCounts[otherSlotIndex].gameObject.SetActive(true);
+            }
+            else
+            {
+                itemCounts[otherSlotIndex].gameObject.SetActive(false);
+            }
 
             occupiedSlots.Add(otherSlotIndex);
             otherSlotIndex++;
@@ -132,6 +139,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public int GetSelectedSlotIndex()
+    {
+        return selectedSlot >= 0 && selectedSlot < occupiedSlots.Count ? occupiedSlots[selectedSlot] : -1;
+    }
+
     public ItemSO GetSelectedItem()
     {
         if (selectedSlot >= 0 && selectedSlot < occupiedSlots.Count)
@@ -142,6 +154,41 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
+    public void SelectClosestAvailableSlot(int lastSelectedIndex)
+    {
+        if (occupiedSlots.Count == 0)
+        {
+            ClearSelectedSlot();
+            return;
+        }
+
+        int closestIndex = occupiedSlots.FindIndex(slot => slot == lastSelectedIndex);
+        
+        if (closestIndex != -1)
+        {
+            selectedSlot = closestIndex;
+        }
+        else
+        {
+            int nearestSlotIndex = -1;
+            int minDistance = int.MaxValue;
+
+            for (int i = 0; i < occupiedSlots.Count; i++)
+            {
+                int distance = Mathf.Abs(occupiedSlots[i] - lastSelectedIndex);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestSlotIndex = i;
+                }
+            }
+
+            selectedSlot = nearestSlotIndex != -1 ? nearestSlotIndex : 0;
+        }
+
+        SelectInventorySlot(occupiedSlots[selectedSlot]);
+    }
+
     public void ClearSelectedSlot()
     {
         selectedSlot = -1;
@@ -149,19 +196,6 @@ public class UIManager : MonoBehaviour
         foreach (Image slot in inventorySlots)
         {
             slot.color = deselectedSlotColor;
-        }
-    }
-
-    public void SelectFirstAvailableSlot()
-    {
-        if (occupiedSlots.Count > 0)
-        {
-            selectedSlot = 0;
-            SelectInventorySlot(occupiedSlots[selectedSlot]);
-        }
-        else
-        {
-            ClearSelectedSlot();
         }
     }
 }

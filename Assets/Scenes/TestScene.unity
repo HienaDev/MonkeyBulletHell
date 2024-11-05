@@ -1421,6 +1421,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 770655147}
+  maxInventorySlots: 8
+  axe: {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b, type: 2}
 --- !u!1 &364288601
 GameObject:
   m_ObjectHideFlags: 0
