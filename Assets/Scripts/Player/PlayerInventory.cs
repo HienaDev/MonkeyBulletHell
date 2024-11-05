@@ -10,47 +10,61 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        items = new List<ItemSO>();
+        items = new List<ItemSO>(new ItemSO[8]);
         maxMaterialsAndTools = 6;
     }
 
     public void AddItem(ItemSO item)
     {
-        bool wasEmpty = items.Count == 0;
-        items.Add(item);
-        uiManager.UpdateInventoryDisplay();
-        Debug.Log($"{item.itemName} added to inventory");
-
-        if (wasEmpty)
+        if (item.itemType == ItemType.Weapon)
         {
-            uiManager.SelectFirstAvailableSlot();
+            // Adiciona a arma nos dois primeiros slots se um deles estiver vazio
+            if (items[0] == null)
+            {
+                items[0] = item;
+                Debug.Log($"{item.itemName} added to weapon slot 1");
+            }
+            else if (items[1] == null)
+            {
+                items[1] = item;
+                Debug.Log($"{item.itemName} added to weapon slot 2");
+            }
+            else
+            {
+                Debug.LogWarning("Both weapon slots are full.");
+            }
         }
+        else
+        {
+            // Adiciona materiais/ferramentas nos slots restantes (do 3 ao 8)
+            for (int i = 2; i < items.Count; i++)
+            {
+                if (items[i] == null)
+                {
+                    items[i] = item;
+                    Debug.Log($"{item.itemName} added to material/tool slot {i - 1}");
+                    break;
+                }
+            }
+        }
+
+        uiManager.UpdateInventoryDisplay();
     }
 
     public void RemoveItem(ItemSO item)
     {
-        int itemCount = GetItemCount(item);
+        int index = items.IndexOf(item);
 
-        if (itemCount > 1)
+        if (index != -1)
         {
-            items.Remove(item);
+            items[index] = null;
+            Debug.Log($"{item.itemName} removed from inventory slot {index + 1}");
+
             uiManager.UpdateInventoryDisplay();
-            Debug.Log($"{item.itemName} quantity decreased. Remaining: {itemCount - 1}");
         }
         else
         {
-            items.Remove(item);
-            uiManager.UpdateInventoryDisplay();
-            Debug.Log($"{item.itemName} removed from inventory");
-
-            if (items.Count == 0)
-            {
-                uiManager.ClearSelectedSlot();
-            }
-            else
-            {
-                uiManager.SelectFirstAvailableSlot();
-            }
+            Debug.LogWarning("Item not found in inventory.");
         }
     }
 
@@ -59,14 +73,22 @@ public class PlayerInventory : MonoBehaviour
         return items.Find(item => item.itemName == name);
     }
 
-    public bool WeaponSlotsFull()
+     public bool WeaponSlotsFull()
     {
-        return items.Count >= 2 && items[0] != null && items[1] != null && items[0].itemType == ItemType.Weapon && items[1].itemType == ItemType.Weapon;
+        return items[0] != null && items[1] != null;
     }
 
     public bool MaterialAndToolSlotsFull()
     {
-        return GetItemCountByType(ItemType.Material) + GetItemCountByType(ItemType.Tool) >= maxMaterialsAndTools;
+        int count = 0;
+
+        for (int i = 2; i < items.Count; i++)
+        {
+            if (items[i] != null)
+                count++;
+        }
+
+        return count >= maxMaterialsAndTools;
     }
 
     public void DropSelectedItem()

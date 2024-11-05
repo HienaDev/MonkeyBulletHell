@@ -180,13 +180,14 @@ public class UIManager : MonoBehaviour
 
     public ItemSO GetSelectedItem()
     {
-        if (selectedSlot >= 0 && selectedSlot < playerInventory.GetItems().Count)
+        if (selectedSlot >= 0 && selectedSlot < occupiedSlots.Count)
         {
-            return playerInventory.GetItems()[selectedSlot];
+            int slotIndex = occupiedSlots[selectedSlot];
+            return playerInventory.GetItems()[slotIndex];
         }
-
         return null;
     }
+
 
     public void ClearSelectedSlot()
     {
