@@ -884,12 +884,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shoot: 323
-  shotSpeed: 20
-  fireRate: 0.5
   firePoint: {fileID: 1078672843}
   shotManager: {fileID: 1867047125}
-  shotPrefab: {fileID: 7109929068213687972, guid: 00ae52b496499ff419ef4340ae800a73,
-    type: 3}
+  testWeapon: {fileID: 11400000, guid: 262634cfdfd0d344bae10909b667dfef, type: 2}
 --- !u!114 &364040115
 MonoBehaviour:
   m_ObjectHideFlags: 0

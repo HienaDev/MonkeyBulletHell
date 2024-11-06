@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b33137ab7535e94da2f1b69be2bf3fa, type: 3}
-  m_Name: Moai Cannon
+  m_Name: Moai Laser
   m_EditorClassIdentifier: 
-  itemName: Moai Cannon
+  itemName: Moai Laser
   itemType: 1
   inventoryIcon: {fileID: 21300000, guid: 718f1b19c9d58b446920680263cf482d, type: 3}
   speedWithWeapon: 2
-  projectilePrefab: {fileID: 7109929068213687972, guid: 00ae52b496499ff419ef4340ae800a73,
+  projectilePrefab: {fileID: 2387353571154048718, guid: ea37d664b6b9cd6419c63719ade6ca5e,
     type: 3}
   fireRate: 1
   shotSpeed: 10
-  attachedToPlayer: 1
+  laserLikeProjectile: 1
+  laserDuration: 3

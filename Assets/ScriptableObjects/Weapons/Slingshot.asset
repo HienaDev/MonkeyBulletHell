@@ -16,4 +16,8 @@ MonoBehaviour:
   itemType: 1
   inventoryIcon: {fileID: 21300000, guid: 2c872bde3820e9e43924746d18dd27c4, type: 3}
   speedWithWeapon: 2
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 9143849981931036120, guid: 3e77d53f5ced51a4ea39a19b24111142,
+    type: 3}
+  fireRate: 1
+  weaponDamage: 2
+  attachedToPlayer: 0

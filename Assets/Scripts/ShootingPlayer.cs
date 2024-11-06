@@ -1,22 +1,30 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System.Linq.Expressions;
 
 public class ShootingPlayer : MonoBehaviour
 {
 
     [SerializeField] private KeyCode shoot = KeyCode.Mouse0;
 
-    [SerializeField] private float shotSpeed = 200f;
-    [SerializeField] private float fireRate = 0.5f;
+    private float shotSpeed = 200f;
+    private float fireRate = 0.5f;
     private float justShot;
     private Animator animator;
 
     [SerializeField] private GameObject firePoint;
     [SerializeField] private GameObject shotManager;
-    [SerializeField] private GameObject shotPrefab;
+    private bool laserLikeProjectile = false;
+    private float laserDuration = 0f;
+    private float laserStarted = 0f;
+    private bool laserFiring = false;
+    private GameObject shotPrefab;
     private List<GameObject> instantiatedShots;
     private int currentShot = 0;
+
+    [SerializeField] private WeaponSO testWeapon;
+    private WeaponSO currentWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -28,21 +36,42 @@ public class ShootingPlayer : MonoBehaviour
 
         instantiatedShots = new List<GameObject>();
 
-        StartCoroutine(CreateShots());
+        SetWeapon(testWeapon);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(shoot) && Time.time - justShot > fireRate)
-        {
-            Shoot();
 
+        if (Input.GetKey(shoot))
+        {
+            if (!laserLikeProjectile && Time.time - justShot > fireRate)
+                ShootProjectiles();
+        }
+
+        if (Input.GetKeyDown(shoot) && laserLikeProjectile && Time.time - justShot > fireRate && !laserFiring)
+        {
+            laserStarted = Time.time;
+            laserFiring = true;
+            Debug.Log("startlaser");
+            StartLaser();
+        }
+        if(Input.GetKey(shoot) && laserLikeProjectile)
+        {
+            AimLaser();
+        }
+        if (((Input.GetKeyUp(shoot) && laserLikeProjectile) || Time.time - laserStarted > laserDuration) && laserFiring)
+        {
+            Debug.Log("stoplaser");
+            justShot = Time.time;
+            laserFiring = false;
+            StopLaser();
         }
     }
 
-    private void Shoot()
+    private void ShootProjectiles()
     {
+
         instantiatedShots[currentShot].transform.position = firePoint.transform.position;
 
         Vector3 direction = Mouse3D.GetMouseObjectPosition() - instantiatedShots[currentShot].transform.position;
@@ -63,6 +92,22 @@ public class ShootingPlayer : MonoBehaviour
         justShot = Time.time;
     }
 
+    private void StartLaser()
+    {
+        instantiatedShots[0].SetActive(true);
+    }
+
+    private void AimLaser()
+    {
+        Vector3 direction = Mouse3D.GetMouseObjectPosition() - instantiatedShots[currentShot].transform.position;
+        instantiatedShots[currentShot].transform.up = direction;
+    }
+
+    private void StopLaser()
+    {
+        instantiatedShots[0].SetActive(false);
+    }
+
     public void ResetTrigger()
     {
         animator.ResetTrigger("Shoot");
@@ -71,13 +116,50 @@ public class ShootingPlayer : MonoBehaviour
 
     private IEnumerator CreateShots()
     {
-        for (int i = 0; i < 10 / fireRate; i++)
+        if(laserLikeProjectile)
         {
-            GameObject shotClone = Instantiate(shotPrefab, shotManager.transform);
+            GameObject shotClone;
+
+            shotClone = Instantiate(shotPrefab, shotManager.transform);
+
+
             shotClone.SetActive(false);
             instantiatedShots.Add(shotClone);
             yield return null;
         }
+        else
+        {
+            for (int i = 0; i < 10 / fireRate; i++)
+            {
+                GameObject shotClone;
 
+                shotClone = Instantiate(shotPrefab, shotManager.transform);
+
+
+                shotClone.SetActive(false);
+                instantiatedShots.Add(shotClone);
+                yield return null;
+            }
+        }
+        
+
+    }
+
+    public void SetWeapon(WeaponSO weapon)
+    {
+        foreach(GameObject shot in instantiatedShots)
+        {
+            Destroy(shot);
+        }
+
+        instantiatedShots = new List<GameObject>();
+        currentWeapon = weapon;
+        fireRate = weapon.fireRate;
+        shotSpeed = weapon.shotSpeed;
+        shotPrefab = weapon.projectilePrefab;
+        laserLikeProjectile = weapon.laserLikeProjectile;
+        laserDuration = weapon.laserDuration;
+
+        StartCoroutine(CreateShots());
     }
 }
