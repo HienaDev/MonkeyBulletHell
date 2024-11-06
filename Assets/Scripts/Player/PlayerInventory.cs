@@ -266,83 +266,20 @@ public class PlayerInventory : MonoBehaviour
     {
         if (slot < 2)
         {
-            // Acessa o slot de armas (slot 0 é o weaponSlots[0], slot 1 é o weaponSlots[1])
             return weaponSlots[slot];
         }
 
-        // Ajusta o índice para acessar o inventário de materiais e ferramentas
         int adjustedSlot = slot - 2;
         if (adjustedSlot < inventoryItems.Count)
         {
             return inventoryItems[adjustedSlot].Item;
         }
 
-        return null; // Retorna null se o slot for inválido
+        return null;
     }
 
     public List<InventorySlot> GetInventoryItems()
     {
         return inventoryItems;
-    }
-
-    public ItemSO GetItem(string name)
-    {
-        foreach (var slot in inventoryItems)
-        {
-            if (slot.Item.itemName == name) return slot.Item;
-        }
-
-        foreach (var weapon in weaponSlots)
-        {
-            if (weapon != null && weapon.itemName == name) return weapon;
-        }
-
-        return null;
-    }
-
-    public Dictionary<ItemSO, int?> GetMaterialsAndTools()
-    {
-        Dictionary<ItemSO, int?> materialsAndToolsDict = new Dictionary<ItemSO, int?>();
-        foreach (var slot in inventoryItems)
-        {
-            materialsAndToolsDict.Add(slot.Item, slot.Quantity);
-        }
-        return materialsAndToolsDict;
-    }
-
-    public bool HasItem(ItemSO item)
-    {
-        if (item.itemType == ItemType.Weapon)
-        {
-            return weaponSlots[0] == item || weaponSlots[1] == item;
-        }
-        return inventoryItems.Exists(slot => slot.Item == item);
-    }
-
-    public int GetItemCountByType(ItemType itemType)
-    {
-        int count = 0;
-        
-        if (itemType == ItemType.Weapon)
-        {
-            count += weaponSlots[0] != null ? 1 : 0;
-            count += weaponSlots[1] != null ? 1 : 0;
-        }
-        else
-        {
-            foreach (var slot in inventoryItems)
-            {
-                if (slot.Item.itemType == itemType)
-                {
-                    count += slot.Quantity ?? 1;
-                }
-            }
-        }
-        return count;
-    }
-
-    public bool WeaponSlotsFull()
-    {
-        return weaponSlots[0] != null && weaponSlots[1] != null;
     }
 }
