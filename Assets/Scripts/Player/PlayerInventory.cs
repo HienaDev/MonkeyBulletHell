@@ -134,6 +134,19 @@ public class PlayerInventory : MonoBehaviour
 
         int lastSelectedIndex = selectedSlotIndex;
 
+        // Drop the item's prefab slightly above the player's position with a specific rotation
+        if (selectedItem.itemPrefab != null)
+        {
+            Vector3 dropPosition = transform.position + Vector3.up * 0.5f; // Adjust the height offset
+            Quaternion dropRotation = Quaternion.Euler(0, 0, 0); // Set the desired rotation (e.g., no rotation)
+            
+            Instantiate(selectedItem.itemPrefab, dropPosition, dropRotation);
+        }
+        else
+        {
+            Debug.LogWarning("No prefab assigned for this item.");
+        }
+
         // Remove the item or decrease its quantity if it's a material
         RemoveItem(selectedItem);
 
