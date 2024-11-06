@@ -14,11 +14,13 @@ public class UIManager : MonoBehaviour
     private int selectedSlot;
     private PlayerInventory playerInventory;
     private List<int> occupiedSlots = new List<int>();
+    private bool wasEmpty;
 
     void Start()
     {
         selectedSlot = 0;
         playerInventory = FindAnyObjectByType<PlayerInventory>();
+        wasEmpty = true;
         HideInventoryIcons();
         HideInventoryNumbers();
         SelectInventorySlot(-1);
@@ -74,10 +76,24 @@ public class UIManager : MonoBehaviour
         if (index != -1)
             inventorySlots[index].color = selectedSlotColor;
     }
-
     public void UpdateInventoryDisplay()
     {
         DisplayInventory();
+
+        if (occupiedSlots.Count > 0)
+        {
+            if (wasEmpty)
+            {
+                wasEmpty = false;
+                SelectInventorySlot(occupiedSlots[0]);
+                selectedSlot = 0;
+            }
+        }
+        else
+        {
+            wasEmpty = true;
+            ClearSelectedSlot();
+        }
     }
 
     private void DisplayInventory()
