@@ -99,17 +99,17 @@ public class UIManager : MonoBehaviour
 
         int otherSlotIndex = 2;
 
-        foreach (var itemPair in playerInventory.GetInventoryItems())
+        foreach (var slot in playerInventory.GetInventoryItems())
         {
             if (otherSlotIndex >= inventorySlots.Length)
                 break;
 
             ShowInventorySlot(otherSlotIndex);
-            ShowInventoryIcon(otherSlotIndex, itemPair.Key.inventoryIcon);
+            ShowInventoryIcon(otherSlotIndex, slot.Item.inventoryIcon);
             
-            if (itemPair.Key.itemType == ItemType.Material)
+            if (slot.Item.itemType == ItemType.Material && slot.Quantity.HasValue)
             {
-                itemCounts[otherSlotIndex].text = itemPair.Value.ToString();
+                itemCounts[otherSlotIndex].text = slot.Quantity.Value.ToString();
                 itemCounts[otherSlotIndex].gameObject.SetActive(true);
             }
             else
@@ -166,31 +166,31 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        int closestIndex = occupiedSlots.FindIndex(slot => slot == lastSelectedIndex);
-        
-        if (closestIndex != -1)
+        // Find the nearest slot index to the last selected index
+        int nearestSlotIndex = -1;
+        int minDistance = int.MaxValue;
+
+        for (int i = 0; i < occupiedSlots.Count; i++)
         {
-            selectedSlot = closestIndex;
+            int slot = occupiedSlots[i];
+            int distance = Mathf.Abs(slot - lastSelectedIndex);
+            
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestSlotIndex = i;
+            }
+        }
+
+        if (nearestSlotIndex != -1)
+        {
+            selectedSlot = nearestSlotIndex;
+            SelectInventorySlot(occupiedSlots[selectedSlot]);
         }
         else
         {
-            int nearestSlotIndex = -1;
-            int minDistance = int.MaxValue;
-
-            for (int i = 0; i < occupiedSlots.Count; i++)
-            {
-                int distance = Mathf.Abs(occupiedSlots[i] - lastSelectedIndex);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestSlotIndex = i;
-                }
-            }
-
-            selectedSlot = nearestSlotIndex != -1 ? nearestSlotIndex : 0;
+            ClearSelectedSlot();
         }
-
-        SelectInventorySlot(occupiedSlots[selectedSlot]);
     }
 
     public void ClearSelectedSlot()
