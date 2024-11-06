@@ -136,7 +136,6 @@ public class AttackPatterns : MonoBehaviour
             shotTemp.transform.position = firePointOnHead.transform.position;
             shotTemp.transform.eulerAngles = new Vector3(0, i * degreeIteration, 0);
             shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
-            Debug.Log(shotTemp.transform.forward * shotSpeed);
         }
     }
 

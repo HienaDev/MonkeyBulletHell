@@ -9,6 +9,7 @@ public class WeaponSO : ItemSO
     public float shotSpeed = 100f;
     public bool laserLikeProjectile = false;
     public float laserDuration = 0f;
+    public AudioClip[] shootingSounds;
 
     private void Awake()
     {

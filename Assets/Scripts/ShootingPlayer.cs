@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System.Linq.Expressions;
+using UnityEngine.Audio;
+using Unity.VisualScripting;
 
 public class ShootingPlayer : MonoBehaviour
 {
@@ -26,6 +28,10 @@ public class ShootingPlayer : MonoBehaviour
     [SerializeField] private WeaponSO testWeapon;
     private WeaponSO currentWeapon;
 
+
+    private AudioSource audioSource;
+    private AudioClip[] audioClips;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +41,8 @@ public class ShootingPlayer : MonoBehaviour
         animator = GetComponent<Animator>();
 
         instantiatedShots = new List<GameObject>();
+
+        audioSource = GetComponent<AudioSource>();
 
         SetWeapon(testWeapon);
     }
@@ -83,6 +91,10 @@ public class ShootingPlayer : MonoBehaviour
 
         currentShot++;
 
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
+
         if (currentShot >= instantiatedShots.Count)
         {
             currentShot = 0;
@@ -100,7 +112,26 @@ public class ShootingPlayer : MonoBehaviour
     private void AimLaser()
     {
         Vector3 direction = Mouse3D.GetMouseObjectPosition() - instantiatedShots[currentShot].transform.position;
-        instantiatedShots[currentShot].transform.up = direction;
+
+        instantiatedShots[currentShot].transform.position = firePoint.transform.position;
+
+        float yAngle = GetYAngleToTarget(direction);
+
+        instantiatedShots[currentShot].transform.eulerAngles = new Vector3 (0, yAngle, 0);
+    }
+
+    private float GetYAngleToTarget(Vector3 targetPosition)
+    {
+        // Calculate the direction to the target
+        Vector3 directionToTarget = targetPosition - transform.position;
+
+        // Remove the y component for horizontal angle
+        directionToTarget.y = 0;
+
+        // Calculate the angle in degrees
+        float angle = Mathf.Atan2(directionToTarget.x, directionToTarget.z) * Mathf.Rad2Deg;
+
+        return angle;
     }
 
     private void StopLaser()
@@ -159,6 +190,7 @@ public class ShootingPlayer : MonoBehaviour
         shotPrefab = weapon.projectilePrefab;
         laserLikeProjectile = weapon.laserLikeProjectile;
         laserDuration = weapon.laserDuration;
+        audioClips = weapon.shootingSounds;
 
         StartCoroutine(CreateShots());
     }

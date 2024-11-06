@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 5142251692689341805}
   - component: {fileID: 2941642487667721675}
   - component: {fileID: 2265867896504262945}
+  - component: {fileID: 7318671507883303504}
   m_Layer: 0
-  m_Name: Shot
+  m_Name: Pebble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9143849981931036120}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -3983063591393173388, guid: 37c47b8dc99854f4c8160dad561c0ae0, type: 3}
 --- !u!23 &6328111284136994502
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3c3ca299aec0dfc4691341d761a07f75, type: 2}
+  - {fileID: 2100000, guid: 89353f00d9589d140a31f91e52412dba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,3 +151,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+  audioClips:
+  - {fileID: 8300000, guid: d6b231d74e1b84d46a8135aa0fcbef41, type: 3}
+  - {fileID: 8300000, guid: 6c942aa4993f4184bb80f0d244fe365b, type: 3}
+  - {fileID: 8300000, guid: 63f07fc4b86112d4298ddc3044062bc8, type: 3}
+--- !u!114 &7318671507883303504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143849981931036120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f90f8ad0136a9499ed06204c74c0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshes:
+  - {fileID: -3983063591393173388, guid: 37c47b8dc99854f4c8160dad561c0ae0, type: 3}
+  - {fileID: -2519473635315226807, guid: 2b10e80e0c356c64b8afcda9d6beba2c, type: 3}
+  - {fileID: -9085331004972601494, guid: 8610c9dacd9ce5e4fbd9bd0f9497c4d6, type: 3}

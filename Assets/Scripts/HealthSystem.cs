@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Android;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -14,11 +15,21 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private float entityHeight;
     [SerializeField] private GameObject destroyOnDeath;
 
+    private Renderer rendererModel;
+    private Material[] materials;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        materials = GetComponentInChildren<Renderer>().materials;
+        foreach (Material mat in materials)
+        {
+            Debug.Log(mat);
 
-        if(healthImageUI == null)
+        }
+        Debug.Log(materials);
+
+        if (healthImageUI == null)
         {
             GameObject tempUI = Instantiate(healthUI, transform);
             healthImageUI = tempUI.GetComponentInChildren<TAG_HealthUI>().gameObject.GetComponent<Image>();
@@ -49,12 +60,27 @@ public class HealthSystem : MonoBehaviour
             }
         }
 
-        LoseHpUI();
+        StartCoroutine(LoseHpUI());
     }
 
-    private void LoseHpUI()
+    private IEnumerator LoseHpUI()
     {
         healthImageUI.fillAmount = health / maxHealth;
+        foreach(Material mat in materials)
+        {
+            Debug.Log(mat);
+            mat.EnableKeyword("_EMISSION");
+            mat.SetColor("_EmissionColor", Color.white * 0.3f);
+        }
+
+
+        yield return new WaitForSeconds(0.05f);
+
+        foreach (Material mat in materials)
+        {
+            mat.DisableKeyword("_EMISSION");
+        }
+        
     }
 
 }

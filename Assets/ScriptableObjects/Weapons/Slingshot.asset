@@ -19,5 +19,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 9143849981931036120, guid: 3e77d53f5ced51a4ea39a19b24111142,
     type: 3}
   fireRate: 1
-  weaponDamage: 2
-  attachedToPlayer: 0
+  shotSpeed: 100
+  laserLikeProjectile: 0
+  laserDuration: 0
+  shootingSounds:
+  - {fileID: 8300000, guid: 942ff0e87529837439d822a2ef36234c, type: 3}
+  - {fileID: 8300000, guid: 06fa81d30bd54d34ebbdd6930d9c5a16, type: 3}
+  - {fileID: 8300000, guid: 84d75b0a7f0cad7418a349572bdd8a7d, type: 3}
