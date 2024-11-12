@@ -74,14 +74,18 @@ public class UIManager : MonoBehaviour
         foreach (Image slot in inventorySlots)
             slot.color = deselectedSlotColor;
 
-        if(index < 2)
-            playerInventory.EquipWeapon(index);
-
         if (index != -1)
+        {
             inventorySlots[index].color = selectedSlotColor;
+
+            ItemSO selectedItem = playerInventory.GetItemAtSlot(index);
+            
+            if (selectedItem is WeaponSO)
+            {
+                playerInventory.EquipWeapon(index);
+            }
+        }
     }
-
-
 
     public void UpdateInventoryDisplay()
     {
