@@ -10,10 +10,14 @@ public class PlayerInventory : MonoBehaviour
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
 
+    private ShootingPlayer shootingPlayerScript;
+
     private void Start()
     {
         weaponSlots = new ItemSO[2];
         inventoryItems = new List<InventorySlot>();
+
+        shootingPlayerScript = FindFirstObjectByType<ShootingPlayer>();
     }
 
     private void Update()
@@ -273,6 +277,13 @@ public class PlayerInventory : MonoBehaviour
     public ItemSO GetWeaponInSlot(int slot)
     {
         return slot == 1 ? weaponSlots[0] : weaponSlots[1];
+    }
+
+    public void EquipWeapon(int slot)
+    {
+        Debug.Log("try equip weapon");
+        if(weaponSlots[slot] is WeaponSO)
+            shootingPlayerScript.SetWeapon((weaponSlots[slot] as WeaponSO));
     }
 
     public ItemSO GetItemAtSlot(int slot)

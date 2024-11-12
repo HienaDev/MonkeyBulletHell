@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.M))
             {
                 selectedSlot = (selectedSlot + 1) % occupiedSlots.Count;
+
                 SelectInventorySlot(occupiedSlots[selectedSlot]);
             }
         }
@@ -42,7 +43,7 @@ public class UIManager : MonoBehaviour
             UpdateInventoryDisplay();
         }
 
-        Debug.Log($"Selected item: {GetSelectedItem()}");
+        //Debug.Log($"Selected item: {GetSelectedItem()}");
     }
 
     public void HideInventoryIcons()
@@ -73,9 +74,15 @@ public class UIManager : MonoBehaviour
         foreach (Image slot in inventorySlots)
             slot.color = deselectedSlotColor;
 
+        if(index < 2)
+            playerInventory.EquipWeapon(index);
+
         if (index != -1)
             inventorySlots[index].color = selectedSlotColor;
     }
+
+
+
     public void UpdateInventoryDisplay()
     {
         DisplayInventory();

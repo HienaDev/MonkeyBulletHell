@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 5142251692689341805}
   - component: {fileID: 2941642487667721675}
   - component: {fileID: 4206000528564284854}
+  - component: {fileID: 5696903459736064248}
   m_Layer: 0
-  m_Name: MoaiAOEShot
+  m_Name: ExplodingMoaiAOEShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 51998c49d0601f74a87a841079522a83, type: 2}
+  - {fileID: 2100000, guid: 6313c37352dcaa549b779cf31c411fad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,3 +151,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+--- !u!114 &5696903459736064248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143849981931036120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138ccd80270ad654d908aa50706bb624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfShots: 4
+  shotPrefab: {fileID: 9143849981931036120, guid: 561bef58b1adc2349b20c6692ea1f670,
+    type: 3}
+  timerToExplode: 3
+  shotSpeed: 10
+  blinkSpeed: 0.2
+  whiteMaterial: {fileID: 2100000, guid: d936b33c73296fb48afe897391842fbe, type: 2}

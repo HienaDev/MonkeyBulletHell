@@ -7,7 +7,8 @@ public class EnemyShot : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        // Destroy all projectiles after 20 seconds to make sure it doesnt overload
+        Destroy(gameObject, 20f);
     }
 
     // Update is called once per frame

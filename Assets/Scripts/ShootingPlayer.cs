@@ -11,7 +11,7 @@ public class ShootingPlayer : MonoBehaviour
     [SerializeField] private KeyCode shoot = KeyCode.Mouse0;
 
     private float shotSpeed = 200f;
-    private float fireRate = 0.5f;
+    [SerializeField] private float fireRate = 0.1f;
     private float justShot;
     private Animator animator;
 
@@ -182,6 +182,7 @@ public class ShootingPlayer : MonoBehaviour
         {
             Destroy(shot);
         }
+        Debug.Log("weapon equipped");
 
         instantiatedShots = new List<GameObject>();
         currentWeapon = weapon;
@@ -191,6 +192,7 @@ public class ShootingPlayer : MonoBehaviour
         laserLikeProjectile = weapon.laserLikeProjectile;
         laserDuration = weapon.laserDuration;
         audioClips = weapon.shootingSounds;
+        currentShot = 0;
 
         StartCoroutine(CreateShots());
     }

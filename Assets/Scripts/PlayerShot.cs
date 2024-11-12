@@ -14,7 +14,7 @@ public class PlayerShot : MonoBehaviour
 
         audioSource.loop = false;
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 0.9f;
+        audioSource.spatialBlend = 1f;
         
     }
 

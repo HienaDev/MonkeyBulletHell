@@ -740,9 +740,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shoot: 323
+  fireRate: 0.5
   firePoint: {fileID: 1078672843}
   shotManager: {fileID: 1867047125}
-  testWeapon: {fileID: 11400000, guid: 2a6c335209efe0f4f966a87f20e7b3e7, type: 2}
+  testWeapon: {fileID: 11400000, guid: 262634cfdfd0d344bae10909b667dfef, type: 2}
 --- !u!114 &364040115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,7 +810,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1453,7 +1454,7 @@ MonoBehaviour:
   numberOfProjectiles: 10
   shotSpeed: 10
   attackCooldown: 3
-  enemyShotPrefab: {fileID: 9143849981931036120, guid: 561bef58b1adc2349b20c6692ea1f670,
+  enemyShotPrefab: {fileID: 9143849981931036120, guid: 04d6d082485739b4bad6394ccfee0273,
     type: 3}
   radius: 40
   height: 5

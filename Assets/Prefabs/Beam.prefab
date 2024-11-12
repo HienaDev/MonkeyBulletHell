@@ -73,7 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fdf67fb622bdd4cb6d002e545b5b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 2
+  audioClips: []
 --- !u!1 &7748450013598549278
 GameObject:
   m_ObjectHideFlags: 0
