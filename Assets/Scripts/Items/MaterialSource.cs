@@ -17,25 +17,46 @@ public class MaterialSource : MonoBehaviour
 
     public void GatherResource()
     {
-        if (hitsRemaining > 0)
+        ToolSO selectedTool = playerInventory.GetSelectedItem() as ToolSO;
+        
+        if (selectedTool != null && CanToolBreakMaterial(selectedTool))
         {
-            hitsRemaining--;
-
-            for (int i = 0; i < materialSource.droppedMaterial.Length; i++)
+            if (hitsRemaining > 0)
             {
-                Debug.Log($"Gathered {materialSource.droppedMaterial[i].itemName}");
-            }
+                hitsRemaining--;
 
-            for (int i = 0; i < materialSource.droppedMaterial.Length; i++)
-            {
-                playerInventory.AddItem(materialSource.droppedMaterial[i]);
-            }
+                for (int i = 0; i < materialSource.droppedMaterial.Length; i++)
+                {
+                    Debug.Log($"Gathered {materialSource.droppedMaterial[i].itemName}");
+                }
 
-            if (hitsRemaining <= 0)
-            {
-                Destroy(gameObject);
+                for (int i = 0; i < materialSource.droppedMaterial.Length; i++)
+                {
+                    playerInventory.AddItem(materialSource.droppedMaterial[i]);
+                }
+
+                if (hitsRemaining <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
+        else
+        {
+            Debug.Log("You need a specific tool selected to break this material.");
+        }
+    }
+
+    private bool CanToolBreakMaterial(ToolSO tool)
+    {
+        foreach (var source in tool.canBreakSources)
+        {
+            if (source == materialSource)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void Update()

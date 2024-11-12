@@ -288,13 +288,15 @@ public class PlayerInventory : MonoBehaviour
 
     public ItemSO GetItemAtSlot(int slot)
     {
+        if (slot < 0) return null;
+
         if (slot < 2)
         {
             return weaponSlots[slot];
         }
 
         int adjustedSlot = slot - 2;
-        if (adjustedSlot < inventoryItems.Count)
+        if (adjustedSlot >= 0 && adjustedSlot < inventoryItems.Count)
         {
             return inventoryItems[adjustedSlot].Item;
         }
@@ -305,5 +307,11 @@ public class PlayerInventory : MonoBehaviour
     public List<InventorySlot> GetInventoryItems()
     {
         return inventoryItems;
+    }
+
+    public ItemSO GetSelectedItem()
+    {
+        int selectedSlotIndex = uiManager.GetSelectedSlotIndex();
+        return GetItemAtSlot(selectedSlotIndex);
     }
 }
