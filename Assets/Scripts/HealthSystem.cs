@@ -21,7 +21,8 @@ public class HealthSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        materials = GetComponentInChildren<Renderer>().materials;
+        if(GetComponentInChildren<Renderer>().materials != null)
+            materials = GetComponentInChildren<Renderer>().materials;
         foreach (Material mat in materials)
         {
             Debug.Log(mat);

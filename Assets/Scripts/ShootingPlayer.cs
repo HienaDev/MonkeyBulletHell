@@ -44,7 +44,8 @@ public class ShootingPlayer : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        SetWeapon(testWeapon);
+        if(testWeapon != null)
+            SetWeapon(testWeapon);
     }
 
     // Update is called once per frame
