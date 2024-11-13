@@ -54,7 +54,7 @@ public class ShootingPlayer : MonoBehaviour
 
         if (Input.GetKey(shoot))
         {
-            if (!laserLikeProjectile && Time.time - justShot > fireRate)
+            if (!laserLikeProjectile && Time.time - justShot > fireRate && instantiatedShots.Count > 0)
                 ShootProjectiles();
         }
 
