@@ -2289,9 +2289,9 @@ MonoBehaviour:
   zoomIn: 111
   zoomOut: 112
   cameraTransform: {fileID: 0}
-  zoomSpeed: 1000
-  maxZoom: 2
-  minZoom: -0.3
+  zoomSpeed: 0.2
+  maxZoom: 0
+  minZoom: 1.6
 --- !u!114 &2550914904599775477
 MonoBehaviour:
   m_ObjectHideFlags: 0

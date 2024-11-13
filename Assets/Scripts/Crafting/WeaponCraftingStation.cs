@@ -23,7 +23,7 @@ public class WeaponCraftingStation : CraftingStation
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && PlayerIsNearStation())
+        if (Input.GetKeyDown(KeyCode.F) && PlayerIsNearStation())
         {
             craftingUI.SetActive(true);
             UpdateRecipeDisplay();
