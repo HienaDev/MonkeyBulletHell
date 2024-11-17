@@ -65,6 +65,15 @@ public class WeaponCraftingStation : CraftingStation
 
             buttonImage.sprite = recipe.result.inventoryIcon;
 
+            if (!recipe.isAlreadyCrafted)
+            {
+                buttonImage.color = new Color(0, 0, 0);
+            }
+            else
+            {
+                buttonImage.color = Color.white;
+            }
+
             button.onClick.AddListener(() => OnItemButtonClicked(recipe));
         }
     }
