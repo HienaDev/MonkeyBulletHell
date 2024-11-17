@@ -59,6 +59,14 @@ public class WeaponCraftingStation : CraftingStation
 
         foreach (var recipe in recipes)
         {
+            bool canDisplay = recipe.isAlreadyCrafted || recipe.requiredMaterials.TrueForAll(req =>
+                playerInventory.GetItemCount(req.material) >= 1);
+
+            if (!canDisplay)
+            {
+                continue;
+            }
+
             var itemButton = Instantiate(itemButtonPrefab, itemGrid);
             var buttonImage = itemButton.GetComponent<Image>();
             var button = itemButton.GetComponent<Button>();
