@@ -47,11 +47,9 @@ public abstract class RecipeUI : MonoBehaviour
     {
         if (!recipe.isAlreadyCrafted && playerInventory.HasMaterials(recipe.requiredMaterials))
         {
-            // Consumir materiais e marcar como craftado
             playerInventory.ConsumeMaterials(recipe.requiredMaterials);
             recipe.isAlreadyCrafted = true;
 
-            // Atualizar a UI da grelha após crafting
             craftingStation.PopulateItemGrid();
 
             UpdateUI();
