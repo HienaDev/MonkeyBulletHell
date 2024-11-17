@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class WeaponCraftingStation : CraftingStation
 {
@@ -50,14 +51,16 @@ public class WeaponCraftingStation : CraftingStation
         return Vector3.Distance(transform.position, playerInventory.transform.position) < 2f;
     }
 
-    private void PopulateItemGrid()
+    public void PopulateItemGrid()
     {
         foreach (Transform child in itemGrid)
         {
             Destroy(child.gameObject);
         }
 
-        foreach (var recipe in recipes)
+        var sortedRecipes = recipes.OrderByDescending(recipe => recipe.isAlreadyCrafted).ToList();
+
+        foreach (var recipe in sortedRecipes)
         {
             bool canDisplay = recipe.isAlreadyCrafted || recipe.requiredMaterials.TrueForAll(req =>
                 playerInventory.GetItemCount(req.material) >= 1);
@@ -109,7 +112,7 @@ public class WeaponCraftingStation : CraftingStation
 
         if (recipeUIScript != null)
         {
-            recipeUIScript.Setup(selectedRecipe, playerInventory);
+            recipeUIScript.Setup(selectedRecipe, playerInventory, this); // Passar referência ao WeaponCraftingStation
         }
         else
         {

@@ -7,9 +7,9 @@ public class RecipeUIWeapons : RecipeUI
     [SerializeField] private Button equipButton2;
     [SerializeField] private Button equippedButton;
 
-    public override void Setup(CraftingRecipe recipe, PlayerInventory playerInventory)
+    public override void Setup(CraftingRecipe recipe, PlayerInventory playerInventory, WeaponCraftingStation craftingStation)
     {
-        base.Setup(recipe, playerInventory);
+        base.Setup(recipe, playerInventory, craftingStation);
 
         equipButton1.onClick.AddListener(() => EquipWeapon(1));
         equipButton2.onClick.AddListener(() => EquipWeapon(2));

@@ -13,11 +13,13 @@ public abstract class RecipeUI : MonoBehaviour
 
     protected CraftingRecipe recipe;
     protected PlayerInventory playerInventory;
+    protected WeaponCraftingStation craftingStation;
 
-    public virtual void Setup(CraftingRecipe recipe, PlayerInventory playerInventory)
+    public virtual void Setup(CraftingRecipe recipe, PlayerInventory playerInventory, WeaponCraftingStation craftingStation)
     {
         this.recipe = recipe;
         this.playerInventory = playerInventory;
+        this.craftingStation = craftingStation;
 
         itemNameText.text = recipe.result.itemName;
         itemIcon.sprite = recipe.result.inventoryIcon;
@@ -45,8 +47,13 @@ public abstract class RecipeUI : MonoBehaviour
     {
         if (!recipe.isAlreadyCrafted && playerInventory.HasMaterials(recipe.requiredMaterials))
         {
+            // Consumir materiais e marcar como craftado
             playerInventory.ConsumeMaterials(recipe.requiredMaterials);
             recipe.isAlreadyCrafted = true;
+
+            // Atualizar a UI da grelha após crafting
+            craftingStation.PopulateItemGrid();
+
             UpdateUI();
             Debug.Log($"{recipe.result.itemName} crafted successfully.");
         }
