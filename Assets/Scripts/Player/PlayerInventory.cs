@@ -9,8 +9,8 @@ public class PlayerInventory : MonoBehaviour
 
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
-
     private ShootingPlayer shootingPlayerScript;
+    private ItemSO equippedArmor;
 
     private void Start()
     {
@@ -242,6 +242,20 @@ public class PlayerInventory : MonoBehaviour
         NotifyRecipeUI();
     }
 
+    public void EquipArmor(ItemSO armor)
+    {
+        if (armor.itemType != ItemType.Armor)
+        {
+            Debug.LogWarning("Cannot equip a non-armor item as armor.");
+            return;
+        }
+
+        equippedArmor = armor;
+        Debug.Log($"{armor.itemName} equipped as armor.");
+        uiManager.UpdateInventoryDisplay();
+        NotifyRecipeUI();
+    }
+
     private void NotifyRecipeUI()
     {
         RecipeUI recipeUI = FindFirstObjectByType<RecipeUI>();
@@ -313,5 +327,15 @@ public class PlayerInventory : MonoBehaviour
     {
         int selectedSlotIndex = uiManager.GetSelectedSlotIndex();
         return GetItemAtSlot(selectedSlotIndex);
+    }
+
+    public bool IsArmorEquipped(ItemSO armor)
+    {
+        return equippedArmor == armor;
+    }
+
+    public ItemSO GetEquippedArmor()
+    {
+        return equippedArmor;
     }
 }

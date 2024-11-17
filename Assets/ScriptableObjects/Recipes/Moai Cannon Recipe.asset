@@ -18,4 +18,4 @@ MonoBehaviour:
     quantity: 1
   - material: {fileID: 11400000, guid: d1e244502ca31554285782853cd7d13c, type: 2}
     quantity: 1
-  isAlreadyCrafted: 1
+  isAlreadyCrafted: 0
