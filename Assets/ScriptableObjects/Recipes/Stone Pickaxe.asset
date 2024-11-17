@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d71eeecb003be8c4986b2364cbef92f6, type: 3}
-  m_Name: Moai Cannon Recipe
+  m_Name: Stone Pickaxe
   m_EditorClassIdentifier: 
-  result: {fileID: 11400000, guid: 262634cfdfd0d344bae10909b667dfef, type: 2}
+  result: {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b, type: 2}
   requiredMaterials:
-  - material: {fileID: 11400000, guid: d9c82b6f69a50ed4dbf28081bd54d05d, type: 2}
-    quantity: 1
   - material: {fileID: 11400000, guid: d1e244502ca31554285782853cd7d13c, type: 2}
     quantity: 1
-  isAlreadyCrafted: 1
+  isAlreadyCrafted: 0

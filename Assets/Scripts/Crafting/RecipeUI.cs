@@ -13,9 +13,9 @@ public abstract class RecipeUI : MonoBehaviour
 
     protected CraftingRecipe recipe;
     protected PlayerInventory playerInventory;
-    protected WeaponCraftingStation craftingStation;
+    protected CraftingStation craftingStation;
 
-    public virtual void Setup(CraftingRecipe recipe, PlayerInventory playerInventory, WeaponCraftingStation craftingStation)
+    public virtual void Setup(CraftingRecipe recipe, PlayerInventory playerInventory, CraftingStation craftingStation)
     {
         this.recipe = recipe;
         this.playerInventory = playerInventory;

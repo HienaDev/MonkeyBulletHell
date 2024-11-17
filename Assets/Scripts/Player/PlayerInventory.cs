@@ -211,7 +211,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         uiManager.UpdateInventoryDisplay();
-        NotifyAllRecipeUIs();
+        NotifyRecipeUI();
     }
 
     public void EquipWeapon(int slot, ItemSO weapon)
@@ -239,13 +239,13 @@ public class PlayerInventory : MonoBehaviour
         }
 
         uiManager.UpdateInventoryDisplay();
-        NotifyAllRecipeUIs();
+        NotifyRecipeUI();
     }
 
-    private void NotifyAllRecipeUIs()
+    private void NotifyRecipeUI()
     {
-        RecipeUI[] recipeUIs = FindObjectsByType<RecipeUI>(FindObjectsSortMode.None);
-        foreach (var recipeUI in recipeUIs)
+        RecipeUI recipeUI = FindFirstObjectByType<RecipeUI>();
+        if (recipeUI != null)
         {
             recipeUI.UpdateUI();
         }
