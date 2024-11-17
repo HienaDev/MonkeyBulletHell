@@ -17,9 +17,14 @@ public abstract class CraftingStation : MonoBehaviour
     protected CraftingRecipe selectedRecipe;
     protected PlayerInventory playerInventory;
 
+    private Rigidbody playerRigidbody;
+    private Animator playerAnimator;
+
     protected virtual void Start()
     {
-        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        playerInventory = player.GetComponent<PlayerInventory>();
+        playerRigidbody = player.GetComponent<Rigidbody>();
+        playerAnimator = player.GetComponent<Animator>(); 
         LoadRecipes();
     }
 
@@ -33,6 +38,7 @@ public abstract class CraftingStation : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && PlayerIsNearStation())
         {
             craftingUI.SetActive(true);
+            StopPlayerMovement();
             DisablePlayerControls();
             PopulateItemGrid();
         }
@@ -48,6 +54,20 @@ public abstract class CraftingStation : MonoBehaviour
     private bool PlayerIsNearStation()
     {
         return Vector3.Distance(transform.position, playerInventory.transform.position) < 2f;
+    }
+
+    private void StopPlayerMovement()
+    {
+        if (playerRigidbody != null)
+        {
+            playerRigidbody.linearVelocity = Vector3.zero;
+            playerRigidbody.angularVelocity = Vector3.zero;
+        }
+
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetFloat("MovSpeed", 0f);
+        }
     }
 
     private void DisablePlayerControls()
