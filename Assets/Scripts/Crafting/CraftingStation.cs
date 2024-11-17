@@ -5,6 +5,7 @@ using System.Linq;
 public abstract class CraftingStation : MonoBehaviour
 {
     [SerializeField] protected ItemType stationItemType;
+    [SerializeField] protected GameObject player;
     protected List<CraftingRecipe> recipes;
     protected PlayerInventory playerInventory;
 

@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System.Collections.Generic;
 
 public class WeaponCraftingStation : CraftingStation
 {
     [SerializeField] private GameObject craftingUI;
-    [SerializeField] private Transform recipeContainer;
+    [SerializeField] private Transform itemGrid;
+    [SerializeField] private GameObject itemButtonPrefab;
+    [SerializeField] private Transform recipeDisplayParent;
     [SerializeField] private GameObject recipePrefab;
-
     [SerializeField] private List<CraftingRecipe> weaponRecipes;
 
     private CraftingRecipe selectedRecipe;
@@ -17,7 +17,6 @@ public class WeaponCraftingStation : CraftingStation
     {
         stationItemType = ItemType.Weapon;
         base.Start();
-
         recipes = weaponRecipes;
     }
 
@@ -26,12 +25,23 @@ public class WeaponCraftingStation : CraftingStation
         if (Input.GetKeyDown(KeyCode.F) && PlayerIsNearStation())
         {
             craftingUI.SetActive(true);
-            UpdateRecipeDisplay();
+
+            foreach (var script in player.GetComponents<MonoBehaviour>())
+            {
+                script.enabled = false;
+            }
+
+            PopulateItemGrid();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             craftingUI.SetActive(false);
+
+            foreach (var script in player.GetComponents<MonoBehaviour>())
+            {
+                script.enabled = enabled;
+            }
         }
     }
 
@@ -40,32 +50,53 @@ public class WeaponCraftingStation : CraftingStation
         return Vector3.Distance(transform.position, playerInventory.transform.position) < 2f;
     }
 
-    protected override void UpdateCraftingUI(CraftingRecipe recipe)
+    private void PopulateItemGrid()
     {
-        selectedRecipe = recipe;
-    }
-
-    private void UpdateRecipeDisplay()
-    {
-        foreach (Transform child in recipeContainer)
+        foreach (Transform child in itemGrid)
         {
             Destroy(child.gameObject);
         }
 
         foreach (var recipe in recipes)
         {
-            var recipeUI = Instantiate(recipePrefab, recipeContainer);
-            RecipeUI recipeUIScript = recipeUI.GetComponent<RecipeUI>();
+            var itemButton = Instantiate(itemButtonPrefab, itemGrid);
+            var buttonImage = itemButton.GetComponent<Image>();
+            var button = itemButton.GetComponent<Button>();
 
-            if (recipeUIScript != null)
-            {
-                recipeUIScript.Setup(recipe, playerInventory);
-                recipeUIScript.UpdateUI();
-            }
-            else
-            {
-                Debug.LogWarning("RecipeUI component not found on recipePrefab.");
-            }
+            buttonImage.sprite = recipe.result.inventoryIcon;
+
+            button.onClick.AddListener(() => OnItemButtonClicked(recipe));
+        }
+    }
+
+    private void OnItemButtonClicked(CraftingRecipe recipe)
+    {
+        SetRecipe(recipe);
+    }
+
+    protected override void UpdateCraftingUI(CraftingRecipe recipe)
+    {
+        selectedRecipe = recipe;
+        UpdateRecipeDisplay();
+    }
+
+    private void UpdateRecipeDisplay()
+    {
+        foreach (Transform child in recipeDisplayParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        var recipeUI = Instantiate(recipePrefab, recipeDisplayParent);
+        RecipeUI recipeUIScript = recipeUI.GetComponent<RecipeUI>();
+
+        if (recipeUIScript != null)
+        {
+            recipeUIScript.Setup(selectedRecipe, playerInventory);
+        }
+        else
+        {
+            Debug.LogWarning("RecipeUI component not found on recipePrefab.");
         }
     }
 }
