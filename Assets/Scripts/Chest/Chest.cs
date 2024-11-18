@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Chest : MonoBehaviour
@@ -9,6 +10,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private Transform itemGrid;
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject player;
+    [SerializeField] private UIManager uiManager;
 
     private List<InventorySlot> materialsInChest = new List<InventorySlot>();
     private PlayerInventory playerInventory;
@@ -132,6 +134,64 @@ public class Chest : MonoBehaviour
         foreach (var script in player.GetComponents<MonoBehaviour>())
         {
             script.enabled = true;
+        }
+    }
+
+    public int GetItemCount(ItemSO item)
+    {
+        InventorySlot slot = materialsInChest.Find(s => s.Item == item);
+        return slot?.Quantity ?? 0;
+    }
+
+    public bool HasMaterials(List<ItemRequirement> requiredMaterials)
+    {
+        foreach (var requirement in requiredMaterials)
+        {
+            int playerMaterialCount = GetItemCount(requirement.material);
+
+            if (playerMaterialCount < requirement.quantity)
+            {
+                Debug.Log($"Insufficient material: {requirement.material.itemName}. Required: {requirement.quantity}, Available: {playerMaterialCount}");
+                return false;
+            }
+        }
+        Debug.Log("All required materials are available.");
+        return true;
+    }
+
+    public void ConsumeMaterials(List<ItemRequirement> requiredMaterials)
+    {
+        foreach (var requirement in requiredMaterials)
+        {
+            int quantityToRemove = requirement.quantity;
+
+            InventorySlot slot = materialsInChest.Find(s => s.Item == requirement.material);
+            while (quantityToRemove > 0 && slot != null)
+            {
+                if (slot.Quantity.HasValue && slot.Quantity > quantityToRemove)
+                {
+                    slot.DecreaseQuantity(quantityToRemove);
+                    quantityToRemove = 0;
+                }
+                else
+                {
+                    quantityToRemove -= slot.Quantity ?? 0;
+                    materialsInChest.Remove(slot);
+                    slot = materialsInChest.Find(s => s.Item == requirement.material);
+                }
+            }
+        }
+
+        uiManager.UpdateInventoryDisplay();
+        NotifyRecipeUI();
+    }
+
+    private void NotifyRecipeUI()
+    {
+        RecipeUI recipeUI = FindFirstObjectByType<RecipeUI>();
+        if (recipeUI != null)
+        {
+            recipeUI.UpdateUI();
         }
     }
 }

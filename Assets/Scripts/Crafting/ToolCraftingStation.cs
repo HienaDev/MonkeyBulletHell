@@ -23,7 +23,7 @@ public class ToolCraftingStation : CraftingStation
         foreach (var recipe in recipes)
         {
             bool canDisplay = recipe.isAlreadyCrafted || recipe.requiredMaterials.TrueForAll(req =>
-                playerInventory.GetItemCount(req.material) >= 1);
+                chest.GetItemCount(req.material) >= 1);
 
             if (!canDisplay)
             {

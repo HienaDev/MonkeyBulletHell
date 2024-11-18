@@ -12,14 +12,16 @@ public abstract class RecipeUI : MonoBehaviour
     [SerializeField] protected Button craftButton;
 
     protected CraftingRecipe recipe;
+    protected Chest chest;
     protected PlayerInventory playerInventory;
     protected CraftingStation craftingStation;
 
-    public virtual void Setup(CraftingRecipe recipe, PlayerInventory playerInventory, CraftingStation craftingStation)
+    public virtual void Setup(CraftingRecipe recipe, Chest chest, PlayerInventory playerInventory, CraftingStation craftingStation)
     {
         this.recipe = recipe;
-        this.playerInventory = playerInventory;
+        this.chest = chest;
         this.craftingStation = craftingStation;
+        this.playerInventory = playerInventory;
 
         itemNameText.text = recipe.result.itemName;
         itemIcon.sprite = recipe.result.inventoryIcon;
@@ -29,7 +31,7 @@ public abstract class RecipeUI : MonoBehaviour
             if (i < recipe.requiredMaterials.Count)
             {
                 materialIcons[i].sprite = recipe.requiredMaterials[i].material.inventoryIcon;
-                materialQuantities[i].text = playerInventory.GetItemCount(recipe.requiredMaterials[i].material).ToString() + "/" + recipe.requiredMaterials[i].quantity.ToString();
+                materialQuantities[i].text = chest.GetItemCount(recipe.requiredMaterials[i].material).ToString() + "/" + recipe.requiredMaterials[i].quantity.ToString();
                 materialIcons[i].gameObject.SetActive(true);
                 materialQuantities[i].gameObject.SetActive(true);
             }
@@ -45,9 +47,9 @@ public abstract class RecipeUI : MonoBehaviour
 
     protected virtual void TryCraft()
     {
-        if (!recipe.isAlreadyCrafted && playerInventory.HasMaterials(recipe.requiredMaterials))
+        if (!recipe.isAlreadyCrafted && chest.HasMaterials(recipe.requiredMaterials))
         {
-            playerInventory.ConsumeMaterials(recipe.requiredMaterials);
+            chest.ConsumeMaterials(recipe.requiredMaterials);
             recipe.isAlreadyCrafted = true;
 
             craftingStation.PopulateItemGrid();

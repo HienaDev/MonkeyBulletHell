@@ -1326,6 +1326,7 @@ MonoBehaviour:
   itemSlotPrefab: {fileID: 4673574578783302429, guid: f2bbccc92afdcf5428d0bef78ede39a7,
     type: 3}
   player: {fileID: 919132149385261819}
+  uiManager: {fileID: 770655147}
 --- !u!65 &368141427
 BoxCollider:
   m_ObjectHideFlags: 0

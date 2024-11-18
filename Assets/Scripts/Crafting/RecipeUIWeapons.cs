@@ -7,9 +7,9 @@ public class RecipeUIWeapons : RecipeUI
     [SerializeField] private Button equipButton2;
     [SerializeField] private Button equippedButton;
 
-    public override void Setup(CraftingRecipe recipe, PlayerInventory playerInventory, CraftingStation craftingStation)
+    public override void Setup(CraftingRecipe recipe, Chest chest, PlayerInventory playerInventory, CraftingStation craftingStation)
     {
-        base.Setup(recipe, playerInventory, craftingStation);
+        base.Setup(recipe, chest, playerInventory, craftingStation);
 
         equipButton1.onClick.AddListener(() => EquipWeapon(1));
         equipButton2.onClick.AddListener(() => EquipWeapon(2));
@@ -19,7 +19,7 @@ public class RecipeUIWeapons : RecipeUI
 
     protected override void UpdateCraftStatus()
     {
-        if (playerInventory.HasMaterials(recipe.requiredMaterials))
+        if (chest.HasMaterials(recipe.requiredMaterials))
         {
             craftButton.interactable = true;
         }
@@ -37,7 +37,7 @@ public class RecipeUIWeapons : RecipeUI
         {
             if (i < recipe.requiredMaterials.Count)
             {
-                materialQuantities[i].text = playerInventory.GetItemCount(recipe.requiredMaterials[i].material).ToString() + "/" + recipe.requiredMaterials[i].quantity.ToString();
+                materialQuantities[i].text = chest.GetItemCount(recipe.requiredMaterials[i].material).ToString() + "/" + recipe.requiredMaterials[i].quantity.ToString();
                 materialQuantities[i].gameObject.SetActive(true);
             }
             else
