@@ -115,6 +115,25 @@ public class PlayerInventory : MonoBehaviour
         uiManager.UpdateInventoryDisplay();
     }
 
+    public List<InventorySlot> RemoveAllMaterials()
+    {
+        List<InventorySlot> materialsToStore = new List<InventorySlot>();
+
+        foreach (var slot in inventoryItems)
+        {
+            if (slot.Item.itemType == ItemType.Material)
+            {
+                materialsToStore.Add(slot);
+            }
+        }
+
+        inventoryItems.RemoveAll(slot => slot.Item.itemType == ItemType.Material);
+
+        uiManager.UpdateInventoryDisplay();
+
+        return materialsToStore;
+    }
+
     public bool MaterialAndToolSlotsFull()
     {
         return inventoryItems.Count >= maxInventorySlots;
