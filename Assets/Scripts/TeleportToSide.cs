@@ -1,17 +1,18 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using static UnityEngine.Rendering.DebugUI;
-using NUnit.Framework;
-using System.Linq;
+using UnityEngine.UI;
 
 public class DashInDirection : MonoBehaviour
 {
+    [SerializeField] private float dashCooldown = 2f;
+    private float justDashed;
     [SerializeField] private float dashDistance = 5f; // Distance to dash (5 meters)
     [SerializeField] private float dashDuration = 0.2f; // Duration of the dash (in seconds)
     [SerializeField] private float gracePeriod = 0.1f; // Duration of the dash (in seconds)
     [SerializeField] private KeyCode dashKey = KeyCode.LeftShift; // Key to trigger the dash (Left Shift)
     [SerializeField] private GameObject characterModel; // Reference to the model for rotation
+
+    [SerializeField] private Image dashUI;
 
     private bool isDashing = false; // To prevent multiple dashes at once
 
@@ -26,6 +27,7 @@ public class DashInDirection : MonoBehaviour
 
     private void Start()
     {
+        justDashed = Time.time;
         trailRenderer.emitting = false;
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
@@ -34,9 +36,19 @@ public class DashInDirection : MonoBehaviour
     private void Update()
     {
         // Check if the dash key is pressed and we're not already dashing
-        if (Input.GetKeyDown(dashKey) && !isDashing)
+        if (Input.GetKeyDown(dashKey) && !isDashing && Time.time - justDashed > dashCooldown)
         {
+            justDashed = Time.time;
             StartCoroutine(Dash());
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        float dashTimer = Time.time - justDashed;
+        if (dashTimer <= dashCooldown + 0.1f) // +0.1f so it fills up completely
+        {
+            dashUI.fillAmount = dashTimer / dashCooldown;   
         }
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.Android;
+using UnityEngine.Events;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -17,6 +17,8 @@ public class HealthSystem : MonoBehaviour
 
     private Renderer rendererModel;
     private Material[] materials;
+
+    [SerializeField] private UnityEvent doOnDeath;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,13 +57,18 @@ public class HealthSystem : MonoBehaviour
 
         if (health <= 0)
         {
+            if (doOnDeath != null)
+            {
+                doOnDeath.Invoke();
+            }
+
             if (destroyOnDeath != null)
             {
                 Destroy(destroyOnDeath, 0.1f);
             }
             else
             {
-                Destroy(gameObject);
+                Destroy(gameObject, 0.1f);
             }
         }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class FollowTarget : MonoBehaviour
@@ -29,5 +30,34 @@ public class FollowTarget : MonoBehaviour
             transform.position = transform.position + Random.insideUnitSphere * shakeAmount;
     }
 
-    public void ShakeCameraToggle(bool toggle) => shakeCamera = toggle;
+    public void ShakeCamera(float duration, float intensity, bool decaying)
+    {
+        StartCoroutine(ShakeCameraCR(duration, intensity, decaying));
+    }
+
+    private IEnumerator ShakeCameraCR(float duration, float intensity, bool decaying)
+    {
+        if(!decaying)
+        {
+            shakeCamera = true;
+            shakeAmount = intensity;
+            yield return new WaitForSeconds(duration);
+            shakeCamera = false;
+        }
+        else
+        {
+            shakeCamera = true;
+            shakeAmount = intensity;
+
+            float lerpValue = 0;
+            while(lerpValue < 1)
+            {
+                lerpValue += Time.deltaTime / duration;
+                shakeAmount = Mathf.Lerp(intensity, 0.2f, lerpValue);
+                yield return null;
+            }
+
+            shakeCamera = false;
+        }
+    }
 }

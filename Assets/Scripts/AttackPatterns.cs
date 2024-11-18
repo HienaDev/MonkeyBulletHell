@@ -10,6 +10,8 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private FollowTarget cameraLogic;
     [SerializeField] private float shakeDuration = 0.3f;
 
+    [Header("Start"), SerializeField] private float speedStomp = 20f;
+
     [Header("AOEAttack"), SerializeField] private float numberOfProjectiles = 5;
     [SerializeField] private float shotSpeed = 10f;
     [SerializeField] private float attackCooldown = 5f; // Duration of the arc movement
@@ -27,7 +29,7 @@ public class AttackPatterns : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private IEnumerator Start()
     {
-
+        StartCoroutine(StartStomp());
         yield return new WaitForSeconds(2f);
         StartRandomAttack();
     }
@@ -36,6 +38,17 @@ public class AttackPatterns : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private IEnumerator StartStomp()
+    {
+        while(transform.position.y > 1)
+        {
+            transform.position -= Vector3.up * Time.deltaTime * speedStomp;
+            yield return null;
+        }
+
+        transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
     }
 
     private void StartRandomAttack()
@@ -172,7 +185,7 @@ public class AttackPatterns : MonoBehaviour
 
         // Ensure the object ends at the exact target position
         transform.position = endPosition;
-        StartCoroutine(ShakeCamera());
+        cameraLogic.ShakeCamera(shakeDuration, 0.2f, false);
 
         AoeAttackOnHead();
 
@@ -181,12 +194,5 @@ public class AttackPatterns : MonoBehaviour
         StartRandomAttack();
     }
 
-    private IEnumerator ShakeCamera()
-    {
-        cameraLogic.ShakeCameraToggle(true);
 
-        yield return new WaitForSeconds(shakeDuration);
-
-        cameraLogic.ShakeCameraToggle(false);
-    }
 }
