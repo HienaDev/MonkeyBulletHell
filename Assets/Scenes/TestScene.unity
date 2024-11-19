@@ -1327,6 +1327,13 @@ MonoBehaviour:
     type: 3}
   player: {fileID: 919132149385261819}
   uiManager: {fileID: 770655147}
+  materials:
+  - {fileID: 11400000, guid: fc06aa4723c625340a5ac6f3eb48e155, type: 2}
+  - {fileID: 11400000, guid: 7659215c9e9bd824698210230da869e2, type: 2}
+  - {fileID: 11400000, guid: c8ba248b8a0e10642a5c41a4bb79c2c2, type: 2}
+  - {fileID: 11400000, guid: d1e244502ca31554285782853cd7d13c, type: 2}
+  - {fileID: 11400000, guid: d9c82b6f69a50ed4dbf28081bd54d05d, type: 2}
+  - {fileID: 11400000, guid: 07fc65690af436c40a06307c704f8656, type: 2}
 --- !u!65 &368141427
 BoxCollider:
   m_ObjectHideFlags: 0

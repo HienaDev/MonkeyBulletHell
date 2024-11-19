@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   result: {fileID: 11400000, guid: e2400286966ca9540adac17d921e6a75, type: 2}
   requiredMaterials:
-  - material: {fileID: 11400000, guid: d9c82b6f69a50ed4dbf28081bd54d05d, type: 2}
-    quantity: 1
-  isAlreadyCrafted: 0
+  - material: {fileID: 11400000, guid: 7659215c9e9bd824698210230da869e2, type: 2}
+    quantity: 20

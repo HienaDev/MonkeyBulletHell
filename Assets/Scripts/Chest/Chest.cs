@@ -11,6 +11,8 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private UIManager uiManager;
 
+    [SerializeField] private MaterialSO[] materials;
+
     private List<InventorySlot> materialsInChest = new List<InventorySlot>();
     private PlayerInventory playerInventory;
 
@@ -45,6 +47,24 @@ public class Chest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             StoreAllMaterials();
+        }
+
+        // DEBUG ONLY - Fill chest with materials
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            foreach (var material in materials)
+            {
+                InventorySlot existingSlot = materialsInChest.Find(s => s.Item == material);
+
+                if (existingSlot != null)
+                {
+                    existingSlot.IncreaseQuantity(99);
+                }
+                else
+                {
+                    materialsInChest.Add(new InventorySlot(material, 99));
+                }
+            }
         }
     }
 
