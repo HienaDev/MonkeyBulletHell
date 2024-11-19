@@ -97,7 +97,7 @@ public abstract class CraftingStation : MonoBehaviour
 
         foreach (var recipe in recipes)
         {
-            bool canDisplay = recipe.isAlreadyCrafted || recipe.requiredMaterials.TrueForAll(req =>
+            bool canDisplay = playerInventory.IsRecipeCrafted(recipe) || recipe.requiredMaterials.TrueForAll(req =>
                 chest.GetItemCount(req.material) >= 1);
 
             if (!canDisplay)
@@ -111,7 +111,7 @@ public abstract class CraftingStation : MonoBehaviour
 
             buttonImage.sprite = recipe.result.inventoryIcon;
 
-            buttonImage.color = recipe.isAlreadyCrafted ? Color.white : new Color(0, 0, 0);
+            buttonImage.color = playerInventory.IsRecipeCrafted(recipe) ? Color.white : new Color(0, 0, 0);
 
             button.onClick.AddListener(() => OnItemButtonClicked(recipe));
         }

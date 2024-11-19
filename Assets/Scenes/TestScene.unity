@@ -6807,6 +6807,12 @@ PrefabInstance:
       objectReference: {fileID: 330585546}
     - target: {fileID: 5811922884974725835, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
+      propertyPath: pickaxe
+      value: 
+      objectReference: {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b,
+        type: 2}
+    - target: {fileID: 5811922884974725835, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 770655147}

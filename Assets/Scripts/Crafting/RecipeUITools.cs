@@ -33,7 +33,7 @@ public class RecipeUITools : RecipeUI
             chest.ConsumeMaterials(recipe.requiredMaterials);
             playerInventory.AddItem(recipe.result);
 
-            recipe.isAlreadyCrafted = true;
+            playerInventory.AddCraftedRecipe(recipe);
             
             craftingStation.RefreshUI();
             UpdateUI();

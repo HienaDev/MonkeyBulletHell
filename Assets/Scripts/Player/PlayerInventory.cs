@@ -9,6 +9,7 @@ public class PlayerInventory : MonoBehaviour
 
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
+    private List<CraftingRecipe> alreadyCraftedRecipes;
     private ShootingPlayer shootingPlayerScript;
     private ItemSO equippedArmor;
 
@@ -16,6 +17,7 @@ public class PlayerInventory : MonoBehaviour
     {
         weaponSlots = new ItemSO[2];
         inventoryItems = new List<InventorySlot>();
+        alreadyCraftedRecipes = new List<CraftingRecipe>();
 
         shootingPlayerScript = FindFirstObjectByType<ShootingPlayer>();
     }
@@ -73,6 +75,43 @@ public class PlayerInventory : MonoBehaviour
         }
 
         uiManager.UpdateInventoryDisplay();
+    }
+
+    public void AddCraftedRecipe(CraftingRecipe recipe)
+    {
+        if (!alreadyCraftedRecipes.Contains(recipe))
+        {
+            alreadyCraftedRecipes.Add(recipe);
+            Debug.Log($"{recipe.result.itemName} recipe added to the crafted list.");
+        }
+        else
+        {
+            Debug.LogWarning($"{recipe.result.itemName} recipe is already in the crafted list.");
+        }
+    }
+
+    public void RemoveCraftedRecipe(CraftingRecipe recipe)
+    {
+        if (alreadyCraftedRecipes.Contains(recipe))
+        {
+            alreadyCraftedRecipes.Remove(recipe);
+            Debug.Log($"{recipe.result.itemName} recipe removed from the crafted list.");
+        }
+        else
+        {
+            Debug.LogWarning($"{recipe.result.itemName} recipe is not in the crafted list.");
+        }
+    }
+
+    // Check if the recipe is already crafted
+    public bool IsRecipeCrafted(CraftingRecipe recipe)
+    {
+        return alreadyCraftedRecipes.Contains(recipe);
+    }
+
+    public void GetCraftedRecipes(out List<CraftingRecipe> recipes)
+    {
+        recipes = new List<CraftingRecipe>(alreadyCraftedRecipes);
     }
 
     public void RemoveItem(ItemSO item)

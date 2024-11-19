@@ -74,7 +74,7 @@ public class RecipeUIArmor : RecipeUI
         {
             chest.ConsumeMaterials(recipe.requiredMaterials);
 
-            recipe.isAlreadyCrafted = true;
+            playerInventory.AddCraftedRecipe(recipe);
 
             craftingStation.RefreshUI();
             UpdateUI();
@@ -89,7 +89,7 @@ public class RecipeUIArmor : RecipeUI
 
     private void EquipArmor()
     {
-        if (recipe.isAlreadyCrafted)
+        if (playerInventory.IsRecipeCrafted(recipe))
         {
             playerInventory.EquipArmor(recipe.result);
             UpdateUI();

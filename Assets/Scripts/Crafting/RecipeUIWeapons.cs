@@ -79,7 +79,7 @@ public class RecipeUIWeapons : RecipeUI
 
     private void EquipWeapon(int slot)
     {
-        if (recipe.isAlreadyCrafted)
+        if (playerInventory.IsRecipeCrafted(recipe))
         {
             if (slot == 2 && !playerInventory.IsWeaponEquippedInSlot(1))
             {
