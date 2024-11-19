@@ -15,6 +15,7 @@ public abstract class CraftingStation : MonoBehaviour
 
     protected List<CraftingRecipe> recipes;
     protected CraftingRecipe selectedRecipe;
+    protected Chest chest;
     protected PlayerInventory playerInventory;
 
     private Rigidbody playerRigidbody;
@@ -22,6 +23,7 @@ public abstract class CraftingStation : MonoBehaviour
 
     protected virtual void Start()
     {
+        chest = FindFirstObjectByType<Chest>();
         playerInventory = player.GetComponent<PlayerInventory>();
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>(); 
@@ -53,7 +55,7 @@ public abstract class CraftingStation : MonoBehaviour
 
     private bool PlayerIsNearStation()
     {
-        return Vector3.Distance(transform.position, playerInventory.transform.position) < 2f;
+        return Vector3.Distance(transform.position, player.transform.position) < 2f;
     }
 
     private void StopPlayerMovement()
@@ -96,7 +98,7 @@ public abstract class CraftingStation : MonoBehaviour
         foreach (var recipe in recipes)
         {
             bool canDisplay = recipe.isAlreadyCrafted || recipe.requiredMaterials.TrueForAll(req =>
-                playerInventory.GetItemCount(req.material) >= 1);
+                chest.GetItemCount(req.material) >= 1);
 
             if (!canDisplay)
             {
@@ -138,7 +140,7 @@ public abstract class CraftingStation : MonoBehaviour
 
         if (recipeUIScript != null)
         {
-            recipeUIScript.Setup(selectedRecipe, playerInventory, this);
+            recipeUIScript.Setup(selectedRecipe, chest, playerInventory, this);
         }
         else
         {

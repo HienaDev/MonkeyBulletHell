@@ -17,7 +17,7 @@ public class RecipeUITools : RecipeUI
             }
         }
 
-        craftButton.interactable = playerInventory.HasMaterials(recipe.requiredMaterials);
+        craftButton.interactable = chest.HasMaterials(recipe.requiredMaterials);
         craftButton.gameObject.SetActive(true);
     }
 
@@ -28,9 +28,9 @@ public class RecipeUITools : RecipeUI
 
     protected override void TryCraft()
     {
-        if (playerInventory.HasMaterials(recipe.requiredMaterials))
+        if (chest.HasMaterials(recipe.requiredMaterials))
         {
-            playerInventory.ConsumeMaterials(recipe.requiredMaterials);
+            chest.ConsumeMaterials(recipe.requiredMaterials);
             playerInventory.AddItem(recipe.result);
 
             recipe.isAlreadyCrafted = true;

@@ -5,7 +5,7 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
     [SerializeField] private int maxInventorySlots = 8;
-    [SerializeField] private ToolSO axe; // ONLY FOR TESTING
+    [SerializeField] private ToolSO pickaxe; // ONLY FOR TESTING
 
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
@@ -24,7 +24,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P)) // ONLY FOR TESTING
         {
-            AddItem(axe);
+            AddItem(pickaxe);
         }
 
         if (Input.GetKeyDown(KeyCode.N))
@@ -115,6 +115,25 @@ public class PlayerInventory : MonoBehaviour
         uiManager.UpdateInventoryDisplay();
     }
 
+    public List<InventorySlot> RemoveAllMaterials()
+    {
+        List<InventorySlot> materialsToStore = new List<InventorySlot>();
+
+        foreach (var slot in inventoryItems)
+        {
+            if (slot.Item.itemType == ItemType.Material)
+            {
+                materialsToStore.Add(slot);
+            }
+        }
+
+        inventoryItems.RemoveAll(slot => slot.Item.itemType == ItemType.Material);
+
+        uiManager.UpdateInventoryDisplay();
+
+        return materialsToStore;
+    }
+
     public bool MaterialAndToolSlotsFull()
     {
         return inventoryItems.Count >= maxInventorySlots;
@@ -169,49 +188,6 @@ public class PlayerInventory : MonoBehaviour
             // Move to the closest available slot if the current slot is empty
             uiManager.SelectClosestAvailableSlot(lastSelectedIndex);
         }
-    }
-
-    public bool HasMaterials(List<ItemRequirement> requiredMaterials)
-    {
-        foreach (var requirement in requiredMaterials)
-        {
-            int playerMaterialCount = GetItemCount(requirement.material);
-
-            if (playerMaterialCount < requirement.quantity)
-            {
-                Debug.Log($"Insufficient material: {requirement.material.itemName}. Required: {requirement.quantity}, Available: {playerMaterialCount}");
-                return false;
-            }
-        }
-        Debug.Log("All required materials are available.");
-        return true;
-    }
-
-    public void ConsumeMaterials(List<ItemRequirement> requiredMaterials)
-    {
-        foreach (var requirement in requiredMaterials)
-        {
-            int quantityToRemove = requirement.quantity;
-
-            InventorySlot slot = inventoryItems.Find(s => s.Item == requirement.material);
-            while (quantityToRemove > 0 && slot != null)
-            {
-                if (slot.Quantity.HasValue && slot.Quantity > quantityToRemove)
-                {
-                    slot.DecreaseQuantity(quantityToRemove);
-                    quantityToRemove = 0;
-                }
-                else
-                {
-                    quantityToRemove -= slot.Quantity ?? 0;
-                    inventoryItems.Remove(slot);
-                    slot = inventoryItems.Find(s => s.Item == requirement.material);
-                }
-            }
-        }
-
-        uiManager.UpdateInventoryDisplay();
-        NotifyRecipeUI();
     }
 
     public void EquipWeapon(int slot, ItemSO weapon)
