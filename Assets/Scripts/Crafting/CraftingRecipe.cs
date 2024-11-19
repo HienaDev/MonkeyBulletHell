@@ -13,8 +13,6 @@ public class CraftingRecipe : ScriptableObject
     {
         IsUnlocked = true;
     }
-
-    public bool isAlreadyCrafted = false;
 }
 
 [System.Serializable]

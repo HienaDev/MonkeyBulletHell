@@ -47,17 +47,17 @@ public abstract class RecipeUI : MonoBehaviour
 
     protected virtual void TryCraft()
     {
-        if (!recipe.isAlreadyCrafted && chest.HasMaterials(recipe.requiredMaterials))
+        if (!playerInventory.IsRecipeCrafted(recipe) && chest.HasMaterials(recipe.requiredMaterials))
         {
             chest.ConsumeMaterials(recipe.requiredMaterials);
-            recipe.isAlreadyCrafted = true;
+            playerInventory.AddCraftedRecipe(recipe);
 
             craftingStation.PopulateItemGrid();
 
             UpdateUI();
             Debug.Log($"{recipe.result.itemName} crafted successfully.");
         }
-        else if (recipe.isAlreadyCrafted)
+        else if (playerInventory.IsRecipeCrafted(recipe))
         {
             Debug.Log($"{recipe.result.itemName} has already been crafted.");
         }
@@ -69,7 +69,7 @@ public abstract class RecipeUI : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (recipe.isAlreadyCrafted)
+        if (playerInventory.IsRecipeCrafted(recipe))
             UpdateEquipStatus();
         else
             UpdateCraftStatus();
