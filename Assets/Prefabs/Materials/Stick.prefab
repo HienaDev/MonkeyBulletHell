@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 795495577544799074}
   - component: {fileID: 3348785122348046991}
   - component: {fileID: 2640081809177688895}
+  - component: {fileID: 6000454545675885718}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -125,6 +126,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 11400000, guid: d1e244502ca31554285782853cd7d13c, type: 2}
+--- !u!114 &6000454545675885718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780298983005370840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee8950ebab6a434a9e619b1dd0adb99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monkeyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  interactKey: 102
+  interactionCooldown: 0
+  doOnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2640081809177688895}
+        m_TargetAssemblyTypeName: MaterialOnGround, Assembly-CSharp
+        m_MethodName: GatherMaterial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3140625432017152684
 GameObject:
   m_ObjectHideFlags: 0

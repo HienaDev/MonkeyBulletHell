@@ -37,13 +37,7 @@ public abstract class CraftingStation : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && PlayerIsNearStation())
-        {
-            craftingUI.SetActive(true);
-            StopPlayerMovement();
-            DisablePlayerControls();
-            PopulateItemGrid();
-        }
+
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -53,10 +47,15 @@ public abstract class CraftingStation : MonoBehaviour
         }
     }
 
-    private bool PlayerIsNearStation()
+    public void OpenUI()
     {
-        return Vector3.Distance(transform.position, player.transform.position) < 2f;
+        craftingUI.SetActive(true);
+        StopPlayerMovement();
+        DisablePlayerControls();
+        PopulateItemGrid();
     }
+
+
 
     private void StopPlayerMovement()
     {

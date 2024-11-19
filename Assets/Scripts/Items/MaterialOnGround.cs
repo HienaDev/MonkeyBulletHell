@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Interactable))]
 public class MaterialOnGround : MonoBehaviour
 {
     [SerializeField] private MaterialSO material;
@@ -28,29 +29,4 @@ public class MaterialOnGround : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Update()
-    {
-        if (playerInside && Input.GetKeyDown(KeyCode.F))
-        {
-            GatherMaterial();
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInside = true;
-
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInside = false;
-
-        }
-    }
 }

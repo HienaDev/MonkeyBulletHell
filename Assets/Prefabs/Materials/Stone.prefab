@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 4142790223816223925}
   - component: {fileID: 4695564768050097242}
   - component: {fileID: 823949564383782751}
+  - component: {fileID: 813437672611764885}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Untagged
@@ -157,6 +158,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 11400000, guid: d9c82b6f69a50ed4dbf28081bd54d05d, type: 2}
+--- !u!114 &813437672611764885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902278298916865740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee8950ebab6a434a9e619b1dd0adb99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monkeyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  interactKey: 102
+  interactionCooldown: 0
+  doOnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 823949564383782751}
+        m_TargetAssemblyTypeName: MaterialOnGround, Assembly-CSharp
+        m_MethodName: GatherMaterial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6241550379961952175
 GameObject:
   m_ObjectHideFlags: 0
