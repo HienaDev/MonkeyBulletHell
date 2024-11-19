@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = Vector3.zero;
 
         rb = GetComponent<Rigidbody>();
+
         animator = GetComponent<Animator>();
     }
 
@@ -62,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("MovSpeed", velocity.magnitude);
 
-        rb.linearVelocity = velocity.normalized * movementSpeed;
+        
+
+        float rbVelocityY = rb.linearVelocity.y;
+
+
+        rb.linearVelocity += new Vector3(0f, rbVelocityY, 0f);
     }
 }
