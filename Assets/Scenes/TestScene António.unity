@@ -2318,7 +2318,7 @@ GameObject:
   - component: {fileID: 112987477}
   - component: {fileID: 112987476}
   - component: {fileID: 112987475}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Easter Island Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43387,7 +43387,7 @@ GameObject:
   - component: {fileID: 1894317539}
   - component: {fileID: 1894317538}
   - component: {fileID: 1894317537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HubIsland Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49999,6 +49999,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 245663239576516282, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -50007,7 +50012,7 @@ PrefabInstance:
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.39
       objectReference: {fileID: 0}
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
@@ -50054,6 +50059,12 @@ PrefabInstance:
       propertyPath: cameraPlayer
       value: 
       objectReference: {fileID: 330585546}
+    - target: {fileID: 4519589047787681123, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: testWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a6c335209efe0f4f966a87f20e7b3e7,
+        type: 2}
     - target: {fileID: 4519589047787681123, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: shotManager
