@@ -21,6 +21,8 @@ public class DashInDirection : MonoBehaviour
 
     private SkinnedMeshRenderer skinnedMeshRenderer;
 
+    private PlayerMovement playerMovement;
+
 
     [SerializeField] private Material[] dashMaterials;
     [SerializeField] private Material[] normalMaterials;
@@ -30,7 +32,7 @@ public class DashInDirection : MonoBehaviour
         justDashed = Time.time;
         trailRenderer.emitting = false;
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -71,28 +73,31 @@ public class DashInDirection : MonoBehaviour
 
         isDashing = true;
 
-        // Get the direction based on the characterModel's forward direction
-        Vector3 dashDirection = -characterModel.transform.up;
+        //// Get the direction based on the characterModel's forward direction
+        //Vector3 dashDirection = -characterModel.transform.up;
 
-        // Calculate the target position
-        Vector3 startPosition = transform.position;
-        Vector3 targetPosition = startPosition + dashDirection * dashDistance;
+        //// Calculate the target position
+        //Vector3 startPosition = transform.position;
+        //Vector3 targetPosition = startPosition + dashDirection * dashDistance;
 
-        // Initialize time tracking
-        float elapsedTime = 0f;
+        //// Initialize time tracking
+        //float elapsedTime = 0f;
 
-        // Move smoothly over the dashDuration
-        while (elapsedTime < dashDuration)
-        {
-            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / dashDuration);
-            elapsedTime += Time.deltaTime;
+        //// Move smoothly over the dashDuration
+        //while (elapsedTime < dashDuration)
+        //{
+        //    transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / dashDuration);
+        //    elapsedTime += Time.deltaTime;
 
-            yield return null;
-        }
+        //    yield return null;
+        //}
 
+        playerMovement.MultiplySpeed(dashDistance);
+
+        yield return new WaitForSeconds(dashDuration);
+        playerMovement.ResetSpeed();
 
         yield return new WaitForSeconds(gracePeriod);
-        // Ensure the object ends exactly at the target position
 
         isDashing = false;
 

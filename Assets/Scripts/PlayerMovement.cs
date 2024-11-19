@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private KeyCode right = KeyCode.D;
 
     [SerializeField] private float movementSpeed;
+    private float defaultSpeed;
     private Vector3 velocity;
 
     [SerializeField] private Transform cameraPlayer;
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        defaultSpeed = movementSpeed;
         velocity = Vector3.zero;
 
         rb = GetComponent<Rigidbody>();
@@ -64,4 +66,10 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = velocity.normalized * movementSpeed;
     }
+
+    public void MultiplySpeed(float multiply) => movementSpeed = defaultSpeed * multiply;
+
+    public void AddSpeed(float add) => movementSpeed = defaultSpeed + add;
+
+    public void ResetSpeed() => movementSpeed = defaultSpeed;
 }
