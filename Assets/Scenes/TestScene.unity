@@ -1302,6 +1302,7 @@ GameObject:
   - component: {fileID: 368141428}
   - component: {fileID: 368141427}
   - component: {fileID: 368141426}
+  - component: {fileID: 368141431}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -1321,7 +1322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e049f9c7524878469b09c352339633d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestUI: {fileID: 1590705857}
+  chestUI: {fileID: 1590705852}
   itemGrid: {fileID: 1313189838}
   itemSlotPrefab: {fileID: 4673574578783302429, guid: f2bbccc92afdcf5428d0bef78ede39a7,
     type: 3}
@@ -1423,6 +1424,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &368141431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368141425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee8950ebab6a434a9e619b1dd0adb99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monkeyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  interactKey: 102
+  interactionCooldown: 0
+  doOnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 368141426}
+        m_TargetAssemblyTypeName: Chest, Assembly-CSharp
+        m_MethodName: ToggleUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &406297036
 GameObject:
   m_ObjectHideFlags: 0

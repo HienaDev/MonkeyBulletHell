@@ -30,20 +30,19 @@ public class UIManager : MonoBehaviour
     {
         if (occupiedSlots.Count > 0)
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                selectedSlot = (selectedSlot - 1 + occupiedSlots.Count) % occupiedSlots.Count;
+
+                SelectInventorySlot(occupiedSlots[selectedSlot]);
+            }
+            else if (Input.mouseScrollDelta.y < 0)
             {
                 selectedSlot = (selectedSlot + 1) % occupiedSlots.Count;
 
                 SelectInventorySlot(occupiedSlots[selectedSlot]);
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            UpdateInventoryDisplay();
-        }
-
-        //Debug.Log($"Selected item: {GetSelectedItem()}");
     }
 
     public void HideInventoryIcons()

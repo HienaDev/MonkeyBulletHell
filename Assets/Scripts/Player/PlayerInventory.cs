@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private int maxInventorySlots = 8;
+    [SerializeField] private int maxInventoryMaterialsAndToolsSlots = 6;
     [SerializeField] private ToolSO pickaxe; // ONLY FOR TESTING
 
     private ItemSO[] weaponSlots;
@@ -62,7 +62,7 @@ public class PlayerInventory : MonoBehaviour
                 existingSlot.IncreaseQuantity(1);
                 Debug.Log($"{item.itemName} quantity increased to {existingSlot.Quantity}.");
             }
-            else if (inventoryItems.Count < maxInventorySlots)
+            else if (inventoryItems.Count < maxInventoryMaterialsAndToolsSlots)
             {
                 int? quantity = item.itemType == ItemType.Material ? 1 : (int?)null;
                 inventoryItems.Add(new InventorySlot(item, quantity));
@@ -175,7 +175,7 @@ public class PlayerInventory : MonoBehaviour
 
     public bool MaterialAndToolSlotsFull()
     {
-        return inventoryItems.Count >= maxInventorySlots;
+        return inventoryItems.Count >= maxInventoryMaterialsAndToolsSlots;
     }
 
     public void DropSelectedItem()

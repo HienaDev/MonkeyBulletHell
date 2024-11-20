@@ -59,14 +59,6 @@ public class MaterialSource : MonoBehaviour
         return false;
     }
 
-    private void Update()
-    {
-        if (playerInside && Input.GetKeyDown(KeyCode.F))
-        {
-            GatherResource();
-        }
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))

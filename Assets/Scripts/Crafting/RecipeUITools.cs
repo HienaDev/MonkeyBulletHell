@@ -28,13 +28,19 @@ public class RecipeUITools : RecipeUI
 
     protected override void TryCraft()
     {
+        if (playerInventory.MaterialAndToolSlotsFull())
+        {
+            Debug.Log("Not enough room in the inventory to craft this item.");
+            return;
+        }
+
         if (chest.HasMaterials(recipe.requiredMaterials))
         {
             chest.ConsumeMaterials(recipe.requiredMaterials);
             playerInventory.AddItem(recipe.result);
 
             playerInventory.AddCraftedRecipe(recipe);
-            
+
             craftingStation.RefreshUI();
             UpdateUI();
 

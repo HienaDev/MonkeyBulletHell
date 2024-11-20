@@ -28,14 +28,6 @@ public class ToolOnGround : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Update()
-    {
-        if (playerInside && Input.GetKeyDown(KeyCode.F))
-        {
-            GatherTool();
-        }
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Chest : MonoBehaviour
 {
-    [SerializeField] private Transform chestUI;
+    [SerializeField] private GameObject chestUI;
     [SerializeField] private Transform itemGrid;
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject player;
@@ -29,20 +29,6 @@ public class Chest : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && PlayerIsNearChest())
-        {
-            chestUI.gameObject.SetActive(true);
-            StopPlayerMovement();
-            DisablePlayerControls();
-            PopulateChestUI();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            chestUI.gameObject.SetActive(false);
-            EnablePlayerControls();
-        }
-
         // DEBUG ONLY
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -66,6 +52,36 @@ public class Chest : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ToggleUI()
+    {
+        if (chestUI.activeSelf)
+        {
+            CloseUI();
+        }
+        else
+        {
+            OpenUI();
+        }
+    }
+
+    private void OpenUI()
+    {
+        if (chestUI.activeSelf) return;
+
+        chestUI.SetActive(true);
+        StopPlayerMovement();
+        DisablePlayerControls();
+        PopulateChestUI();
+    }
+
+    private void CloseUI()
+    {
+        if (!chestUI.activeSelf) return;
+
+        chestUI.gameObject.SetActive(false);
+        EnablePlayerControls();
     }
 
     public void StoreAllMaterials()
