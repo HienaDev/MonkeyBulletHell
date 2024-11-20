@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+//  [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private GameObject monkeyModel;
@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +65,10 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("MovSpeed", velocity.magnitude);
 
+        float rbVelocityY = rb.linearVelocity.y;
+
         rb.linearVelocity = velocity.normalized * movementSpeed;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rbVelocityY, rb.linearVelocity.z);
     }
 
     public void MultiplySpeed(float multiply) => movementSpeed = defaultSpeed * multiply;
