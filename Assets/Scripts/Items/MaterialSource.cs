@@ -4,10 +4,7 @@ public class MaterialSource : MonoBehaviour
 {
     [SerializeField] private MaterialSourceSO materialSource;
     private int hitsRemaining;
-
     private PlayerInventory playerInventory;
-
-    private bool playerInside = false;
 
     private void Start()
     {
@@ -18,21 +15,24 @@ public class MaterialSource : MonoBehaviour
     public void GatherResource()
     {
         ToolSO selectedTool = playerInventory.GetSelectedItem() as ToolSO;
-        
+
         if (selectedTool != null && CanToolBreakMaterial(selectedTool))
         {
             if (hitsRemaining > 0)
             {
                 hitsRemaining--;
 
-                for (int i = 0; i < materialSource.droppedMaterial.Length; i++)
+                foreach (var material in materialSource.droppedMaterial)
                 {
-                    Debug.Log($"Gathered {materialSource.droppedMaterial[i].itemName}");
-                }
-
-                for (int i = 0; i < materialSource.droppedMaterial.Length; i++)
-                {
-                    playerInventory.AddItem(materialSource.droppedMaterial[i]);
+                    if (playerInventory.MaterialAndToolSlotsFull())
+                    {
+                        DropItemOnGround(material);
+                    }
+                    else
+                    {
+                        playerInventory.AddItem(material);
+                        Debug.Log($"Gathered {material.itemName}");
+                    }
                 }
 
                 if (hitsRemaining <= 0)
@@ -59,21 +59,51 @@ public class MaterialSource : MonoBehaviour
         return false;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void DropItemOnGround(ItemSO item)
     {
-        if (other.CompareTag("Player"))
+        if (item.itemPrefab == null)
         {
-            playerInside = true;
-            
+            Debug.LogWarning($"No prefab assigned for the item: {item.itemName}");
+            return;
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        Collider sourceCollider = GetComponent<Collider>();
+        if (sourceCollider == null)
         {
-            playerInside = false;
+            Debug.LogWarning("No collider found on MaterialSource. Defaulting to random position.");
+            return;
+        }
 
+        Vector3 randomDirection = Random.insideUnitSphere;
+        randomDirection.y = 0;
+        randomDirection.Normalize();
+
+        float dropDistance = sourceCollider.bounds.extents.magnitude;
+        Vector3 dropPosition = sourceCollider.bounds.center + randomDirection * dropDistance;
+
+        if (Physics.Raycast(dropPosition + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("Floor")))
+        {
+            dropPosition.y = hit.point.y;
+        }
+        else
+        {
+            Debug.LogWarning("Floor not found! Defaulting to current Y position.");
+            dropPosition.y = sourceCollider.bounds.center.y;
+        }
+
+        GameObject droppedItem = Instantiate(item.itemPrefab, dropPosition, Quaternion.identity);
+
+        if (item is MaterialSO materialSO)
+        {
+            MaterialOnGround materialOnGround = droppedItem.GetComponent<MaterialOnGround>();
+            if (materialOnGround != null)
+            {
+                materialOnGround.SetMaterial(materialSO);
+            }
+            else
+            {
+                Debug.LogWarning("Dropped item prefab is missing MaterialOnGround component.");
+            }
         }
     }
 }

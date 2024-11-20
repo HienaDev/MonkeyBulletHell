@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9164945202586013740}
   - component: {fileID: 7859199413690067052}
   - component: {fileID: 6709523844776146330}
+  - component: {fileID: -9184234225759430124}
   m_Layer: 0
   m_Name: PalmTreeSet_LP.029
   m_TagString: Untagged
@@ -101,3 +102,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialSource: {fileID: 11400000, guid: 21428b7acb018e34aa30594473f25d9d, type: 2}
+--- !u!114 &-9184234225759430124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427331905321660576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee8950ebab6a434a9e619b1dd0adb99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monkeyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  interactKey: 102
+  interactionCooldown: 0
+  doOnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 349010769626403169, guid: d35d770e37c16fc4aa945cf8a3967911,
+          type: 3}
+        m_TargetAssemblyTypeName: MaterialSource, Assembly-CSharp
+        m_MethodName: GatherResource
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

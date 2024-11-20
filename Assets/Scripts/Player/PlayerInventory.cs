@@ -190,12 +190,20 @@ public class PlayerInventory : MonoBehaviour
 
         int lastSelectedIndex = selectedSlotIndex;
 
-        // Drop the item's prefab slightly above the player's position with a specific rotation
+        Vector3 dropPosition = transform.position + Vector3.up * 0.5f;
+
+        if (Physics.Raycast(dropPosition + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("Floor")))
+        {
+            dropPosition.y = hit.point.y;
+        }
+        else
+        {
+            Debug.LogWarning("Floor not found! Using default Y position.");
+        }
+
         if (selectedItem.itemPrefab != null)
         {
-            Vector3 dropPosition = transform.position + Vector3.up * 0.5f; // Adjust the height offset
-            Quaternion dropRotation = Quaternion.Euler(0, 0, 0); // Set the desired rotation (e.g., no rotation)
-            
+            Quaternion dropRotation = Quaternion.Euler(selectedItem.itemPrefab.transform.rotation.eulerAngles);
             Instantiate(selectedItem.itemPrefab, dropPosition, dropRotation);
         }
         else
@@ -203,22 +211,17 @@ public class PlayerInventory : MonoBehaviour
             Debug.LogWarning("No prefab assigned for this item.");
         }
 
-        // Remove the item or decrease its quantity if it's a material
         RemoveItem(selectedItem);
 
-        // Update inventory display and find the next slot to select
         uiManager.UpdateInventoryDisplay();
 
-        // Check if the current slot still has items
         ItemSO currentItem = GetItemAtSlot(lastSelectedIndex);
         if (currentItem != null && currentItem.itemType == ItemType.Material && GetItemCount(currentItem) > 0)
         {
-            // Stay on the current slot if it’s a material with quantity left
             uiManager.SelectInventorySlot(lastSelectedIndex);
         }
         else
         {
-            // Move to the closest available slot if the current slot is empty
             uiManager.SelectClosestAvailableSlot(lastSelectedIndex);
         }
     }
@@ -346,5 +349,10 @@ public class PlayerInventory : MonoBehaviour
     public ItemSO GetEquippedArmor()
     {
         return equippedArmor;
+    }
+
+    public bool ContainsMaterial(MaterialSO material)
+    {
+        return inventoryItems.Exists(slot => slot.Item == material);
     }
 }

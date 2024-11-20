@@ -18,4 +18,4 @@ MonoBehaviour:
   itemPrefab: {fileID: 0}
   efficiency: 1
   canBreakSources:
-  - {fileID: 11400000, guid: f77aa9ad1b300ce47b55454db173cc63, type: 2}
+  - {fileID: 11400000, guid: 21428b7acb018e34aa30594473f25d9d, type: 2}

@@ -134,6 +134,7 @@ MonoBehaviour:
   player: {fileID: 0}
   toolRecipes:
   - {fileID: 11400000, guid: f2a02f8ee18560146bb37cea50a0dded, type: 2}
+  - {fileID: 11400000, guid: 8f61292714bade1479390433bcc2d3e0, type: 2}
 --- !u!114 &5483156406377129950
 MonoBehaviour:
   m_ObjectHideFlags: 0

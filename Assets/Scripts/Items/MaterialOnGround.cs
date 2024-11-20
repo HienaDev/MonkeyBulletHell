@@ -4,10 +4,8 @@ using UnityEngine;
 public class MaterialOnGround : MonoBehaviour
 {
     [SerializeField] private MaterialSO material;
-    
-    private PlayerInventory playerInventory;
 
-    private bool playerInside = false;
+    private PlayerInventory playerInventory;
 
     private void Start()
     {
@@ -16,17 +14,27 @@ public class MaterialOnGround : MonoBehaviour
 
     public void GatherMaterial()
     {
-        Debug.Log($"Gathered {material.itemName}");
-        
-        if (playerInventory.MaterialAndToolSlotsFull())
+        if (playerInventory.ContainsMaterial(material))
         {
-            Debug.Log("Inventory full");
+            playerInventory.AddItem(material);
+            Debug.Log($"Added {material.itemName} to existing stack in inventory.");
+        }
+        else if (playerInventory.MaterialAndToolSlotsFull())
+        {
+            Debug.Log("Inventory full. Cannot pick up material.");
             return;
         }
-        
-        playerInventory.AddItem(material);
-        
+        else
+        {
+            playerInventory.AddItem(material);
+            Debug.Log($"Gathered {material.itemName}");
+        }
+
         Destroy(gameObject);
     }
 
+    public void SetMaterial(MaterialSO newMaterial)
+    {
+        material = newMaterial;
+    }
 }
