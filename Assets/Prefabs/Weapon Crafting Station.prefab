@@ -157,7 +157,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8620042644274515290}
         m_TargetAssemblyTypeName: CraftingStation, Assembly-CSharp
-        m_MethodName: OpenUI
+        m_MethodName: ToggleUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

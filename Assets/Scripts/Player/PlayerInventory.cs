@@ -29,7 +29,7 @@ public class PlayerInventory : MonoBehaviour
             AddItem(pickaxe);
         }
 
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             DropSelectedItem();
         }

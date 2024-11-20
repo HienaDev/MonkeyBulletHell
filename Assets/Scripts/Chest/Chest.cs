@@ -44,7 +44,7 @@ public class Chest : MonoBehaviour
         }
 
         // DEBUG ONLY
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             StoreAllMaterials();
         }

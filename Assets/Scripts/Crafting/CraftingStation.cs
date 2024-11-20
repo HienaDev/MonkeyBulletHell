@@ -17,6 +17,7 @@ public abstract class CraftingStation : MonoBehaviour
     protected CraftingRecipe selectedRecipe;
     protected Chest chest;
     protected PlayerInventory playerInventory;
+    private bool isCraftingUIOpen;
 
     private Rigidbody playerRigidbody;
     private Animator playerAnimator;
@@ -27,6 +28,7 @@ public abstract class CraftingStation : MonoBehaviour
         playerInventory = player.GetComponent<PlayerInventory>();
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>(); 
+        isCraftingUIOpen = false;
         LoadRecipes();
     }
 
@@ -35,27 +37,38 @@ public abstract class CraftingStation : MonoBehaviour
         recipes = Resources.LoadAll<CraftingRecipe>("").Where(recipe => recipe.ItemType == stationItemType).ToList();
     }
 
-    private void Update()
+    public void ToggleUI()
     {
-
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (craftingUI.activeSelf)
         {
-            craftingUI.SetActive(false);
-            ClearRecipePanel();
-            EnablePlayerControls();
+            CloseUI();
+        }
+        else
+        {
+            OpenUI();
         }
     }
 
     public void OpenUI()
     {
+        if (craftingUI.activeSelf) return;
+
+        Debug.Log("Opening crafting UI");
         craftingUI.SetActive(true);
         StopPlayerMovement();
         DisablePlayerControls();
         PopulateItemGrid();
     }
 
+    public void CloseUI()
+    {
+        if (!craftingUI.activeSelf) return;
 
+        Debug.Log("Closing crafting UI");
+        craftingUI.SetActive(false);
+        ClearRecipePanel();
+        EnablePlayerControls();
+    }
 
     private void StopPlayerMovement()
     {
