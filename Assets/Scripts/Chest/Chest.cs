@@ -11,8 +11,6 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private UIManager uiManager;
 
-    [SerializeField] private MaterialSO[] materials;
-
     private List<InventorySlot> materialsInChest = new List<InventorySlot>();
     private PlayerInventory playerInventory;
 
@@ -27,7 +25,7 @@ public class Chest : MonoBehaviour
         chestUI.gameObject.SetActive(false);
     }
 
-    public void FillChestWithMaterials()
+    public void FillChestWithMaterials(MaterialSO[] materials)
     {
         foreach (var material in materials)
         {

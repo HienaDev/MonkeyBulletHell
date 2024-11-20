@@ -4,6 +4,7 @@ public class Cheats : MonoBehaviour
 {
     [SerializeField] private Chest chest;
     [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private MaterialSO[] materials;
     [SerializeField] private ToolSO pickaxe;
     [SerializeField] private ToolSO axe;
 
@@ -18,7 +19,7 @@ public class Cheats : MonoBehaviour
         // Fill chest with materials
         if (Input.GetKeyDown(KeyCode.I))
         {
-            chest.FillChestWithMaterials();
+            chest.FillChestWithMaterials(materials);
         }
 
         // Add Pickaxe to player inventory
