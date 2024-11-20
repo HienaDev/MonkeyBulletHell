@@ -5,7 +5,6 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
     [SerializeField] private int maxInventoryMaterialsAndToolsSlots = 6;
-    [SerializeField] private ToolSO pickaxe; // ONLY FOR TESTING
 
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
@@ -24,11 +23,6 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) // ONLY FOR TESTING
-        {
-            AddItem(pickaxe);
-        }
-
         if (Input.GetKeyDown(KeyCode.G))
         {
             DropSelectedItem();

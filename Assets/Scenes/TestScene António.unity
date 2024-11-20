@@ -53712,6 +53712,11 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 770655147}
+    - target: {fileID: 6528107770320553094, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: chest
+      value: 
+      objectReference: {fileID: 1291030347}
     - target: {fileID: 6976084960997700239, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: m_Name

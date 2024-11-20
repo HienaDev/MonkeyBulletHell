@@ -27,29 +27,19 @@ public class Chest : MonoBehaviour
         chestUI.gameObject.SetActive(false);
     }
 
-    private void Update()
+    public void FillChestWithMaterials()
     {
-        // DEBUG ONLY
-        if (Input.GetKeyDown(KeyCode.P))
+        foreach (var material in materials)
         {
-            StoreAllMaterials();
-        }
+            InventorySlot existingSlot = materialsInChest.Find(s => s.Item == material);
 
-        // DEBUG ONLY - Fill chest with materials
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            foreach (var material in materials)
+            if (existingSlot != null)
             {
-                InventorySlot existingSlot = materialsInChest.Find(s => s.Item == material);
-
-                if (existingSlot != null)
-                {
-                    existingSlot.IncreaseQuantity(99);
-                }
-                else
-                {
-                    materialsInChest.Add(new InventorySlot(material, 99));
-                }
+                existingSlot.IncreaseQuantity(99);
+            }
+            else
+            {
+                materialsInChest.Add(new InventorySlot(material, 99));
             }
         }
     }

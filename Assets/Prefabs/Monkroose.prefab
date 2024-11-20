@@ -2500,6 +2500,7 @@ GameObject:
   - component: {fileID: 5271360116503145504}
   - component: {fileID: 2550914904599775477}
   - component: {fileID: 5811922884974725835}
+  - component: {fileID: 6528107770320553094}
   - component: {fileID: 4237296619480919455}
   m_Layer: 8
   m_Name: Monkroose
@@ -2684,8 +2685,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
-  maxInventorySlots: 8
-  pickaxe: {fileID: 0}
+  maxInventoryMaterialsAndToolsSlots: 6
+--- !u!114 &6528107770320553094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976084960997700239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573e546fd19c22349ae8191aa6d925cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chest: {fileID: 0}
+  playerInventory: {fileID: 5811922884974725835}
+  pickaxe: {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b, type: 2}
+  axe: {fileID: 11400000, guid: 820e22fa817581545b86c00cec936781, type: 2}
 --- !u!82 &4237296619480919455
 AudioSource:
   m_ObjectHideFlags: 0
