@@ -11,25 +11,25 @@ public class Cheats : MonoBehaviour
     void Update()
     {   
         // Store all materials in chest
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             chest.StoreAllMaterials();
         }
 
         // Fill chest with materials
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             chest.FillChestWithMaterials(materials);
         }
 
         // Add Pickaxe to player inventory
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
             playerInventory.AddItem(pickaxe);
         }
 
         // Add Axe to player inventory
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.F4))
         {
             playerInventory.AddItem(axe);
         }
