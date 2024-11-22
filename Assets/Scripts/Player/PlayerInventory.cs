@@ -78,10 +78,6 @@ public class PlayerInventory : MonoBehaviour
             alreadyCraftedRecipes.Add(recipe);
             Debug.Log($"{recipe.result.itemName} recipe added to the crafted list.");
         }
-        else
-        {
-            Debug.LogWarning($"{recipe.result.itemName} recipe is already in the crafted list.");
-        }
     }
 
     public void RemoveCraftedRecipe(CraftingRecipe recipe)

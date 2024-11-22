@@ -11,6 +11,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject player;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private TextMeshProUGUI nothingHereMessage; // Mensagem para exibir quando o baú está vazio
 
     private float fadeDuration = 0.1f;
     private CanvasGroup chestUICanvasGroup;
@@ -35,6 +36,11 @@ public class Chest : MonoBehaviour
         chestUICanvasGroup.alpha = 0;
         chestUICanvasGroup.interactable = false;
         chestUICanvasGroup.blocksRaycasts = false;
+
+        if (nothingHereMessage != null)
+        {
+            nothingHereMessage.gameObject.SetActive(false); // Esconde a mensagem inicialmente
+        }
 
         chestUI.SetActive(false);
     }
@@ -148,6 +154,20 @@ public class Chest : MonoBehaviour
         foreach (Transform child in itemGrid)
         {
             Destroy(child.gameObject);
+        }
+
+        if (materialsInChest.Count == 0)
+        {
+            if (nothingHereMessage != null)
+            {
+                nothingHereMessage.gameObject.SetActive(true); // Exibe a mensagem se o baú estiver vazio
+            }
+            return;
+        }
+
+        if (nothingHereMessage != null)
+        {
+            nothingHereMessage.gameObject.SetActive(false); // Esconde a mensagem se houver materiais
         }
 
         foreach (var slot in materialsInChest)
