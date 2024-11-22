@@ -98,4 +98,29 @@ public class HealthSystem : MonoBehaviour
 
     }
 
+    public void Heal(float healAmount)
+    {
+        health += healAmount;
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        healthImageUI.fillAmount = health / maxHealth;
+    }
+
+    public void SetImmortal(bool isImmortal)
+    {
+        if (isImmortal)
+        {
+            health = Mathf.Infinity;
+        }
+        else
+        {
+            health = maxHealth;
+        }
+
+        healthImageUI.fillAmount = health / maxHealth;
+    }
 }

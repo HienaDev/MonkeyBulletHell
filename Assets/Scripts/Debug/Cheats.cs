@@ -4,6 +4,7 @@ public class Cheats : MonoBehaviour
 {
     [SerializeField] private Chest chest;
     [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private HealthSystem playerHealthSystem;
     [SerializeField] private MaterialSO[] materials;
     [SerializeField] private ToolSO pickaxe;
     [SerializeField] private ToolSO axe;
@@ -32,6 +33,36 @@ public class Cheats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F4))
         {
             playerInventory.AddItem(axe);
+        }
+
+        // Clear inventory
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            playerInventory.ClearInventoryOnDeath();
+        }
+
+        // Kill player
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            playerHealthSystem.DealDamage(10000);
+        }
+
+        // Heal player
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            playerHealthSystem.Heal(10000);
+        }
+
+        // Imortal player
+        if (Input.GetKeyDown(KeyCode.F8))
+        {
+            playerHealthSystem.SetImmortal(true);
+        }
+
+        // Mortal player
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            playerHealthSystem.SetImmortal(false);
         }
     }
 }

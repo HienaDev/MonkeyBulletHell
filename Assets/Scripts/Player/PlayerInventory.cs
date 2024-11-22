@@ -264,6 +264,7 @@ public class PlayerInventory : MonoBehaviour
 
         equippedArmor = armor;
         Debug.Log($"{armor.itemName} equipped as armor.");
+
         uiManager.UpdateInventoryDisplay();
         NotifyRecipeUI();
     }
@@ -354,5 +355,69 @@ public class PlayerInventory : MonoBehaviour
     public bool ContainsMaterial(MaterialSO material)
     {
         return inventoryItems.Exists(slot => slot.Item == material);
+    }
+
+    public void ClearInventoryOnDeath()
+    {
+        RemoveEquipmentFromCraftedRecipes();
+
+        if (inventoryItems != null)
+        {
+            inventoryItems.Clear();
+        }
+
+        if (weaponSlots != null)
+        {
+            weaponSlots[0] = null;
+            weaponSlots[1] = null;
+        }
+
+        equippedArmor = null;
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateInventoryDisplay();
+        }
+    }
+
+    private void RemoveEquipmentFromCraftedRecipes()
+    {
+        if (alreadyCraftedRecipes == null)
+        {
+            return;
+        }
+
+        foreach (var weapon in weaponSlots)
+        {
+            if (weapon != null)
+            {
+                CraftingRecipe recipe = alreadyCraftedRecipes.Find(r => r.result == weapon);
+                if (recipe != null)
+                {
+                    alreadyCraftedRecipes.Remove(recipe);
+                }
+            }
+        }
+
+        foreach (var slot in inventoryItems)
+        {
+            if (slot.Item.itemType == ItemType.Weapon)
+            {
+                CraftingRecipe recipe = alreadyCraftedRecipes.Find(r => r.result == slot.Item);
+                if (recipe != null)
+                {
+                    alreadyCraftedRecipes.Remove(recipe);
+                }
+            }
+        }
+
+        if (equippedArmor != null)
+        {
+            CraftingRecipe armorRecipe = alreadyCraftedRecipes.Find(r => r.result == equippedArmor);
+            if (armorRecipe != null)
+            {
+                alreadyCraftedRecipes.Remove(armorRecipe);
+            }
+        }
     }
 }

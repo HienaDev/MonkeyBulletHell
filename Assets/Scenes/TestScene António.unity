@@ -53687,6 +53687,16 @@ PrefabInstance:
       propertyPath: dashDistance
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3654975513063516044, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654975513063516044, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4519589047787681123, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: testWeapon
