@@ -105,7 +105,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -132,6 +132,7 @@ MonoBehaviour:
   recipePrefab: {fileID: 4722816629995017674, guid: fec0689dd371ab54e9a6eb8990de3f33,
     type: 3}
   player: {fileID: 0}
+  nothingToCraftMessage: {fileID: 0}
   armorRecipes:
   - {fileID: 11400000, guid: a4c55b7b6324ebf4fb160989018d389b, type: 2}
 --- !u!114 &7732549506754117726

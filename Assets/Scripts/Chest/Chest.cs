@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Chest : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject player;
     [SerializeField] private UIManager uiManager;
+
+    private float fadeDuration = 0.1f;
+    private CanvasGroup chestUICanvasGroup;
 
     private List<InventorySlot> materialsInChest = new List<InventorySlot>();
     private PlayerInventory playerInventory;
@@ -22,7 +26,17 @@ public class Chest : MonoBehaviour
         playerInventory = player.GetComponent<PlayerInventory>();
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
-        chestUI.gameObject.SetActive(false);
+
+        chestUICanvasGroup = chestUI.GetComponent<CanvasGroup>();
+        if (chestUICanvasGroup == null)
+        {
+            chestUICanvasGroup = chestUI.AddComponent<CanvasGroup>();
+        }
+        chestUICanvasGroup.alpha = 0;
+        chestUICanvasGroup.interactable = false;
+        chestUICanvasGroup.blocksRaycasts = false;
+
+        chestUI.SetActive(false);
     }
 
     public void FillChestWithMaterials(MaterialSO[] materials)
@@ -62,13 +76,48 @@ public class Chest : MonoBehaviour
         StopPlayerMovement();
         DisablePlayerControls();
         PopulateChestUI();
+        StartCoroutine(FadeInUI());
     }
 
     private void CloseUI()
     {
         if (!chestUI.activeSelf) return;
 
-        chestUI.gameObject.SetActive(false);
+        StartCoroutine(FadeOutUI());
+    }
+
+    private IEnumerator FadeInUI()
+    {
+        float elapsedTime = 0;
+        chestUICanvasGroup.interactable = true;
+        chestUICanvasGroup.blocksRaycasts = true;
+
+        while (elapsedTime < fadeDuration)
+        {
+            chestUICanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        chestUICanvasGroup.alpha = 1;
+    }
+
+    private IEnumerator FadeOutUI()
+    {
+        float elapsedTime = 0;
+
+        while (elapsedTime < fadeDuration)
+        {
+            chestUICanvasGroup.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        chestUICanvasGroup.alpha = 0;
+        chestUI.SetActive(false);
+        chestUICanvasGroup.interactable = false;
+        chestUICanvasGroup.blocksRaycasts = false;
+
         EnablePlayerControls();
     }
 
@@ -110,7 +159,7 @@ public class Chest : MonoBehaviour
             }
 
             var itemButton = Instantiate(itemSlotPrefab, itemGrid);
-            
+
             var icon = itemButton.GetComponentInChildren<Image>();
             var nameAndQuantityText = itemButton.GetComponentInChildren<TextMeshProUGUI>();
 

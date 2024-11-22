@@ -1,7 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 using TMPro;
 
 public abstract class CraftingStation : MonoBehaviour
@@ -15,11 +16,12 @@ public abstract class CraftingStation : MonoBehaviour
     [SerializeField] protected GameObject player;
     [SerializeField] private TextMeshProUGUI nothingToCraftMessage;
 
+    private float fadeDuration = 0.1f;
+    private CanvasGroup craftingUICanvasGroup;
     protected List<CraftingRecipe> recipes = new List<CraftingRecipe>();
     protected CraftingRecipe selectedRecipe;
     protected Chest chest;
     protected PlayerInventory playerInventory;
-
     private Rigidbody playerRigidbody;
     private Animator playerAnimator;
 
@@ -29,6 +31,15 @@ public abstract class CraftingStation : MonoBehaviour
         playerInventory = player.GetComponent<PlayerInventory>();
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
+        craftingUICanvasGroup = craftingUI.GetComponent<CanvasGroup>();
+        if (craftingUICanvasGroup == null)
+        {
+            craftingUICanvasGroup = craftingUI.AddComponent<CanvasGroup>();
+        }
+        craftingUICanvasGroup.alpha = 0;
+        craftingUICanvasGroup.interactable = false;
+        craftingUICanvasGroup.blocksRaycasts = false;
+
         LoadRecipes();
         if (nothingToCraftMessage != null)
         {
@@ -65,6 +76,7 @@ public abstract class CraftingStation : MonoBehaviour
         StopPlayerMovement();
         DisablePlayerControls();
         CheckAndPopulateGrid();
+        StartCoroutine(FadeInUI());
     }
 
     private void CloseUI()
@@ -72,9 +84,42 @@ public abstract class CraftingStation : MonoBehaviour
         if (!craftingUI.activeSelf) return;
 
         Debug.Log("Closing crafting UI");
-        craftingUI.SetActive(false);
+        StartCoroutine(FadeOutUI());
         ClearRecipePanel();
         EnablePlayerControls();
+    }
+
+    private IEnumerator FadeInUI()
+    {
+        float elapsedTime = 0;
+        craftingUICanvasGroup.interactable = true;
+        craftingUICanvasGroup.blocksRaycasts = true;
+
+        while (elapsedTime < fadeDuration)
+        {
+            craftingUICanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        craftingUICanvasGroup.alpha = 1;
+    }
+
+    private IEnumerator FadeOutUI()
+    {
+        float elapsedTime = 0;
+
+        while (elapsedTime < fadeDuration)
+        {
+            craftingUICanvasGroup.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        craftingUICanvasGroup.alpha = 0;
+        craftingUI.SetActive(false);
+        craftingUICanvasGroup.interactable = false;
+        craftingUICanvasGroup.blocksRaycasts = false;
     }
 
     private void StopPlayerMovement()

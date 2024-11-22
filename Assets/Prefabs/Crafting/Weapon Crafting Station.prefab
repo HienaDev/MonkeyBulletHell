@@ -132,6 +132,7 @@ MonoBehaviour:
   recipePrefab: {fileID: 4722816629995017674, guid: 17f303bb2303f304d96f08a0bfbb0732,
     type: 3}
   player: {fileID: 0}
+  nothingToCraftMessage: {fileID: 0}
   weaponRecipes:
   - {fileID: 11400000, guid: 3852fc55629ee7f429cb9a30de30db81, type: 2}
   - {fileID: 11400000, guid: 769110136756d59428fb6a55380745a7, type: 2}

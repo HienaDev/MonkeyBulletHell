@@ -105,7 +105,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -132,6 +132,7 @@ MonoBehaviour:
   recipePrefab: {fileID: 4722816629995017674, guid: 090927f16e70ec443b433d63cde6663e,
     type: 3}
   player: {fileID: 0}
+  nothingToCraftMessage: {fileID: 0}
   toolRecipes:
   - {fileID: 11400000, guid: f2a02f8ee18560146bb37cea50a0dded, type: 2}
   - {fileID: 11400000, guid: 8f61292714bade1479390433bcc2d3e0, type: 2}
