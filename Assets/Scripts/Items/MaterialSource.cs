@@ -36,13 +36,13 @@ public class MaterialSource : MonoBehaviour
 
                     for (int i = 0; i < materialAmount; i++)
                     {
-                        if (playerInventory.MaterialAndToolSlotsFull())
+                        if (!playerInventory.MaterialAndToolSlotsFull() || playerInventory.ContainsMaterial(material))
                         {
-                            DropItemOnGround(material);
+                            playerInventory.AddItem(material);
                         }
                         else
                         {
-                            playerInventory.AddItem(material);
+                            DropItemOnGround(material);
                         }
                     }
 
@@ -60,6 +60,7 @@ public class MaterialSource : MonoBehaviour
             Debug.Log("You need a specific tool selected to break this material.");
         }
     }
+
 
     public bool CanToolBreakMaterial(ToolSO tool)
     {

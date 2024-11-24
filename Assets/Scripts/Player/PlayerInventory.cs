@@ -31,6 +31,19 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(ItemSO item)
     {
+        if (item.itemType == ItemType.Material)
+        {
+            InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item && slot.Quantity.HasValue);
+
+            if (existingSlot != null)
+            {
+                existingSlot.IncreaseQuantity(1);
+                Debug.Log($"{item.itemName} quantity increased to {existingSlot.Quantity}");
+                uiManager.UpdateInventoryDisplay();
+                return;
+            }
+        }
+
         if (item.itemType == ItemType.Weapon)
         {
             if (weaponSlots[0] == null)
@@ -50,13 +63,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-            InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item);
-            if (existingSlot != null && existingSlot.Quantity.HasValue)
-            {
-                existingSlot.IncreaseQuantity(1);
-                Debug.Log($"{item.itemName} quantity increased to {existingSlot.Quantity}.");
-            }
-            else if (inventoryItems.Count < maxInventoryMaterialsAndToolsSlots)
+            if (inventoryItems.Count < maxInventoryMaterialsAndToolsSlots)
             {
                 int? quantity = item.itemType == ItemType.Material ? 1 : (int?)null;
                 inventoryItems.Add(new InventorySlot(item, quantity));
