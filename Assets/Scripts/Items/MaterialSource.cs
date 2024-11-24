@@ -1,15 +1,21 @@
 using UnityEngine;
+using System.Collections;
 
 public class MaterialSource : MonoBehaviour
 {
     [SerializeField] private MaterialSourceSO materialSource;
+    [SerializeField] private float shakeDuration = 0.1f;
+    [SerializeField] private float shakeMagnitude = 0.1f;
+
     private int hitsRemaining;
     private PlayerInventory playerInventory;
+    private Vector3 originalPosition;
 
     private void Start()
     {
         hitsRemaining = materialSource.hitsToBreak;
         playerInventory = FindFirstObjectByType<PlayerInventory>();
+        originalPosition = transform.localPosition;
     }
 
     public void GatherResource()
@@ -20,6 +26,8 @@ public class MaterialSource : MonoBehaviour
         {
             if (hitsRemaining > 0)
             {
+                StartCoroutine(Shake());
+
                 hitsRemaining--;
 
                 foreach (var material in materialSource.droppedMaterial)
@@ -116,5 +124,22 @@ public class MaterialSource : MonoBehaviour
                 Debug.LogWarning("Dropped item prefab is missing MaterialOnGround component.");
             }
         }
+    }
+
+    private IEnumerator Shake()
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < shakeDuration)
+        {
+            Vector3 randomOffset = Random.insideUnitSphere * shakeMagnitude;
+            randomOffset.y = 0;
+            transform.localPosition = originalPosition + randomOffset;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = originalPosition;
     }
 }

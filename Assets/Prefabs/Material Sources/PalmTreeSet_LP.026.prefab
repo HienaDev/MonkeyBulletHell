@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialSource: {fileID: 11400000, guid: 21428b7acb018e34aa30594473f25d9d, type: 2}
+  shakeDuration: 0.1
+  shakeMagnitude: 0.1
 --- !u!114 &-9145552654671675798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +165,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   interactKey: 102
-  interactionCooldown: 0
+  interactionCooldown: 0.1
   doOnInteract:
     m_PersistentCalls:
       m_Calls:
