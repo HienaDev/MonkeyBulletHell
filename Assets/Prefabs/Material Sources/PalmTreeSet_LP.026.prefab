@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 960590670790904460}
   - component: {fileID: 2204543440766075221}
   - component: {fileID: 7969902502897262828}
+  - component: {fileID: 8576357812849815715}
+  - component: {fileID: 7983032620378922449}
   - component: {fileID: -5663091538879033045}
   - component: {fileID: -9145552654671675798}
   m_Layer: 0
@@ -89,6 +91,49 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8576357812849815715
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7028594599779094811}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1120941110181514554, guid: 22ee7eb3e5572a14aa9d12f4ec7f05c1, type: 3}
+--- !u!65 &7983032620378922449
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7028594599779094811}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.05908068, y: 0.04276344, z: 0.07407979}
+  m_Center: {x: -0.026392968, y: -0.016759664, z: 0.032669086}
 --- !u!114 &-5663091538879033045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,14 +161,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monkeyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   interactKey: 102
   interactionCooldown: 0
   doOnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 349010769626403169, guid: d35d770e37c16fc4aa945cf8a3967911,
-          type: 3}
+      - m_Target: {fileID: -5663091538879033045}
         m_TargetAssemblyTypeName: MaterialSource, Assembly-CSharp
         m_MethodName: GatherResource
         m_Mode: 1

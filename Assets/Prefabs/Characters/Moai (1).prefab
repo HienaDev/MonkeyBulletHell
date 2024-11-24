@@ -153,6 +153,7 @@ MonoBehaviour:
   player: {fileID: 0}
   cameraLogic: {fileID: 0}
   shakeDuration: 0.75
+  speedStomp: 20
   numberOfProjectiles: 10
   shotSpeed: 10
   attackCooldown: 3
@@ -217,6 +218,9 @@ MonoBehaviour:
   healthImageUI: {fileID: 5359714070445796152}
   entityHeight: 0
   destroyOnDeath: {fileID: 5128874249816240038}
+  doOnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6404840925461611438
 GameObject:
   m_ObjectHideFlags: 0

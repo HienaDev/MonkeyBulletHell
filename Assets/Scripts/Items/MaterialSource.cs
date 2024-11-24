@@ -16,7 +16,7 @@ public class MaterialSource : MonoBehaviour
     {
         ToolSO selectedTool = playerInventory.GetSelectedItem() as ToolSO;
 
-        if (selectedTool != null && CanToolBreakMaterial(selectedTool))
+        if (CanBreakWithoutTool() || (selectedTool != null && CanToolBreakMaterial(selectedTool)))
         {
             if (hitsRemaining > 0)
             {
@@ -24,15 +24,21 @@ public class MaterialSource : MonoBehaviour
 
                 foreach (var material in materialSource.droppedMaterial)
                 {
-                    if (playerInventory.MaterialAndToolSlotsFull())
+                    int materialAmount = materialSource.materialAmountPerHit * (selectedTool?.efficiency ?? 1);
+
+                    for (int i = 0; i < materialAmount; i++)
                     {
-                        DropItemOnGround(material);
+                        if (playerInventory.MaterialAndToolSlotsFull())
+                        {
+                            DropItemOnGround(material);
+                        }
+                        else
+                        {
+                            playerInventory.AddItem(material);
+                        }
                     }
-                    else
-                    {
-                        playerInventory.AddItem(material);
-                        Debug.Log($"Gathered {material.itemName}");
-                    }
+
+                    Debug.Log($"Gathered {material.itemName} x{materialAmount}");
                 }
 
                 if (hitsRemaining <= 0)
@@ -49,14 +55,19 @@ public class MaterialSource : MonoBehaviour
 
     private bool CanToolBreakMaterial(ToolSO tool)
     {
-        foreach (var source in tool.canBreakSources)
+        foreach (var source in materialSource.canBeBrokenWith)
         {
-            if (source == materialSource)
+            if (source == tool)
             {
                 return true;
             }
         }
         return false;
+    }
+
+    private bool CanBreakWithoutTool()
+    {
+        return materialSource.canBeBrokenWith == null || materialSource.canBeBrokenWith.Length == 0;
     }
 
     private void DropItemOnGround(ItemSO item)
