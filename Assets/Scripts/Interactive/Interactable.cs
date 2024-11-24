@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using System;
 
 public class Interactable : MonoBehaviour
 {
@@ -12,26 +11,36 @@ public class Interactable : MonoBehaviour
     private float justInteracted;
 
     [SerializeField] private UnityEvent doOnInteract;
-
-    private Func<bool> interactionCondition;
     private Outline outline;
-    private bool canInteract = true;
+    private PlayerInventory playerInventory;
+    private MaterialSource materialSource;
 
     private void Start()
     {
         justInteracted = Time.time;
         outline = GetComponent<Outline>();
-        UpdateInteractionState();
+        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        materialSource = GetComponent<MaterialSource>();
     }
 
     private void Update()
     {
-        UpdateInteractionState();
-
-        if (Input.GetKeyDown(interactKey) && Time.time - justInteracted > interactionCooldown && playerInside && canInteract)
+        if (playerInside && outline != null)
         {
-            justInteracted = Time.time;
+            if (CanPlayerInteract())
+            {
+                outline.enabled = true;
+            }
+            else
+            {
+                outline.enabled = false;
+            }
+        }
+
+        if (Input.GetKeyDown(interactKey) && Time.time - justInteracted > interactionCooldown && playerInside)
+        {
             doOnInteract.Invoke();
+            justInteracted = Time.time;
         }
     }
 
@@ -40,8 +49,11 @@ public class Interactable : MonoBehaviour
         if ((monkeyLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             playerInside = true;
+
             if (outline != null)
-                outline.enabled = canInteract;
+            {
+                outline.enabled = CanPlayerInteract();
+            }
         }
     }
 
@@ -50,33 +62,25 @@ public class Interactable : MonoBehaviour
         if ((monkeyLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             playerInside = false;
-            if (outline != null)
-                outline.enabled = false;
-        }
-    }
-
-    private void UpdateInteractionState()
-    {
-        bool newInteractionState = interactionCondition == null || interactionCondition.Invoke();
-
-        if (canInteract != newInteractionState)
-        {
-            canInteract = newInteractionState;
 
             if (outline != null)
             {
-                outline.enabled = canInteract && playerInside;
+                outline.enabled = false;
             }
         }
     }
 
-    public UnityEvent GetDoOnInteract()
+    private bool CanPlayerInteract()
     {
-        return doOnInteract;
-    }
+        if (playerInventory == null) return false;
 
-    public void SetInteractionCondition(Func<bool> condition)
-    {
-        interactionCondition = condition;
+        ToolSO selectedTool = playerInventory.GetSelectedItem() as ToolSO;
+
+        if (materialSource != null)
+        {
+            return materialSource.CanBreakWithoutTool() || materialSource.CanToolBreakMaterial(selectedTool);
+        }
+
+        return true;
     }
 }

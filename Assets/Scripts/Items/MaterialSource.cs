@@ -16,14 +16,6 @@ public class MaterialSource : MonoBehaviour
         hitsRemaining = materialSource.hitsToBreak;
         playerInventory = FindFirstObjectByType<PlayerInventory>();
         originalPosition = transform.localPosition;
-
-        Interactable interactable = GetComponent<Interactable>();
-        if (interactable != null)
-        {
-            interactable.SetInteractionCondition(CanInteract);
-
-            interactable.GetDoOnInteract().AddListener(GatherResource);
-        }
     }
 
     public void GatherResource()
@@ -69,7 +61,7 @@ public class MaterialSource : MonoBehaviour
         }
     }
 
-    private bool CanToolBreakMaterial(ToolSO tool)
+    public bool CanToolBreakMaterial(ToolSO tool)
     {
         foreach (var source in materialSource.canBeBrokenWith)
         {
@@ -81,7 +73,7 @@ public class MaterialSource : MonoBehaviour
         return false;
     }
 
-    private bool CanBreakWithoutTool()
+    public bool CanBreakWithoutTool()
     {
         return materialSource.canBeBrokenWith == null || materialSource.canBeBrokenWith.Length == 0;
     }
@@ -149,11 +141,5 @@ public class MaterialSource : MonoBehaviour
         }
 
         transform.localPosition = originalPosition;
-    }
-
-    private bool CanInteract()
-    {
-        ToolSO selectedTool = playerInventory.GetSelectedItem() as ToolSO;
-        return CanBreakWithoutTool() || (selectedTool != null && CanToolBreakMaterial(selectedTool));
     }
 }
