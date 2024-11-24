@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3218256601523723270}
-  - component: {fileID: 352960875888098330}
   - component: {fileID: 1113556426635586971}
+  - component: {fileID: 352960875888098330}
   - component: {fileID: 1904064295218078882}
+  - component: {fileID: 8202917413314382001}
   m_Layer: 0
   m_Name: Stone Pickaxe
   m_TagString: Untagged
@@ -35,19 +36,6 @@ Transform:
   - {fileID: 2156238403867446614}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &352960875888098330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7963950221310790965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594db0198680fb04db2aa6f05c705985, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tool: {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b, type: 2}
 --- !u!65 &1113556426635586971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69,6 +57,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2, y: 1, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &352960875888098330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963950221310790965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594db0198680fb04db2aa6f05c705985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tool: {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b, type: 2}
 --- !u!114 &1904064295218078882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +102,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  canInteract:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8202917413314382001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963950221310790965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &1902425707836762813
 PrefabInstance:
   m_ObjectHideFlags: 0
