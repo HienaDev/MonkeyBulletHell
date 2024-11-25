@@ -374,9 +374,9 @@ public class PlayerInventory : MonoBehaviour
         return equippedArmor == armor;
     }
 
-    public ItemSO GetEquippedArmor()
+    public ArmorSO GetEquippedArmor()
     {
-        return equippedArmor;
+        return equippedArmor as ArmorSO;
     }
 
     public bool ContainsMaterial(MaterialSO material)
