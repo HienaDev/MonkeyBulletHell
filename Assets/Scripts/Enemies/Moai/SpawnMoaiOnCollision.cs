@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SpawnMoaiOnCollision : MonoBehaviour
 {
-    [SerializeField] private GameObject moai;
-    [SerializeField] private GameObject rockDoor;
+    [SerializeField] private AttackPatterns moai;
+    [SerializeField] private TriggerCameraShake rockDoor;
 
     [SerializeField] private LayerMask monkeyLayer; 
 
@@ -15,8 +15,8 @@ public class SpawnMoaiOnCollision : MonoBehaviour
 
         if ((monkeyLayer.value & (1 << other.gameObject.layer)) != 0)
         {
-            moai.SetActive(true);
-            rockDoor.SetActive(true);
+            moai.StartCombat();
+            rockDoor.StartArenaShake();
 
             gameObject.SetActive(false);
         }

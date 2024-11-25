@@ -23,7 +23,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private UnityEvent doOnDeath;
 
     [SerializeField] private float gracePeriod = 0f;
-    private float justGotDamaged;
+    private float justGotDamaged = float.MinValue;
     [SerializeField] private float blinkDuration = 0.1f;
     private float justBlinked;
     private bool transparent = false;

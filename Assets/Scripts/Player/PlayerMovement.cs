@@ -18,9 +18,11 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Transform cameraPlayer;
 
+    [SerializeField] private LayerMask groundLayer; // Layer mask to identify the ground
+    [SerializeField] private float groundCheckDistance = 1.0f; // Distance to check for the ground
+
     private Rigidbody rb;
     private Animator animator;
-
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +37,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         MovementInput();
-
+        StickToGround();
     }
 
     private void MovementInput()
@@ -69,6 +70,18 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = velocity.normalized * movementSpeed;
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rbVelocityY, rb.linearVelocity.z);
+    }
+
+    private void StickToGround()
+    {
+        // Cast a ray downward to check for the ground
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer))
+        {
+            // Snap the player's position to the ground
+            Vector3 targetPosition = transform.position;
+            targetPosition.y = hit.point.y;
+            transform.position = targetPosition;
+        }
     }
 
     public void MultiplySpeed(float multiply) => movementSpeed = defaultSpeed * multiply;

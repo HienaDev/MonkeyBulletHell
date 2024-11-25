@@ -47,7 +47,7 @@ public class AttackPatterns : MonoBehaviour
         // Scale the color based on the intensity value
         adjustedEmissionColor = emissionColor * Mathf.Pow(2, 15); // Matches HDR scaling
 
-        StartCombat();
+
     }
 
     // Update is called once per frame

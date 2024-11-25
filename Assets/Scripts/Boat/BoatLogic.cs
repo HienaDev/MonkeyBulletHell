@@ -10,7 +10,8 @@ public class BoatLogic : MonoBehaviour
 
     private float justTeleported;
 
-
+    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private bool needsWeapons = false;
 
     [SerializeField] private GameObject player;
     [SerializeField] private Transform easterIslandLocation;
@@ -18,6 +19,11 @@ public class BoatLogic : MonoBehaviour
 
     public void TriggerTeleport()
     {
+
+        if (needsWeapons)
+            if (!inventory.PlayerHasWeaponEquipped())
+                return;
+
         fadeScreen.TriggerFade(fadeDuration, blackDuration);
         StartCoroutine(GoToEaster());
     }

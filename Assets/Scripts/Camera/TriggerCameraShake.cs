@@ -5,6 +5,7 @@ public class TriggerCameraShake : MonoBehaviour
 
     private FollowTarget cameraLogic;
     [SerializeField] private float shakeDuration = 1f;
+    [SerializeField] private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,5 +24,9 @@ public class TriggerCameraShake : MonoBehaviour
         cameraLogic.ShakeCamera(shakeDuration, 1f, true);
     }
 
+    public void StartArenaShake()
+    {
+        animator.SetTrigger("ArenaStart");
+    }
 
 }

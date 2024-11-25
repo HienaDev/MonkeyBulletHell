@@ -78,6 +78,7 @@ public class Chest : MonoBehaviour
     {
         if (chestUI.activeSelf) return;
 
+        StoreAllMaterials();
         chestUI.SetActive(true);
         StopPlayerMovement();
         DisablePlayerControls();

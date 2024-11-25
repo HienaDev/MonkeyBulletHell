@@ -291,6 +291,12 @@ public class PlayerInventory : MonoBehaviour
         return slot == 1 ? weaponSlots[0] == weapon : weaponSlots[1] == weapon;
     }
 
+    public bool PlayerHasWeaponEquipped()
+    {
+
+        return IsWeaponEquippedInSlot(0) || IsWeaponEquippedInSlot(1); 
+    }
+
     public bool IsSlotOccupied(int slot, ItemType itemType)
     {
         if (slot == 1) return weaponSlots[0] != null && weaponSlots[0].itemType == itemType;
