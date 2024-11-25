@@ -7656,7 +7656,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770970651}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b007c4223d36eae488ab3ffcbf09c215, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -24462,6 +24462,11 @@ PrefabInstance:
       propertyPath: cameraPlayer
       value: 
       objectReference: {fileID: 330585546}
+    - target: {fileID: 1391638600254668032, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: downwardForce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1391638600254668032, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: groundLayer.m_Bits

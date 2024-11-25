@@ -18,8 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Transform cameraPlayer;
 
-    [SerializeField] private LayerMask groundLayer; // Layer mask to identify the ground
-    [SerializeField] private float groundCheckDistance = 1.0f; // Distance to check for the ground
+    [SerializeField] private float downwardForce = 10f; // Force applied to keep the player grounded
 
     private Rigidbody rb;
     private Animator animator;
@@ -38,7 +37,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MovementInput();
-        StickToGround();
+    }
+
+    private void FixedUpdate()
+    {
+        // Apply downward force in FixedUpdate for consistent physics behavior
+        ApplyDownwardForce();
     }
 
     private void MovementInput()
@@ -72,16 +76,10 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rbVelocityY, rb.linearVelocity.z);
     }
 
-    private void StickToGround()
+    private void ApplyDownwardForce()
     {
-        // Cast a ray downward to check for the ground
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer))
-        {
-            // Snap the player's position to the ground
-            Vector3 targetPosition = transform.position;
-            targetPosition.y = hit.point.y;
-            transform.position = targetPosition;
-        }
+        // Apply a constant downward force to the Rigidbody
+        rb.AddForce(Vector3.down * downwardForce, ForceMode.Acceleration);
     }
 
     public void MultiplySpeed(float multiply) => movementSpeed = defaultSpeed * multiply;
