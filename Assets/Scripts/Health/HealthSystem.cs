@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Events;
+using System.Runtime.CompilerServices;
+using NUnit.Framework;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -20,6 +22,13 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField] private UnityEvent doOnDeath;
 
+    [SerializeField] private float gracePeriod = 0f;
+    private float justGotDamaged;
+    [SerializeField] private float blinkDuration = 0.1f;
+    private float justBlinked;
+    private bool transparent = false;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,6 +42,17 @@ public class HealthSystem : MonoBehaviour
 
             }
         }
+        else
+        {
+            Renderer renderer = transform.parent.GetComponentInChildren<Renderer>();
+
+            if(renderer != null)
+            {
+                materials = renderer.materials;
+   
+            }
+        }
+
 
 
 
@@ -49,31 +69,78 @@ public class HealthSystem : MonoBehaviour
         healthImageUI.fillAmount = health / maxHealth;
     }
 
+    private void FixedUpdate()
+    {
+        if (Time.time - justGotDamaged < gracePeriod)
+        {
+            if(Time.time - justBlinked > blinkDuration)
+            {
+                justBlinked = Time.time;
+                if (!transparent)
+                {
+                    foreach (Material mat in materials)
+                    {
+                        mat.color = mat.color * 4f;
+
+                    }
+                    
+                }
+                else
+                {
+                    foreach (Material mat in materials)
+                    {
+                        mat.color = mat.color * 0.25f;
+
+                    }
+                }
+
+                transparent = !transparent;
+            }
+        }
+        else if(transparent)
+        {
+            foreach (Material mat in materials)
+            {
+                mat.color = mat.color * 0.25f;
+
+            }
+            transparent = !transparent;
+        }
+    }
 
     public void DealDamage(float damage)
     {
-        health -= damage;
-        Debug.Log("lost hp");
 
-        if (health <= 0)
+        if(Time.time - justGotDamaged > gracePeriod)
         {
-            if (doOnDeath != null)
+            health -= damage;
+            justGotDamaged = Time.time;
+            Debug.Log("lost hp");
+
+            if (health <= 0)
             {
-                doOnDeath.Invoke();
+                if (doOnDeath != null)
+                {
+                    doOnDeath.Invoke();
+                }
+
+                if (destroyOnDeath != null)
+                {
+                    Destroy(destroyOnDeath, 0.1f);
+                }
+                else
+                {
+                    Destroy(gameObject, 0.1f);
+                }
             }
 
-            if (destroyOnDeath != null)
-            {
-                Destroy(destroyOnDeath, 0.1f);
-            }
-            else
-            {
-                Destroy(gameObject, 0.1f);
-            }
+            StartCoroutine(LoseHpUI());
         }
 
-        StartCoroutine(LoseHpUI());
+
     }
+
+
 
     private IEnumerator LoseHpUI()
     {

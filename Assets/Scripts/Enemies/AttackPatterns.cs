@@ -27,17 +27,27 @@ public class AttackPatterns : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private IEnumerator Start()
+    private void Start()
     {
-        StartCoroutine(StartStomp());
-        yield return new WaitForSeconds(2f);
-        StartRandomAttack();
+
+        StartCombat();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void StartCombat()
+    {
+        StartCoroutine(StartCombatCR());
+    }
+
+    private IEnumerator StartCombatCR()
+    {
+        yield return new WaitForSeconds(2f);
+        StartRandomAttack();
     }
 
     private IEnumerator StartStomp()
