@@ -4,8 +4,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private int maxInventorySlots = 8;
-    [SerializeField] private ToolSO pickaxe; // ONLY FOR TESTING
+    [SerializeField] private int maxInventoryMaterialsAndToolsSlots = 6;
 
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
@@ -24,12 +23,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) // ONLY FOR TESTING
-        {
-            AddItem(pickaxe);
-        }
-
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             DropSelectedItem();
         }
@@ -37,6 +31,19 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(ItemSO item)
     {
+        if (item.itemType == ItemType.Material)
+        {
+            InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item && slot.Quantity.HasValue);
+
+            if (existingSlot != null)
+            {
+                existingSlot.IncreaseQuantity(1);
+                Debug.Log($"{item.itemName} quantity increased to {existingSlot.Quantity}");
+                uiManager.UpdateInventoryDisplay();
+                return;
+            }
+        }
+
         if (item.itemType == ItemType.Weapon)
         {
             if (weaponSlots[0] == null)
@@ -56,13 +63,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-            InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item);
-            if (existingSlot != null && existingSlot.Quantity.HasValue)
-            {
-                existingSlot.IncreaseQuantity(1);
-                Debug.Log($"{item.itemName} quantity increased to {existingSlot.Quantity}.");
-            }
-            else if (inventoryItems.Count < maxInventorySlots)
+            if (inventoryItems.Count < maxInventoryMaterialsAndToolsSlots)
             {
                 int? quantity = item.itemType == ItemType.Material ? 1 : (int?)null;
                 inventoryItems.Add(new InventorySlot(item, quantity));
@@ -83,10 +84,6 @@ public class PlayerInventory : MonoBehaviour
         {
             alreadyCraftedRecipes.Add(recipe);
             Debug.Log($"{recipe.result.itemName} recipe added to the crafted list.");
-        }
-        else
-        {
-            Debug.LogWarning($"{recipe.result.itemName} recipe is already in the crafted list.");
         }
     }
 
@@ -175,7 +172,7 @@ public class PlayerInventory : MonoBehaviour
 
     public bool MaterialAndToolSlotsFull()
     {
-        return inventoryItems.Count >= maxInventorySlots;
+        return inventoryItems.Count >= maxInventoryMaterialsAndToolsSlots;
     }
 
     public void DropSelectedItem()
@@ -196,12 +193,20 @@ public class PlayerInventory : MonoBehaviour
 
         int lastSelectedIndex = selectedSlotIndex;
 
-        // Drop the item's prefab slightly above the player's position with a specific rotation
+        Vector3 dropPosition = transform.position + Vector3.up * 0.5f;
+
+        if (Physics.Raycast(dropPosition + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("Floor")))
+        {
+            dropPosition.y = hit.point.y;
+        }
+        else
+        {
+            Debug.LogWarning("Floor not found! Using default Y position.");
+        }
+
         if (selectedItem.itemPrefab != null)
         {
-            Vector3 dropPosition = transform.position + Vector3.up * 0.5f; // Adjust the height offset
-            Quaternion dropRotation = Quaternion.Euler(0, 0, 0); // Set the desired rotation (e.g., no rotation)
-            
+            Quaternion dropRotation = Quaternion.Euler(selectedItem.itemPrefab.transform.rotation.eulerAngles);
             Instantiate(selectedItem.itemPrefab, dropPosition, dropRotation);
         }
         else
@@ -209,22 +214,17 @@ public class PlayerInventory : MonoBehaviour
             Debug.LogWarning("No prefab assigned for this item.");
         }
 
-        // Remove the item or decrease its quantity if it's a material
         RemoveItem(selectedItem);
 
-        // Update inventory display and find the next slot to select
         uiManager.UpdateInventoryDisplay();
 
-        // Check if the current slot still has items
         ItemSO currentItem = GetItemAtSlot(lastSelectedIndex);
         if (currentItem != null && currentItem.itemType == ItemType.Material && GetItemCount(currentItem) > 0)
         {
-            // Stay on the current slot if it’s a material with quantity left
             uiManager.SelectInventorySlot(lastSelectedIndex);
         }
         else
         {
-            // Move to the closest available slot if the current slot is empty
             uiManager.SelectClosestAvailableSlot(lastSelectedIndex);
         }
     }
@@ -267,6 +267,7 @@ public class PlayerInventory : MonoBehaviour
 
         equippedArmor = armor;
         Debug.Log($"{armor.itemName} equipped as armor.");
+
         uiManager.UpdateInventoryDisplay();
         NotifyRecipeUI();
     }
@@ -352,5 +353,74 @@ public class PlayerInventory : MonoBehaviour
     public ItemSO GetEquippedArmor()
     {
         return equippedArmor;
+    }
+
+    public bool ContainsMaterial(MaterialSO material)
+    {
+        return inventoryItems.Exists(slot => slot.Item == material);
+    }
+
+    public void ClearInventoryOnDeath()
+    {
+        RemoveEquipmentFromCraftedRecipes();
+
+        if (inventoryItems != null)
+        {
+            inventoryItems.Clear();
+        }
+
+        if (weaponSlots != null)
+        {
+            weaponSlots[0] = null;
+            weaponSlots[1] = null;
+        }
+
+        equippedArmor = null;
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateInventoryDisplay();
+        }
+    }
+
+    private void RemoveEquipmentFromCraftedRecipes()
+    {
+        if (alreadyCraftedRecipes == null)
+        {
+            return;
+        }
+
+        foreach (var weapon in weaponSlots)
+        {
+            if (weapon != null)
+            {
+                CraftingRecipe recipe = alreadyCraftedRecipes.Find(r => r.result == weapon);
+                if (recipe != null)
+                {
+                    alreadyCraftedRecipes.Remove(recipe);
+                }
+            }
+        }
+
+        foreach (var slot in inventoryItems)
+        {
+            if (slot.Item.itemType == ItemType.Weapon)
+            {
+                CraftingRecipe recipe = alreadyCraftedRecipes.Find(r => r.result == slot.Item);
+                if (recipe != null)
+                {
+                    alreadyCraftedRecipes.Remove(recipe);
+                }
+            }
+        }
+
+        if (equippedArmor != null)
+        {
+            CraftingRecipe armorRecipe = alreadyCraftedRecipes.Find(r => r.result == equippedArmor);
+            if (armorRecipe != null)
+            {
+                alreadyCraftedRecipes.Remove(armorRecipe);
+            }
+        }
     }
 }

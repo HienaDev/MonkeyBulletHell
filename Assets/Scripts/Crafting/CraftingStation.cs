@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
+using TMPro;
 
 public abstract class CraftingStation : MonoBehaviour
 {
@@ -12,12 +14,14 @@ public abstract class CraftingStation : MonoBehaviour
     [SerializeField] protected Transform recipeDisplayParent;
     [SerializeField] protected GameObject recipePrefab;
     [SerializeField] protected GameObject player;
+    [SerializeField] private TextMeshProUGUI nothingToCraftMessage;
 
-    protected List<CraftingRecipe> recipes;
+    private float fadeDuration = 0.1f;
+    private CanvasGroup craftingUICanvasGroup;
+    protected List<CraftingRecipe> recipes = new List<CraftingRecipe>();
     protected CraftingRecipe selectedRecipe;
     protected Chest chest;
     protected PlayerInventory playerInventory;
-
     private Rigidbody playerRigidbody;
     private Animator playerAnimator;
 
@@ -26,36 +30,97 @@ public abstract class CraftingStation : MonoBehaviour
         chest = FindFirstObjectByType<Chest>();
         playerInventory = player.GetComponent<PlayerInventory>();
         playerRigidbody = player.GetComponent<Rigidbody>();
-        playerAnimator = player.GetComponent<Animator>(); 
+        playerAnimator = player.GetComponent<Animator>();
+        craftingUICanvasGroup = craftingUI.GetComponent<CanvasGroup>();
+        if (craftingUICanvasGroup == null)
+        {
+            craftingUICanvasGroup = craftingUI.AddComponent<CanvasGroup>();
+        }
+        craftingUICanvasGroup.alpha = 0;
+        craftingUICanvasGroup.interactable = false;
+        craftingUICanvasGroup.blocksRaycasts = false;
+
         LoadRecipes();
+        if (nothingToCraftMessage != null)
+        {
+            nothingToCraftMessage.gameObject.SetActive(false);
+        }
     }
 
     private void LoadRecipes()
     {
-        recipes = Resources.LoadAll<CraftingRecipe>("").Where(recipe => recipe.ItemType == stationItemType).ToList();
+        recipes.Clear();
+        recipes = Resources.LoadAll<CraftingRecipe>("")
+            .Where(recipe => recipe.ItemType == stationItemType)
+            .ToList();
     }
 
-    private void Update()
+    public void ToggleUI()
     {
-
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (craftingUI.activeSelf)
         {
-            craftingUI.SetActive(false);
-            ClearRecipePanel();
-            EnablePlayerControls();
+            CloseUI();
+        }
+        else
+        {
+            OpenUI();
         }
     }
 
-    public void OpenUI()
+    private void OpenUI()
     {
+        if (craftingUI.activeSelf) return;
+
+        Debug.Log("Opening crafting UI");
         craftingUI.SetActive(true);
         StopPlayerMovement();
         DisablePlayerControls();
-        PopulateItemGrid();
+        CheckAndPopulateGrid();
+        StartCoroutine(FadeInUI());
     }
 
+    private void CloseUI()
+    {
+        if (!craftingUI.activeSelf) return;
 
+        Debug.Log("Closing crafting UI");
+        StartCoroutine(FadeOutUI());
+        ClearRecipePanel();
+        EnablePlayerControls();
+    }
+
+    private IEnumerator FadeInUI()
+    {
+        float elapsedTime = 0;
+        craftingUICanvasGroup.interactable = true;
+        craftingUICanvasGroup.blocksRaycasts = true;
+
+        while (elapsedTime < fadeDuration)
+        {
+            craftingUICanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        craftingUICanvasGroup.alpha = 1;
+    }
+
+    private IEnumerator FadeOutUI()
+    {
+        float elapsedTime = 0;
+
+        while (elapsedTime < fadeDuration)
+        {
+            craftingUICanvasGroup.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        craftingUICanvasGroup.alpha = 0;
+        craftingUI.SetActive(false);
+        craftingUICanvasGroup.interactable = false;
+        craftingUICanvasGroup.blocksRaycasts = false;
+    }
 
     private void StopPlayerMovement()
     {
@@ -87,31 +152,59 @@ public abstract class CraftingStation : MonoBehaviour
         }
     }
 
-    public virtual void PopulateItemGrid()
+    private bool HasCraftableRecipes()
+    {
+        return recipes.Any(recipe =>
+            recipe.requiredMaterials.All(req => chest.GetItemCount(req.material) >= 1));
+    }
+
+    private void CheckAndPopulateGrid()
+    {
+        if (HasCraftableRecipes())
+        {
+            if (nothingToCraftMessage != null)
+            {
+                nothingToCraftMessage.gameObject.SetActive(false);
+            }
+            
+            PopulateItemGrid();
+        }
+        else
+        {
+            if (nothingToCraftMessage != null)
+            {
+                nothingToCraftMessage.gameObject.SetActive(true);
+            }
+
+            ClearItemGrid();
+        }
+    }
+
+    private void ClearItemGrid()
     {
         foreach (Transform child in itemGrid)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public virtual void PopulateItemGrid()
+    {
+        ClearItemGrid();
 
         foreach (var recipe in recipes)
         {
-            bool canDisplay = playerInventory.IsRecipeCrafted(recipe) || recipe.requiredMaterials.TrueForAll(req =>
+            bool canDisplay = recipe.requiredMaterials.All(req =>
                 chest.GetItemCount(req.material) >= 1);
 
-            if (!canDisplay)
-            {
-                continue;
-            }
+            if (!canDisplay) continue;
 
             var itemButton = Instantiate(itemButtonPrefab, itemGrid);
             var buttonImage = itemButton.GetComponent<Image>();
             var button = itemButton.GetComponent<Button>();
 
             buttonImage.sprite = recipe.result.inventoryIcon;
-
             buttonImage.color = playerInventory.IsRecipeCrafted(recipe) ? Color.white : new Color(0, 0, 0);
-
             button.onClick.AddListener(() => OnItemButtonClicked(recipe));
         }
     }
@@ -141,10 +234,6 @@ public abstract class CraftingStation : MonoBehaviour
         {
             recipeUIScript.Setup(selectedRecipe, chest, playerInventory, this);
         }
-        else
-        {
-            Debug.LogWarning("RecipeUI component not found on recipePrefab.");
-        }
     }
 
     private void ClearRecipePanel()
@@ -157,7 +246,7 @@ public abstract class CraftingStation : MonoBehaviour
 
     public void RefreshUI()
     {
-        PopulateItemGrid();
+        CheckAndPopulateGrid();
         UpdateRecipeDisplay();
     }
 }

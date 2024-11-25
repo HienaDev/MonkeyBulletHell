@@ -17,3 +17,5 @@ MonoBehaviour:
   droppedMaterial:
   - {fileID: 11400000, guid: 07fc65690af436c40a06307c704f8656, type: 2}
   materialAmountPerHit: 1
+  canBeBrokenWith:
+  - {fileID: 11400000, guid: 820e22fa817581545b86c00cec936781, type: 2}

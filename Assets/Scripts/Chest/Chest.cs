@@ -2,16 +2,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Chest : MonoBehaviour
 {
-    [SerializeField] private Transform chestUI;
+    [SerializeField] private GameObject chestUI;
     [SerializeField] private Transform itemGrid;
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private GameObject player;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private TextMeshProUGUI nothingHereMessage; // Mensagem para exibir quando o baú está vazio
 
-    [SerializeField] private MaterialSO[] materials;
+    private float fadeDuration = 0.1f;
+    private CanvasGroup chestUICanvasGroup;
 
     private List<InventorySlot> materialsInChest = new List<InventorySlot>();
     private PlayerInventory playerInventory;
@@ -24,48 +27,104 @@ public class Chest : MonoBehaviour
         playerInventory = player.GetComponent<PlayerInventory>();
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
-        chestUI.gameObject.SetActive(false);
+
+        chestUICanvasGroup = chestUI.GetComponent<CanvasGroup>();
+        if (chestUICanvasGroup == null)
+        {
+            chestUICanvasGroup = chestUI.AddComponent<CanvasGroup>();
+        }
+        chestUICanvasGroup.alpha = 0;
+        chestUICanvasGroup.interactable = false;
+        chestUICanvasGroup.blocksRaycasts = false;
+
+        if (nothingHereMessage != null)
+        {
+            nothingHereMessage.gameObject.SetActive(false); // Esconde a mensagem inicialmente
+        }
+
+        chestUI.SetActive(false);
     }
 
-    private void Update()
+    public void FillChestWithMaterials(MaterialSO[] materials)
     {
-        if (Input.GetKeyDown(KeyCode.F) && PlayerIsNearChest())
+        foreach (var material in materials)
         {
-            chestUI.gameObject.SetActive(true);
-            StopPlayerMovement();
-            DisablePlayerControls();
-            PopulateChestUI();
-        }
+            InventorySlot existingSlot = materialsInChest.Find(s => s.Item == material);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            chestUI.gameObject.SetActive(false);
-            EnablePlayerControls();
-        }
-
-        // DEBUG ONLY
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            StoreAllMaterials();
-        }
-
-        // DEBUG ONLY - Fill chest with materials
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            foreach (var material in materials)
+            if (existingSlot != null)
             {
-                InventorySlot existingSlot = materialsInChest.Find(s => s.Item == material);
-
-                if (existingSlot != null)
-                {
-                    existingSlot.IncreaseQuantity(99);
-                }
-                else
-                {
-                    materialsInChest.Add(new InventorySlot(material, 99));
-                }
+                existingSlot.IncreaseQuantity(99);
+            }
+            else
+            {
+                materialsInChest.Add(new InventorySlot(material, 99));
             }
         }
+    }
+
+    public void ToggleUI()
+    {
+        if (chestUI.activeSelf)
+        {
+            CloseUI();
+        }
+        else
+        {
+            OpenUI();
+        }
+    }
+
+    private void OpenUI()
+    {
+        if (chestUI.activeSelf) return;
+
+        chestUI.SetActive(true);
+        StopPlayerMovement();
+        DisablePlayerControls();
+        PopulateChestUI();
+        StartCoroutine(FadeInUI());
+    }
+
+    private void CloseUI()
+    {
+        if (!chestUI.activeSelf) return;
+
+        StartCoroutine(FadeOutUI());
+    }
+
+    private IEnumerator FadeInUI()
+    {
+        float elapsedTime = 0;
+        chestUICanvasGroup.interactable = true;
+        chestUICanvasGroup.blocksRaycasts = true;
+
+        while (elapsedTime < fadeDuration)
+        {
+            chestUICanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        chestUICanvasGroup.alpha = 1;
+    }
+
+    private IEnumerator FadeOutUI()
+    {
+        float elapsedTime = 0;
+
+        while (elapsedTime < fadeDuration)
+        {
+            chestUICanvasGroup.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        chestUICanvasGroup.alpha = 0;
+        chestUI.SetActive(false);
+        chestUICanvasGroup.interactable = false;
+        chestUICanvasGroup.blocksRaycasts = false;
+
+        EnablePlayerControls();
     }
 
     public void StoreAllMaterials()
@@ -97,6 +156,20 @@ public class Chest : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        if (materialsInChest.Count == 0)
+        {
+            if (nothingHereMessage != null)
+            {
+                nothingHereMessage.gameObject.SetActive(true); // Exibe a mensagem se o baú estiver vazio
+            }
+            return;
+        }
+
+        if (nothingHereMessage != null)
+        {
+            nothingHereMessage.gameObject.SetActive(false); // Esconde a mensagem se houver materiais
+        }
+
         foreach (var slot in materialsInChest)
         {
             if (slot.Quantity <= 0)
@@ -106,7 +179,7 @@ public class Chest : MonoBehaviour
             }
 
             var itemButton = Instantiate(itemSlotPrefab, itemGrid);
-            
+
             var icon = itemButton.GetComponentInChildren<Image>();
             var nameAndQuantityText = itemButton.GetComponentInChildren<TextMeshProUGUI>();
 

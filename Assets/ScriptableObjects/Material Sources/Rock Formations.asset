@@ -18,3 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9c82b6f69a50ed4dbf28081bd54d05d, type: 2}
   - {fileID: 11400000, guid: 7659215c9e9bd824698210230da869e2, type: 2}
   materialAmountPerHit: 1
+  canBeBrokenWith:
+  - {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b, type: 2}

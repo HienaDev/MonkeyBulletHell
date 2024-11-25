@@ -7,4 +7,5 @@ public class MaterialSourceSO : ScriptableObject
     public int hitsToBreak;
     public MaterialSO [] droppedMaterial;
     public int materialAmountPerHit;
+    public ToolSO[] canBeBrokenWith;
 }
