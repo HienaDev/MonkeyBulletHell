@@ -31,7 +31,7 @@ public class SpawnEnemy : MonoBehaviour
         
     private void SpawnEnemyPrefab()
     {
-        Vector2 spawnPos = Random.insideUnitCircle * spawnRadius;
+        Vector2 spawnPos = Random.insideUnitCircle * spawnRadius ;
         GameObject tempEnemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], transform);
         tempEnemy.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.y);
 
