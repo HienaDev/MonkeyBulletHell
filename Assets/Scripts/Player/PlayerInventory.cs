@@ -5,12 +5,14 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
     [SerializeField] private int maxInventoryMaterialsAndToolsSlots = 6;
+    [SerializeField] private Transform armorAnchor;
 
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
     private List<CraftingRecipe> alreadyCraftedRecipes;
     private ShootingPlayer shootingPlayerScript;
     private ItemSO equippedArmor;
+    private GameObject currentArmorModel;
 
     private void Start()
     {
@@ -100,7 +102,6 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    // Check if the recipe is already crafted
     public bool IsRecipeCrafted(CraftingRecipe recipe)
     {
         return alreadyCraftedRecipes.Contains(recipe);
@@ -268,6 +269,23 @@ public class PlayerInventory : MonoBehaviour
         equippedArmor = armor;
         Debug.Log($"{armor.itemName} equipped as armor.");
 
+        if (currentArmorModel != null)
+        {
+            Destroy(currentArmorModel);
+        }
+
+        if (armor.itemPrefab != null)
+        {
+            currentArmorModel = Instantiate(armor.itemPrefab, armorAnchor);
+            currentArmorModel.transform.localPosition = Vector3.zero;
+            currentArmorModel.transform.localRotation = Quaternion.identity;
+            Debug.Log("Armor model equipped.");
+        }
+        else
+        {
+            Debug.LogWarning("This armor does not have a prefab.");
+        }
+
         uiManager.UpdateInventoryDisplay();
         NotifyRecipeUI();
     }
@@ -382,6 +400,12 @@ public class PlayerInventory : MonoBehaviour
         }
 
         equippedArmor = null;
+
+        if (currentArmorModel != null)
+        {
+            Destroy(currentArmorModel);
+            currentArmorModel = null;
+        }
 
         if (uiManager != null)
         {
