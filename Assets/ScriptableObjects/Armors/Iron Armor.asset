@@ -17,4 +17,4 @@ MonoBehaviour:
   inventoryIcon: {fileID: 21300000, guid: 6867f08cfe0837a4f9843e2df91724c1, type: 3}
   itemPrefab: {fileID: 2988678883650925368, guid: d94343056f113d441abb2ed0a93e3ab3,
     type: 3}
-  damageReduction: 0
+  damageReduction: 0.95

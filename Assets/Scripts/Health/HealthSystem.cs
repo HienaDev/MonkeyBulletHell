@@ -30,9 +30,15 @@ public class HealthSystem : MonoBehaviour
 
     private bool immortal = false;
 
+    [SerializeField] private PlayerInventory playerInventory;
+    private TAG_Player player;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        player = GetComponent<TAG_Player>();
+
         if (GetComponentInChildren<Renderer>() != null)
         {
             materials = GetComponentInChildren<Renderer>().materials;
@@ -114,6 +120,9 @@ public class HealthSystem : MonoBehaviour
         if(!immortal)
             if(Time.time - justGotDamaged > gracePeriod)
             {
+                if(player != null)
+                    damage *= playerInventory.GetEquippedArmor().damageReduction;
+
                 health -= damage;
                 justGotDamaged = Time.time;
                 Debug.Log("lost hp");
