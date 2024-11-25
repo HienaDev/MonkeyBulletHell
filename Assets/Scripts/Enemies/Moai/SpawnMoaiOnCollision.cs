@@ -13,6 +13,7 @@ public class SpawnMoaiOnCollision : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
+        Debug.Log(other.name);
         if ((monkeyLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             moai.StartCombat();

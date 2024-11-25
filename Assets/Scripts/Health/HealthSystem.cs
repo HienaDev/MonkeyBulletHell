@@ -28,6 +28,7 @@ public class HealthSystem : MonoBehaviour
     private float justBlinked;
     private bool transparent = false;
 
+    private bool immortal = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -110,32 +111,33 @@ public class HealthSystem : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-
-        if(Time.time - justGotDamaged > gracePeriod)
-        {
-            health -= damage;
-            justGotDamaged = Time.time;
-            Debug.Log("lost hp");
-
-            if (health <= 0)
+        if(!immortal)
+            if(Time.time - justGotDamaged > gracePeriod)
             {
-                if (doOnDeath != null)
+                health -= damage;
+                justGotDamaged = Time.time;
+                Debug.Log("lost hp");
+
+                if (health <= 0)
                 {
-                    doOnDeath.Invoke();
+                    if (doOnDeath != null)
+                    {
+                        Debug.Log("Die");
+                        doOnDeath.Invoke();
+                    }
+
+                    if (destroyOnDeath != null)
+                    {
+                        Destroy(destroyOnDeath);
+                    }
+                    else
+                    {
+                        Destroy(gameObject);
+                    }
                 }
 
-                if (destroyOnDeath != null)
-                {
-                    Destroy(destroyOnDeath, 0.1f);
-                }
-                else
-                {
-                    Destroy(gameObject, 0.1f);
-                }
+                StartCoroutine(LoseHpUI());
             }
-
-            StartCoroutine(LoseHpUI());
-        }
 
 
     }
@@ -179,15 +181,8 @@ public class HealthSystem : MonoBehaviour
 
     public void SetImmortal(bool isImmortal)
     {
-        if (isImmortal)
-        {
-            health = Mathf.Infinity;
-        }
-        else
-        {
-            health = maxHealth;
-        }
 
-        healthImageUI.fillAmount = health / maxHealth;
+        immortal = isImmortal;
+
     }
 }

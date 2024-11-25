@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class MoaiBoss : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject[] materialsToDrop;
 
-    // Update is called once per frame
-    void Update()
+    public void DropMaterials()
     {
-        
+        foreach (GameObject material in materialsToDrop)
+        {
+            Vector2 randomPosition =  Random.insideUnitCircle * 5f;
+            Instantiate(material, new Vector3(transform.position.x + randomPosition.x, 1f, transform.position.z + randomPosition.y), Quaternion.identity);
+
+        }
     }
 }

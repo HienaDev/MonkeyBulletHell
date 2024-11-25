@@ -11,6 +11,9 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private FollowTarget cameraLogic;
     [SerializeField] private float shakeDuration = 0.3f;
 
+    [SerializeField] private GameObject bossHealthBar;
+    private HealthSystem healthSystem;
+
     [Header("Start"), SerializeField] private float speedStomp = 20f;
 
     [Header("AOEAttack"), SerializeField] private float numberOfProjectiles = 5;
@@ -47,6 +50,8 @@ public class AttackPatterns : MonoBehaviour
         // Scale the color based on the intensity value
         adjustedEmissionColor = emissionColor * Mathf.Pow(2, 15); // Matches HDR scaling
 
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.SetImmortal(true);
 
     }
 
@@ -68,12 +73,14 @@ public class AttackPatterns : MonoBehaviour
         float lerpValue = 0;
         while (lerpValue <= 1)
         {
-            lerpValue += Time.deltaTime / 10f;
+            lerpValue += Time.deltaTime / 5f;
             leftEyeMaterial.SetColor("_EmissionColor", Color.Lerp(emissionColor, adjustedEmissionColor, lerpValue));
             rightEyeMaterial.SetColor("_EmissionColor", Color.Lerp(emissionColor, adjustedEmissionColor, lerpValue));
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        healthSystem.SetImmortal(false);
+        bossHealthBar.SetActive(true);
         StartRandomAttack();
     }
 

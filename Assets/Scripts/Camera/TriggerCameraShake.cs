@@ -16,7 +16,7 @@ public class TriggerCameraShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TriggerShake()
@@ -27,6 +27,11 @@ public class TriggerCameraShake : MonoBehaviour
     public void StartArenaShake()
     {
         animator.SetTrigger("ArenaStart");
+    }
+
+    public void RemoveArena()
+    {
+        animator.SetTrigger("ArenaClose");
     }
 
 }
