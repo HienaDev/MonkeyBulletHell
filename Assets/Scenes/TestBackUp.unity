@@ -678,7 +678,6 @@ MonoBehaviour:
   right: 100
   movementSpeed: 10
   cameraPlayer: {fileID: 330585546}
-  downwardForce: 10
 --- !u!95 &364040110
 Animator:
   serializedVersion: 7
@@ -779,13 +778,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3d604e7543ed54dbcb17954834ef96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashCooldown: 2
   dashDistance: 7.5
   dashDuration: 0.1
   gracePeriod: 0.2
   dashKey: 324
   characterModel: {fileID: 5844622625510073313}
-  dashUI: {fileID: 0}
   trailRenderer: {fileID: 127478347}
   hitBox: {fileID: 940950357}
   dashMaterials:
@@ -1454,7 +1451,6 @@ MonoBehaviour:
   player: {fileID: 919132149385261819}
   cameraLogic: {fileID: 1529373721}
   shakeDuration: 0.75
-  speedStomp: 20
   numberOfProjectiles: 10
   shotSpeed: 10
   attackCooldown: 3
@@ -1468,8 +1464,6 @@ MonoBehaviour:
   laserAngle: 45
   laserDuration: 2
   turnDuration: 1
-  leftEye: {fileID: 0}
-  rightEye: {fileID: 0}
 --- !u!114 &640142822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1533,11 +1527,6 @@ MonoBehaviour:
   healthImageUI: {fileID: 222770447}
   entityHeight: 0
   destroyOnDeath: {fileID: 640142819}
-  doOnDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  gracePeriod: 0
-  blinkDuration: 0.1
 --- !u!1 &740435851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,11 +1715,6 @@ MonoBehaviour:
   healthImageUI: {fileID: 199970115}
   entityHeight: 0
   destroyOnDeath: {fileID: 919132149385261819}
-  doOnDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  gracePeriod: 0
-  blinkDuration: 0.1
 --- !u!1 &1028340422
 GameObject:
   m_ObjectHideFlags: 0

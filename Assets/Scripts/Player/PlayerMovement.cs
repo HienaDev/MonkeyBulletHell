@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cameraPlayer;
 
     [SerializeField] private float downwardForce = 10f; // Force applied to keep the player grounded
+    private GroundCheck groundCheck;
 
     private Rigidbody rb;
     private Animator animator;
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
+        groundCheck = GetComponentInChildren<GroundCheck>();
     }
 
     // Update is called once per frame
@@ -41,8 +44,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Apply downward force in FixedUpdate for consistent physics behavior
-        ApplyDownwardForce();
+        if (!groundCheck.Grounded)
+            ApplyDownwardForce();
+
     }
 
     private void MovementInput()
@@ -71,6 +75,9 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("MovSpeed", velocity.magnitude);
 
         float rbVelocityY = rb.linearVelocity.y;
+
+        if (groundCheck.Grounded)
+            rbVelocityY = 0f;
 
         rb.linearVelocity = velocity.normalized * movementSpeed;
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rbVelocityY, rb.linearVelocity.z);
