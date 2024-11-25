@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.XR;
 
 public class AttackPatterns : MonoBehaviour
 {
@@ -25,10 +26,26 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private float laserDuration = 0.5f; // Duration of the laser motion (in seconds)
     [SerializeField] private float turnDuration = 0.3f; // Duration of the laser motion (in seconds)
 
+    [Header("Eyes"), SerializeField] private GameObject leftEye;
+    private Material leftEyeMaterial;
+    [SerializeField] private GameObject rightEye;
+    private Material rightEyeMaterial;
+    private Color emissionColor;
+    private Color adjustedEmissionColor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        leftEyeMaterial = leftEye.GetComponent<Renderer>().material;
+        rightEyeMaterial = rightEye.GetComponent<Renderer>().material;
+        // Enable the emission keyword to activate emission
+        leftEyeMaterial.EnableKeyword("_EMISSION");
+
+        // Get the current emission color
+        emissionColor = leftEyeMaterial.GetColor("_EmissionColor");
+
+        // Scale the color based on the intensity value
+        adjustedEmissionColor = emissionColor * Mathf.Pow(2, 15); // Matches HDR scaling
 
         StartCombat();
     }
@@ -41,11 +58,21 @@ public class AttackPatterns : MonoBehaviour
 
     public void StartCombat()
     {
+
         StartCoroutine(StartCombatCR());
     }
 
     private IEnumerator StartCombatCR()
     {
+
+        float lerpValue = 0;
+        while (lerpValue <= 1)
+        {
+            lerpValue += Time.deltaTime / 10f;
+            leftEyeMaterial.SetColor("_EmissionColor", Color.Lerp(emissionColor, adjustedEmissionColor, lerpValue));
+            rightEyeMaterial.SetColor("_EmissionColor", Color.Lerp(emissionColor, adjustedEmissionColor, lerpValue));
+            yield return null;
+        }
         yield return new WaitForSeconds(2f);
         StartRandomAttack();
     }

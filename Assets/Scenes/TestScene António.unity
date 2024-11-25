@@ -4623,7 +4623,7 @@ GameObject:
   - component: {fileID: 450214056}
   - component: {fileID: 450214055}
   m_Layer: 0
-  m_Name: Eye
+  m_Name: RightEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4638,9 +4638,9 @@ Transform:
   m_GameObject: {fileID: 450214053}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7, y: 13.76, z: -1.72}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -1.7, y: 13.43, z: -1.431}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1757500176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4688,7 +4688,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 88f8c382472866b49929dcbc4ce9b04f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20409,7 +20409,7 @@ GameObject:
   - component: {fileID: 1975519888}
   - component: {fileID: 1975519887}
   m_Layer: 0
-  m_Name: Eye (1)
+  m_Name: LeftEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20424,9 +20424,9 @@ Transform:
   m_GameObject: {fileID: 1975519885}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7, y: 13.76, z: -1.72}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 1.7, y: 13.43, z: -1.431}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1757500176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20474,7 +20474,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 88f8c382472866b49929dcbc4ce9b04f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22873,9 +22873,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: eyes
+      value: 
+      objectReference: {fileID: 450214053}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 919132149385261819}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: leftEye
+      value: 
+      objectReference: {fileID: 1975519885}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: rightEye
+      value: 
+      objectReference: {fileID: 450214053}
     - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: speedStomp
@@ -22886,6 +22901,11 @@ PrefabInstance:
       propertyPath: cameraLogic
       value: 
       objectReference: {fileID: 1529373721}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: eyeMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 88f8c382472866b49929dcbc4ce9b04f, type: 2}
     - target: {fileID: 6668038572056289010, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: m_LocalPosition.x
