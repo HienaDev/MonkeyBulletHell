@@ -31,6 +31,7 @@ public class HealthSystem : MonoBehaviour
     private bool immortal = false;
 
     [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private GameObject gameOverScreen;
     private TAG_Player player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -121,21 +122,29 @@ public class HealthSystem : MonoBehaviour
             if(Time.time - justGotDamaged > gracePeriod)
             {
                 if(player != null)
-                    damage *= playerInventory.GetEquippedArmor().damageReduction;
+                    if(playerInventory.GetEquippedArmor() != null)
+                        damage *= playerInventory.GetEquippedArmor().damageReduction;
 
                 health -= damage;
-                justGotDamaged = Time.time;
+                
                 Debug.Log("lost hp");
 
                 if (health <= 0)
                 {
                     if (doOnDeath != null)
                     {
-                        Debug.Log("Die");
                         doOnDeath.Invoke();
                     }
 
-                    if (destroyOnDeath != null)
+                    if(player != null)
+                    {
+                        GetComponentInParent<Animator>().SetTrigger("Die");
+                        GetComponentInParent<PlayerMovement>().enabled = false;
+                        GetComponentInParent<ShootingPlayer>().enabled = false;
+                        GetComponentInParent<DashInDirection>().enabled = false;
+                        gameOverScreen.SetActive(true);
+                    }
+                    else if (destroyOnDeath != null)
                     {
                         Destroy(destroyOnDeath);
                     }
@@ -143,6 +152,10 @@ public class HealthSystem : MonoBehaviour
                     {
                         Destroy(gameObject);
                     }
+                }
+                else
+                {
+                    justGotDamaged = Time.time;
                 }
 
                 StartCoroutine(LoseHpUI());
