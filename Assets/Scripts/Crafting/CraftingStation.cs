@@ -155,7 +155,8 @@ public abstract class CraftingStation : MonoBehaviour
     private bool HasCraftableRecipes()
     {
         return recipes.Any(recipe =>
-            recipe.requiredMaterials.All(req => chest.GetItemCount(req.material) >= 1));
+            recipe.requiredMaterials.All(req => chest.GetItemCount(req.material) >= 1) ||
+            playerInventory.IsRecipeCrafted(recipe));
     }
 
     private void CheckAndPopulateGrid()
@@ -195,7 +196,8 @@ public abstract class CraftingStation : MonoBehaviour
         foreach (var recipe in recipes)
         {
             bool canDisplay = recipe.requiredMaterials.All(req =>
-                chest.GetItemCount(req.material) >= 1);
+                chest.GetItemCount(req.material) >= 1) ||
+                playerInventory.IsRecipeCrafted(recipe);
 
             if (!canDisplay) continue;
 
