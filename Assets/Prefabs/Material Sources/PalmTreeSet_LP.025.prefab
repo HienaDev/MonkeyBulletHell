@@ -165,7 +165,7 @@ MonoBehaviour:
   monkeyLayer:
     serializedVersion: 2
     m_Bits: 256
-  interactKey: 102
+  interactKey: 323
   interactionCooldown: 0.1
   doOnInteract:
     m_PersistentCalls:
