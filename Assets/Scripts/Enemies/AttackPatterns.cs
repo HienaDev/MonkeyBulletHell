@@ -39,6 +39,8 @@ public class AttackPatterns : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion initialRotation;
 
+    private Coroutine lastCoroutine;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -72,7 +74,7 @@ public class AttackPatterns : MonoBehaviour
     {
         leftEyeMaterial.SetColor("_EmissionColor", emissionColor);
         rightEyeMaterial.SetColor("_EmissionColor", emissionColor);
-        StopAllCoroutines();
+        StopCoroutine(lastCoroutine);
         transform.position = startPosition;
         transform.rotation = initialRotation;
     }
@@ -115,9 +117,9 @@ public class AttackPatterns : MonoBehaviour
     {
         int rng = Random.Range(0, 4);
         if (rng == 3)
-            StartCoroutine(LaserAttack());
+            lastCoroutine = StartCoroutine(LaserAttack());
         else
-            StartCoroutine(MoveAlongArc());
+            lastCoroutine = StartCoroutine(MoveAlongArc());
     }
 
     private IEnumerator LaserAttack()
