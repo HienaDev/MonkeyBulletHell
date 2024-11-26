@@ -74,7 +74,9 @@ public class AttackPatterns : MonoBehaviour
     {
         leftEyeMaterial.SetColor("_EmissionColor", emissionColor);
         rightEyeMaterial.SetColor("_EmissionColor", emissionColor);
+        Debug.Log(lastCoroutine);
         StopCoroutine(lastCoroutine);
+        Debug.Log("Stopped coroutine");
         transform.position = startPosition;
         transform.rotation = initialRotation;
     }
