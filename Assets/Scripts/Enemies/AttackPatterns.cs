@@ -36,9 +36,14 @@ public class AttackPatterns : MonoBehaviour
     private Color emissionColor;
     private Color adjustedEmissionColor;
 
+    private Vector3 startPosition;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+
+        startPosition = transform.position;
+
         leftEyeMaterial = leftEye.GetComponent<Renderer>().material;
         rightEyeMaterial = rightEye.GetComponent<Renderer>().material;
         // Enable the emission keyword to activate emission
@@ -59,6 +64,15 @@ public class AttackPatterns : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ResetBoss()
+    {
+        leftEyeMaterial.SetColor("_EmissionColor", emissionColor);
+        rightEyeMaterial.SetColor("_EmissionColor", emissionColor);
+        StopAllCoroutines();
+        transform.position = startPosition;
+
     }
 
     public void StartCombat()

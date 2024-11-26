@@ -27,8 +27,11 @@ public class DashInDirection : MonoBehaviour
     [SerializeField] private Material[] dashMaterials;
     [SerializeField] private Material[] normalMaterials;
 
+    private Vector3 startPosition;
+
     private void Start()
     {
+        startPosition = transform.position;
         justDashed = Time.time;
         trailRenderer.emitting = false;
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
