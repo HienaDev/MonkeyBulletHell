@@ -2761,6 +2761,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1691096900}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ArenaClose
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1072623845}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 233285992}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -15299,6 +15323,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2855644240354033393, guid: f20b7d4800bbd2b4eb7ffe62ee339d0e,
     type: 3}
   m_PrefabInstance: {fileID: 1088117383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1072623845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2327563038173048418, guid: 387ec5574caeb3448a7524381a7dc959,
+    type: 3}
+  m_PrefabInstance: {fileID: 5015477704489325026}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1073219214 stripped
 Transform:
