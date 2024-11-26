@@ -34,6 +34,8 @@ public class ShootingPlayer : MonoBehaviour
 
     private bool canShoot = false;
 
+    private PlayerInventory inventory;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,14 +48,16 @@ public class ShootingPlayer : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        if(testWeapon != null)
+        inventory = GetComponent<PlayerInventory>();
+
+        if (testWeapon != null)
             SetWeapon(testWeapon);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(canShoot)
+        if(canShoot && inventory.GetSelectedItem() as WeaponSO != null)
         {
             if (Input.GetKey(shoot))
             {

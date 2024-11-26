@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     public Vector3 Velocity { get { return velocity; } }
 
+
+
     [SerializeField] private Transform cameraPlayer;
 
     [SerializeField] private float downwardForce = 10f; // Force applied to keep the player grounded
