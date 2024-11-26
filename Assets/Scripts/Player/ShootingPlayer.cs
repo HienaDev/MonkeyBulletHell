@@ -32,6 +32,8 @@ public class ShootingPlayer : MonoBehaviour
     private AudioSource audioSource;
     private AudioClip[] audioClips;
 
+    private bool canShoot = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,31 +53,34 @@ public class ShootingPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(canShoot)
+        {
+            if (Input.GetKey(shoot))
+            {
+                if (!laserLikeProjectile && Time.time - justShot > fireRate && instantiatedShots.Count > 0)
+                    ShootProjectiles();
+            }
 
-        if (Input.GetKey(shoot))
-        {
-            if (!laserLikeProjectile && Time.time - justShot > fireRate && instantiatedShots.Count > 0)
-                ShootProjectiles();
+            if (Input.GetKeyDown(shoot) && laserLikeProjectile && Time.time - justShot > fireRate && !laserFiring)
+            {
+                laserStarted = Time.time;
+                laserFiring = true;
+                Debug.Log("startlaser");
+                StartLaser();
+            }
+            if (Input.GetKey(shoot) && laserLikeProjectile)
+            {
+                AimLaser();
+            }
+            if (((Input.GetKeyUp(shoot) && laserLikeProjectile) || Time.time - laserStarted > laserDuration) && laserFiring)
+            {
+                Debug.Log("stoplaser");
+                justShot = Time.time;
+                laserFiring = false;
+                StopLaser();
+            }
         }
 
-        if (Input.GetKeyDown(shoot) && laserLikeProjectile && Time.time - justShot > fireRate && !laserFiring)
-        {
-            laserStarted = Time.time;
-            laserFiring = true;
-            Debug.Log("startlaser");
-            StartLaser();
-        }
-        if(Input.GetKey(shoot) && laserLikeProjectile)
-        {
-            AimLaser();
-        }
-        if (((Input.GetKeyUp(shoot) && laserLikeProjectile) || Time.time - laserStarted > laserDuration) && laserFiring)
-        {
-            Debug.Log("stoplaser");
-            justShot = Time.time;
-            laserFiring = false;
-            StopLaser();
-        }
     }
 
     private void ShootProjectiles()
@@ -195,6 +200,10 @@ public class ShootingPlayer : MonoBehaviour
         audioClips = weapon.shootingSounds;
         currentShot = 0;
 
+        canShoot = true;
+
         StartCoroutine(CreateShots());
     }
+
+    public void ClearWeapon() => canShoot = false;
 }

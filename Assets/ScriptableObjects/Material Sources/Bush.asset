@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Bush
   m_EditorClassIdentifier: 
   sourceName: Bush
-  hitsToBreak: 1
+  hitsToBreak: 3
   droppedMaterial:
   - {fileID: 11400000, guid: c8ba248b8a0e10642a5c41a4bb79c2c2, type: 2}
   materialAmountPerHit: 1
+  canBeBrokenWith: []

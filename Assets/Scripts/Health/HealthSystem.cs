@@ -33,7 +33,6 @@ public class HealthSystem : MonoBehaviour
     private bool immortal = false;
 
     [SerializeField] private PlayerInventory playerInventory;
-    [SerializeField] private GameObject gameOverScreen;
     private TAG_Player player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -140,6 +139,7 @@ public class HealthSystem : MonoBehaviour
 
                 if (health <= 0)
                 {
+                    health = 0;
                     if (doOnDeath != null)
                     {
                         doOnDeath.Invoke();
@@ -147,12 +147,7 @@ public class HealthSystem : MonoBehaviour
 
                     if(player != null)
                     {
-                        GetComponentInParent<Animator>().SetTrigger("Die");
-                        GetComponentInParent<PlayerMovement>().enabled = false;
-                        GetComponentInParent<ShootingPlayer>().enabled = false;
-                        GetComponentInParent<DashInDirection>().enabled = false;
-                        GetComponent<Collider>().enabled = false;
-                        gameOverScreen.SetActive(true);
+                        PlayerDie();
                     }
                     else if (destroyOnDeath != null)
                     {
@@ -174,6 +169,32 @@ public class HealthSystem : MonoBehaviour
 
     }
 
+
+    public void PlayerDie()
+    {
+        GetComponentInParent<Animator>().SetTrigger("Die");
+        GetComponentInParent<PlayerMovement>().enabled = false;
+        GetComponentInParent<ShootingPlayer>().enabled = false;
+        GetComponentInParent<DashInDirection>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+    }
+
+    public void RevivePlayer()
+    {
+        StartCoroutine(RevivePlayerCR());
+    }
+
+    private IEnumerator RevivePlayerCR()
+    {
+
+        yield return new WaitForSeconds(3f);
+        Heal(maxHealth);
+        GetComponentInParent<Animator>().SetTrigger("Revive");
+        GetComponentInParent<PlayerMovement>().enabled = true;
+        GetComponentInParent<ShootingPlayer>().enabled = true;
+        GetComponentInParent<DashInDirection>().enabled = true;
+        GetComponent<Collider>().enabled = true;
+    }
 
 
     private IEnumerator LoseHpUI()

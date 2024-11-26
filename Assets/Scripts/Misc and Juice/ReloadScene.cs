@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class ReloadScene : MonoBehaviour
 {
-
+    [SerializeField] private UnityEvent doOnRestart;
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.R))
-            ReloadCurrentScene();
+        {
+            doOnRestart.Invoke();
+        }
     }
 
     public void ReloadCurrentScene()

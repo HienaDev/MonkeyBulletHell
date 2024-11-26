@@ -38,7 +38,7 @@ public class DashInDirection : MonoBehaviour
     private void Update()
     {
         // Check if the dash key is pressed and we're not already dashing
-        if (Input.GetKeyDown(dashKey) && !isDashing && Time.time - justDashed > dashCooldown)
+        if (Input.GetKeyDown(dashKey) && !isDashing && Time.time - justDashed > dashCooldown && playerMovement.Velocity.magnitude > 0.2f)
         {
             justDashed = Time.time;
             StartCoroutine(Dash());

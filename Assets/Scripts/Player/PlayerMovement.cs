@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     private float defaultSpeed;
     private Vector3 velocity;
+    public Vector3 Velocity { get { return velocity; } }
 
     [SerializeField] private Transform cameraPlayer;
 
