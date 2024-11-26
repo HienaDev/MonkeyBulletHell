@@ -2548,7 +2548,6 @@ GameObject:
   - component: {fileID: 233285994}
   - component: {fileID: 233285996}
   - component: {fileID: 233285997}
-  - component: {fileID: 233285998}
   m_Layer: 8
   m_Name: Game OVer
   m_TagString: Untagged
@@ -2774,7 +2773,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 233285998}
+      - m_Target: {fileID: 1691096902}
         m_TargetAssemblyTypeName: ArenaActivateDelay, Assembly-CSharp
         m_MethodName: ArenaDelayCR
         m_Mode: 1
@@ -2820,19 +2819,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &233285998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 233285992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ccf652dc31f4c4f915b63e739eb8ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arena: {fileID: 1078956370}
 --- !u!4 &238754452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2855644240354033393, guid: f20b7d4800bbd2b4eb7ffe62ee339d0e,
@@ -25237,6 +25223,7 @@ GameObject:
   - component: {fileID: 1691096899}
   - component: {fileID: 1691096901}
   - component: {fileID: 1691096900}
+  - component: {fileID: 1691096902}
   m_Layer: 0
   m_Name: BossArena
   m_TagString: Untagged
@@ -25298,6 +25285,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 1
   animator: {fileID: 1691096900}
+--- !u!114 &1691096902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691096898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ccf652dc31f4c4f915b63e739eb8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arena: {fileID: 1078956370}
 --- !u!1001 &1696256988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33059,7 +33059,7 @@ PrefabInstance:
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 525.8
+      value: 138
       objectReference: {fileID: 0}
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
