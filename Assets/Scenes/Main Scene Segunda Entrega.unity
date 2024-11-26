@@ -25904,7 +25904,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5015477704489325026}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2063039697}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55b51f27d13a61a4589dc64ff7c6b398, type: 3}
@@ -25916,7 +25916,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5015477704489325026}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2063039697}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2f679beea951c3429a9598437530e8f, type: 3}
@@ -31027,6 +31027,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 287791220}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2063039697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5128874249816240038, guid: 387ec5574caeb3448a7524381a7dc959,
+    type: 3}
+  m_PrefabInstance: {fileID: 5015477704489325026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2063744973 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9011195361587631964, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
@@ -32696,9 +32702,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: destroyOnDeath
+      value: 
+      objectReference: {fileID: 2063039697}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1691096901}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5128874249816240038, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: m_Name
