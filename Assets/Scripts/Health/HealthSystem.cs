@@ -196,6 +196,11 @@ public class HealthSystem : MonoBehaviour
         GetComponent<Collider>().enabled = true;
     }
 
+    public void ResetHealth()
+    {
+        health = maxHealth;
+        healthImageUI.fillAmount = health / maxHealth;
+    }
 
     private IEnumerator LoseHpUI()
     {
