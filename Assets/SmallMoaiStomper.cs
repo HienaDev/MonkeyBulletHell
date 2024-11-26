@@ -4,6 +4,7 @@ public class SmallMoaiStomper : MonoBehaviour
 {
     [SerializeField] private GameObject firePointOnHead;
     private GameObject player;
+    private Animator animator;
 
     [Header("Detection"), SerializeField] private float detectionRadius = 20f;
 
@@ -15,11 +16,13 @@ public class SmallMoaiStomper : MonoBehaviour
     [SerializeField] private float height = 5f; // Peak height of the arc
     [SerializeField] private float duration = 2f; // Duration of the arc movement
 
+    private bool attacking = false; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = FindAnyObjectByType<PlayerMovement>().gameObject;
-
+        animator = GetComponentInChildren<Animator>();    
     }
 
     // Update is called once per frame
@@ -30,10 +33,17 @@ public class SmallMoaiStomper : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Vector3.Distance(player.transform.position, transform.position) < detectionRadius)
+        if(Vector3.Distance(player.transform.position, transform.position) < detectionRadius && !attacking)
         {
-            StartCoroutine(MoveAlongArc());
+            animator.SetTrigger("Spawn");
+            transform.eulerAngles = new Vector3(0f, GetYAngleToTarget(player.transform.position) - 180, 0);
+            attacking = true;
         }
+    }
+
+    public void StartAttacking()
+    {
+        StartCoroutine(MoveAlongArc());
     }
 
     private float GetYAngleToTarget(Vector3 targetPosition)
@@ -66,10 +76,10 @@ public class SmallMoaiStomper : MonoBehaviour
         Vector3 endPosition = Vector3.zero;
 
         if (distanceToPlayer < radius)
-            endPosition = player.transform.position;
+            endPosition = new Vector3(player.transform.position.x, 0f, player.transform.position.z);
         else
         {
-            endPosition = transform.position +  directionToPlayer * radius;
+            endPosition = new Vector3((transform.position + directionToPlayer * radius).x, 0f, (transform.position + directionToPlayer * radius).z);;
         }
 
         // Perform the arc movement over the duration

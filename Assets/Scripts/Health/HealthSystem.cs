@@ -112,7 +112,7 @@ public class HealthSystem : MonoBehaviour
                 transparent = !transparent;
             }
         }
-        else if(!transparent)
+        else if(!   transparent)
         {
             //Debug.Log("stop blink");
             //foreach (Material mat in defaultMaterials)
