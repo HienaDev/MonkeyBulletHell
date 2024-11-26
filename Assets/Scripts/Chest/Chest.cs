@@ -12,6 +12,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private TextMeshProUGUI nothingHereMessage;
+    [SerializeField] private Animator animator;
 
     private float fadeDuration = 0.1f;
     private CanvasGroup chestUICanvasGroup;
@@ -67,10 +68,12 @@ public class Chest : MonoBehaviour
         if (chestUI.activeSelf)
         {
             CloseUI();
+            animator.SetTrigger("Close");
         }
         else
         {
             OpenUI();
+            animator.SetTrigger("Open");
         }
     }
 
