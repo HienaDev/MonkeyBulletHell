@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1136232867581442499}
   - component: {fileID: 6824061743346306365}
   - component: {fileID: 2539391692495159375}
+  - component: {fileID: 42802063308558910}
   m_Layer: 0
   m_Name: MoaiStomperPivot
   m_TagString: Untagged
@@ -84,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f679beea951c3429a9598437530e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 2
   healthUI: {fileID: 1762328885057080226, guid: e7c17468dcd8f5f47aa23d0d97fcf3fb,
     type: 3}
   healthImageUI: {fileID: 0}
@@ -93,7 +94,19 @@ MonoBehaviour:
   blinkMaterial: {fileID: 0}
   doOnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42802063308558910}
+        m_TargetAssemblyTypeName: SpawnHealth, Assembly-CSharp
+        m_MethodName: SpawnHealthPack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gracePeriod: 0
   blinkDuration: 0.1
   playerInventory: {fileID: 0}
@@ -131,6 +144,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2, y: 4, z: 1.2}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &42802063308558910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672982561300046104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5146afb9f24ec42b53d08ee0b5c217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPack: {fileID: 8299221067387495061, guid: 44fff586707a7394caf0183d1b40b855,
+    type: 3}
 --- !u!1 &2370437530235433835
 GameObject:
   m_ObjectHideFlags: 0

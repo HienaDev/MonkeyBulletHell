@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BoatLogic : MonoBehaviour
 {
@@ -16,11 +17,12 @@ public class BoatLogic : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform easterIslandLocation;
 
-    [SerializeField] private SpawnEnemy enemySpawner;
 
     [SerializeField] private GameObject noWeaponWarning;
     [SerializeField] private Color cantInteractColor;
     private Outline outline;
+
+    [SerializeField] private UnityEvent doOnTeleport;
 
     private void Start()
     {
@@ -39,7 +41,7 @@ public class BoatLogic : MonoBehaviour
                 
 
         fadeScreen.TriggerFade(fadeDuration, blackDuration);
-        enemySpawner.StartSpawning();
+        doOnTeleport.Invoke();
         StartCoroutine(GoToEaster());
     }
 

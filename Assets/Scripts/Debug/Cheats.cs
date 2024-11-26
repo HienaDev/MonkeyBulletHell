@@ -8,6 +8,7 @@ public class Cheats : MonoBehaviour
     [SerializeField] private MaterialSO[] materials;
     [SerializeField] private ToolSO pickaxe;
     [SerializeField] private ToolSO axe;
+    [SerializeField] private HealthSystem moaiHealth;
 
     void Update()
     {   
@@ -63,6 +64,19 @@ public class Cheats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F9))
         {
             playerHealthSystem.SetImmortal(false);
+        }
+
+        // Deal dmg to player
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            playerHealthSystem.DealDamage(1);
+        }
+
+        // Kill Boss
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            moaiHealth.SetImmortal(false);
+            moaiHealth.DealDamage(1000);
         }
     }
 }

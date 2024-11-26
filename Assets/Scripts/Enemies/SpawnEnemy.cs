@@ -15,6 +15,8 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask groundLayer;
 
+    [SerializeField] private Transform player;
+
     private List<GameObject> enemies;
 
     private bool spawning = false;
@@ -64,16 +66,17 @@ public class SpawnEnemy : MonoBehaviour
         Vector3 terrainPosition = terrain.transform.position;
         Vector3 terrainSize = terrain.terrainData.size;
 
-        float minX = terrainPosition.x;
-        float maxX = terrainPosition.x + terrainSize.x;
 
-        float minZ = terrainPosition.z;
-        float maxZ = terrainPosition.z + terrainSize.z;
+        float centerX = terrainPosition.x + terrainSize.x / 2f;
+        float centerZ = terrainPosition.z + terrainSize.z / 2f;
 
-        float randomX = Random.Range(minX, maxX);
-        float randomZ = Random.Range(minZ, maxZ);
+
+        float randomX = Mathf.Lerp(Random.Range(terrainPosition.x, terrainPosition.x + terrainSize.x), centerX, Random.value);
+        float randomZ = Mathf.Lerp(Random.Range(terrainPosition.z, terrainPosition.z + terrainSize.z), centerZ, Random.value);
+
 
         float terrainHeight = terrain.SampleHeight(new Vector3(randomX, 0, randomZ));
+
 
         return new Vector3(randomX, terrainHeight, randomZ);
     }

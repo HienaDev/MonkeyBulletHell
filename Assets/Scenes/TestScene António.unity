@@ -2320,6 +2320,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 07fc65690af436c40a06307c704f8656, type: 2}
   pickaxe: {fileID: 11400000, guid: 172021444ca5b484892f63bda863993b, type: 2}
   axe: {fileID: 11400000, guid: 820e22fa817581545b86c00cec936781, type: 2}
+  moaiHealth: {fileID: 1757500185}
 --- !u!4 &206531655
 Transform:
   m_ObjectHideFlags: 0
@@ -4115,7 +4116,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 27.65, z: -6}
+  m_LocalPosition: {x: 0, y: 27.65, z: -11.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15128,7 +15129,7 @@ MonoBehaviour:
   monkeyLayer:
     serializedVersion: 2
     m_Bits: 256
-  enemySpawner: {fileID: 0}
+  enemySpawner: {fileID: 1736035698}
 --- !u!54 &1078956373
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16554,9 +16555,23 @@ MonoBehaviour:
   needsWeapons: 0
   player: {fileID: 919132149385261819}
   easterIslandLocation: {fileID: 390571739}
-  enemySpawner: {fileID: 0}
   noWeaponWarning: {fileID: 0}
   cantInteractColor: {r: 0, g: 0, b: 0, a: 0}
+  doOnTeleport:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1736035698}
+        m_TargetAssemblyTypeName: SpawnEnemy, Assembly-CSharp
+        m_MethodName: StopSpawning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &1177720505
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18018,9 +18033,23 @@ MonoBehaviour:
   needsWeapons: 1
   player: {fileID: 919132149385261819}
   easterIslandLocation: {fileID: 117246067}
-  enemySpawner: {fileID: 1736035698}
   noWeaponWarning: {fileID: 1197982518}
   cantInteractColor: {r: 1, g: 0, b: 0, a: 1}
+  doOnTeleport:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1736035698}
+        m_TargetAssemblyTypeName: SpawnEnemy, Assembly-CSharp
+        m_MethodName: StartSpawning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1239952968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25328,13 +25357,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab:
   - {fileID: 3376969824266731730, guid: abaf4c3d61668d443880f9cd33ce41b3, type: 3}
-  spawnCooldown: 5
+  spawnCooldown: 10
   spawnRadius: 90
   terrain: {fileID: 112987476}
   groundCheckDistance: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  player: {fileID: 919132149385261832}
 --- !u!4 &1736035699
 Transform:
   m_ObjectHideFlags: 0
@@ -25478,6 +25508,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86c69fb803862da4997f5d4a61573533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1757500185 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+    type: 3}
+  m_PrefabInstance: {fileID: 5015477704489325026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757500170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f679beea951c3429a9598437530e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1762119629 stripped
@@ -32707,8 +32749,7 @@ PrefabInstance:
         type: 3}
       propertyPath: testWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 2a6c335209efe0f4f966a87f20e7b3e7,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 4519589047787681123, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: shotManager
