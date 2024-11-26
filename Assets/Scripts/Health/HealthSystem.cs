@@ -18,7 +18,9 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private GameObject destroyOnDeath;
 
     private Renderer rendererModel;
-    private Material[] materials;
+    private Material[] defaultMaterials;
+    [SerializeField] private Material blinkMaterial;
+    private Material[] blinkMaterials;
 
     [SerializeField] private UnityEvent doOnDeath;
 
@@ -42,27 +44,27 @@ public class HealthSystem : MonoBehaviour
 
         if (GetComponentInChildren<Renderer>() != null)
         {
-            materials = GetComponentInChildren<Renderer>().materials;
+            defaultMaterials = GetComponentInChildren<Renderer>().materials;
+            rendererModel = GetComponentInChildren<Renderer>();
 
-            foreach (Material mat in materials)
-            {
-                Debug.Log(mat);
-
-            }
         }
         else
         {
-            Renderer renderer = transform.parent.GetComponentInChildren<Renderer>();
+            rendererModel = transform.parent.GetComponentInChildren<Renderer>();
 
-            if(renderer != null)
+            if(rendererModel != null)
             {
-                materials = renderer.materials;
+                defaultMaterials = rendererModel.materials;
    
             }
         }
 
+        blinkMaterials = new Material[defaultMaterials.Length];
 
-
+        for (int i = 0; i < blinkMaterials.Length; i++)
+        {
+            blinkMaterials[i] = blinkMaterial;
+        }
 
         if (healthImageUI == null)
         {
@@ -81,37 +83,44 @@ public class HealthSystem : MonoBehaviour
     {
         if (Time.time - justGotDamaged < gracePeriod)
         {
+
             if(Time.time - justBlinked > blinkDuration)
             {
                 justBlinked = Time.time;
                 if (!transparent)
                 {
-                    foreach (Material mat in materials)
-                    {
-                        mat.color = mat.color * 4f;
+                    //foreach (Material mat in defaultMaterials)
+                    //{
+                    //    Debug.Log(mat.color + "before high");
+                    //    mat.color = mat.color * 4f;
+                    //    Debug.Log(mat.color + "after high");
+                    //}
 
-                    }
-                    
+                    rendererModel.materials = defaultMaterials;
                 }
                 else
                 {
-                    foreach (Material mat in materials)
-                    {
-                        mat.color = mat.color * 0.25f;
-
-                    }
+                    //foreach (Material mat in defaultMaterials)
+                    //{
+                    //    Debug.Log(mat.color + "before low");
+                    //    mat.color = mat.color * 0.25f;
+                    //    Debug.Log(mat.color + "after low");
+                    //}
+                    rendererModel.materials = blinkMaterials;
                 }
 
                 transparent = !transparent;
             }
         }
-        else if(transparent)
+        else if(!transparent)
         {
-            foreach (Material mat in materials)
-            {
-                mat.color = mat.color * 0.25f;
+            //Debug.Log("stop blink");
+            //foreach (Material mat in defaultMaterials)
+            //{
+            //    mat.color = mat.color * 0.25f;
 
-            }
+            //}
+            rendererModel.materials = defaultMaterials;
             transparent = !transparent;
         }
     }
@@ -142,6 +151,7 @@ public class HealthSystem : MonoBehaviour
                         GetComponentInParent<PlayerMovement>().enabled = false;
                         GetComponentInParent<ShootingPlayer>().enabled = false;
                         GetComponentInParent<DashInDirection>().enabled = false;
+                        GetComponent<Collider>().enabled = false;
                         gameOverScreen.SetActive(true);
                     }
                     else if (destroyOnDeath != null)
@@ -170,8 +180,9 @@ public class HealthSystem : MonoBehaviour
     {
         healthImageUI.fillAmount = health / maxHealth;
 
+
         if (GetComponentInChildren<Renderer>() != null)
-            foreach (Material mat in materials)
+            foreach (Material mat in defaultMaterials)
             {
                 Debug.Log(mat);
                 mat.EnableKeyword("_EMISSION");
@@ -182,7 +193,7 @@ public class HealthSystem : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
 
         if (GetComponentInChildren<Renderer>() != null)
-            foreach (Material mat in materials)
+            foreach (Material mat in defaultMaterials)
             {
                 mat.DisableKeyword("_EMISSION");
             }

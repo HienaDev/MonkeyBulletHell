@@ -42,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
         MovementInput();
     }
 
+    private void OnDisable()
+    {
+        rb.linearVelocity = Vector3.zero;
+    }
+
     private void FixedUpdate()
     {
         if (!groundCheck.Grounded)
