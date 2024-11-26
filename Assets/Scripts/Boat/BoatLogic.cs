@@ -16,18 +16,43 @@ public class BoatLogic : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform easterIslandLocation;
 
+    [SerializeField] private SpawnEnemy enemySpawner;
+
+    [SerializeField] private GameObject noWeaponWarning;
+    [SerializeField] private Color cantInteractColor;
+    private Outline outline;
+
+    private void Start()
+    {
+        outline = GetComponent<Outline>();
+    }
 
     public void TriggerTeleport()
     {
 
         if (needsWeapons)
             if (!inventory.PlayerHasWeaponEquipped())
+            {
+                StartCoroutine(CantUseBoat());
                 return;
+            }
+                
 
         fadeScreen.TriggerFade(fadeDuration, blackDuration);
+        enemySpawner.StartSpawning();
         StartCoroutine(GoToEaster());
     }
 
+    private IEnumerator CantUseBoat()
+    {
+        Color defaultColor = outline.OutlineColor;
+
+        noWeaponWarning.SetActive(true);
+        outline.OutlineColor = cantInteractColor;
+        yield return new WaitForSeconds(2f);
+        noWeaponWarning.SetActive(false);
+        outline.OutlineColor = defaultColor;
+    }
 
     private IEnumerator GoToEaster()
     {

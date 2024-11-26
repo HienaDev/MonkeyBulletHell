@@ -89,7 +89,7 @@ MonoBehaviour:
     type: 3}
   healthImageUI: {fileID: 0}
   entityHeight: 2
-  destroyOnDeath: {fileID: 0}
+  destroyOnDeath: {fileID: 3376969824266731730}
   blinkMaterial: {fileID: 0}
   doOnDeath:
     m_PersistentCalls:

@@ -17,7 +17,7 @@ public class Interactable : MonoBehaviour
 
     private void Start()
     {
-        justInteracted = Time.time;
+        justInteracted = float.MinValue;
         outline = GetComponent<Outline>();
         playerInventory = FindFirstObjectByType<PlayerInventory>();
         materialSource = GetComponent<MaterialSource>();

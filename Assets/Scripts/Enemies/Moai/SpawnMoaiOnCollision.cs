@@ -5,9 +5,9 @@ public class SpawnMoaiOnCollision : MonoBehaviour
     [SerializeField] private AttackPatterns moai;
     [SerializeField] private TriggerCameraShake rockDoor;
 
-    [SerializeField] private LayerMask monkeyLayer; 
+    [SerializeField] private LayerMask monkeyLayer;
 
-
+    [SerializeField] private SpawnEnemy enemySpawner;
 
 
     private void OnTriggerEnter(Collider other)
@@ -20,6 +20,9 @@ public class SpawnMoaiOnCollision : MonoBehaviour
             rockDoor.StartArenaShake();
 
             gameObject.SetActive(false);
+
+            enemySpawner.StopSpawning();
+            enemySpawner.ClearEnemies();
         }
 
     }
