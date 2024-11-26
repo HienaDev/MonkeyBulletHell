@@ -9077,17 +9077,17 @@ PrefabInstance:
     - target: {fileID: 3913970090777041980, guid: 749509d5edfb1be4f9ae463fae600e5b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.850006
+      value: 7.12
       objectReference: {fileID: 0}
     - target: {fileID: 3913970090777041980, guid: 749509d5edfb1be4f9ae463fae600e5b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6700001
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 3913970090777041980, guid: 749509d5edfb1be4f9ae463fae600e5b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.089996
+      value: 27.89
       objectReference: {fileID: 0}
     - target: {fileID: 3913970090777041980, guid: 749509d5edfb1be4f9ae463fae600e5b,
         type: 3}
@@ -32518,21 +32518,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 702060370}
     m_Modifications:
-    - target: {fileID: 140607994579668936, guid: 4e941bddc7fa9b145916b457066d774c,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 785e17e5fc278c14cbfc49f1861a494e, type: 2}
     - target: {fileID: 1607827110950692524, guid: 4e941bddc7fa9b145916b457066d774c,
         type: 3}
       propertyPath: m_Name
       value: Tool Crafting Station
       objectReference: {fileID: 0}
-    - target: {fileID: 2961008074871277297, guid: 4e941bddc7fa9b145916b457066d774c,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 50d75bdd9ee54fa46af362527682c863, type: 2}
     - target: {fileID: 3313294370113248212, guid: 4e941bddc7fa9b145916b457066d774c,
         type: 3}
       propertyPath: player
@@ -32561,12 +32551,12 @@ PrefabInstance:
     - target: {fileID: 5509493490010263049, guid: 4e941bddc7fa9b145916b457066d774c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.83
+      value: 9.73
       objectReference: {fileID: 0}
     - target: {fileID: 5509493490010263049, guid: 4e941bddc7fa9b145916b457066d774c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.2630305
+      value: -4.57
       objectReference: {fileID: 0}
     - target: {fileID: 5509493490010263049, guid: 4e941bddc7fa9b145916b457066d774c,
         type: 3}
@@ -32907,7 +32897,7 @@ PrefabInstance:
     - target: {fileID: 8465665579823834878, guid: 3e0e2751961473948919a24782ac6495,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.54
+      value: -8.8
       objectReference: {fileID: 0}
     - target: {fileID: 8465665579823834878, guid: 3e0e2751961473948919a24782ac6495,
         type: 3}
@@ -33225,17 +33215,17 @@ PrefabInstance:
     - target: {fileID: 9034769535378425873, guid: 4154d174fdc32ef4abed6f65156d622e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.097724915
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: 9034769535378425873, guid: 4154d174fdc32ef4abed6f65156d622e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.46603
+      value: -4.98
       objectReference: {fileID: 0}
     - target: {fileID: 9034769535378425873, guid: 4154d174fdc32ef4abed6f65156d622e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.93
+      value: 7.22
       objectReference: {fileID: 0}
     - target: {fileID: 9034769535378425873, guid: 4154d174fdc32ef4abed6f65156d622e,
         type: 3}
@@ -33451,7 +33441,7 @@ PrefabInstance:
     - target: {fileID: 1741467762445911171, guid: 6862f246c945e9a4d94b37db1b26b608,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.24
+      value: 18.19
       objectReference: {fileID: 0}
     - target: {fileID: 1741467762445911171, guid: 6862f246c945e9a4d94b37db1b26b608,
         type: 3}
@@ -33497,26 +33487,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1848255331126008633, guid: 6862f246c945e9a4d94b37db1b26b608,
-        type: 3}
-      propertyPath: interactionCooldown
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7848219892914402247, guid: 6862f246c945e9a4d94b37db1b26b608,
-        type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7848219892914402247, guid: 6862f246c945e9a4d94b37db1b26b608,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7848219892914402247, guid: 6862f246c945e9a4d94b37db1b26b608,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8700281667827735328, guid: 6862f246c945e9a4d94b37db1b26b608,
         type: 3}
