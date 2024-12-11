@@ -15,6 +15,9 @@ public class Interactable : MonoBehaviour
     private PlayerInventory playerInventory;
     private MaterialSource materialSource;
 
+    [SerializeField] private bool hitEffectToggle = false;
+    [SerializeField] private GameObject hitEffect;
+
     private void Start()
     {
         justInteracted = float.MinValue;
@@ -41,6 +44,11 @@ public class Interactable : MonoBehaviour
         {
             doOnInteract.Invoke();
             justInteracted = Time.time;
+
+            if(hitEffectToggle)
+            {
+                Instantiate(hitEffect, transform);
+            }
         }
     }
 
