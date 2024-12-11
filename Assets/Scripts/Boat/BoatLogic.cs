@@ -30,6 +30,7 @@ public class BoatLogic : MonoBehaviour
     private void Start()
     {
         outline = GetComponent<Outline>();
+        travelingUI.text = travellingText;
     }
 
     public void TriggerTeleport()
@@ -47,6 +48,7 @@ public class BoatLogic : MonoBehaviour
 
         fadeScreen.TriggerFade(fadeDuration, blackDuration);
         travelingUI.enabled = true;
+
         doOnTeleport.Invoke();
         StartCoroutine(GoToEaster());
     }

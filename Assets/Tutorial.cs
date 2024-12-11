@@ -104,7 +104,7 @@ public class Tutorial : MonoBehaviour
 
     public void UpdateCollectTasks(MaterialSO material)
     {
-
+        if (part1Complete) return;
         Debug.Log(material.ToString());
 
         if (material == stoneSO && !stoneTaskComplete)
@@ -153,6 +153,7 @@ public class Tutorial : MonoBehaviour
     public void StorageInteracted()
     {
         if (!part1Complete) return;
+        if (storageInteractionComplete) return;
         storageInteractionComplete = true;
         storageTask.GetComponent<Animator>().SetBool("TaskComplete", true);
 
@@ -162,6 +163,7 @@ public class Tutorial : MonoBehaviour
     public void CraftedSlingshot(WeaponSO weapon)
     {
         if (!part1Complete) return;
+        if(craftSlingshotComplete) return;
         if (weapon != slingShotSO) return;
         craftSlingshotComplete = true;
         craftSlingshotTask.GetComponent<Animator>().SetBool("TaskComplete", true);
@@ -172,6 +174,7 @@ public class Tutorial : MonoBehaviour
     public void CompleteBoatTask()
     {
         if (!part1Complete) return;
+        if(boatTravelComplete) return;
         boatTravelComplete = true;
         boatTravelTask.GetComponent<Animator>().SetBool("TaskComplete", true);
 
@@ -181,6 +184,7 @@ public class Tutorial : MonoBehaviour
     public void CompleteMoai()
     {
         if (!part1Complete) return;
+        if(killMoaiComplete) return;
         killMoaiComplete = true;
         killMoaiTask.GetComponent<Animator>().SetBool("TaskComplete", true);
 

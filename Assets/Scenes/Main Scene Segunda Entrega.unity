@@ -22174,6 +22174,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hitEffectToggle: 0
+  hitEffect: {fileID: 0}
 --- !u!114 &1177720511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23498,6 +23500,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hitEffectToggle: 0
+  hitEffect: {fileID: 0}
 --- !u!114 &1239952971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38111,6 +38115,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1691096899}
     m_Modifications:
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: health
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: destroyOnDeath
