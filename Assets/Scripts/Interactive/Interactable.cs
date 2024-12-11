@@ -45,7 +45,7 @@ public class Interactable : MonoBehaviour
             doOnInteract.Invoke();
             justInteracted = Time.time;
 
-            if(hitEffectToggle)
+            if(hitEffectToggle && outline.enabled)
             {
                 Instantiate(hitEffect, transform);
             }

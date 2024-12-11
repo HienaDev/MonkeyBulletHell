@@ -214,6 +214,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hitEffectToggle: 1
+  hitEffect: {fileID: 7558115039964599491, guid: 531ef2f1f0e4dbb4282361347213cab4,
+    type: 3}
 --- !u!114 &4431997682276817031
 MonoBehaviour:
   m_ObjectHideFlags: 0
