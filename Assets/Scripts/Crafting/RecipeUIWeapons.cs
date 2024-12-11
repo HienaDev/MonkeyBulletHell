@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class RecipeUIWeapons : RecipeUI
 {
@@ -88,6 +89,7 @@ public class RecipeUIWeapons : RecipeUI
             }
 
             playerInventory.EquipWeapon(slot, recipe.result);
+            Tutorial.Instance.CraftedSlingshot(recipe.result as WeaponSO);
             UpdateUI();
         }
     }

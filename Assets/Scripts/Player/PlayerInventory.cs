@@ -14,8 +14,13 @@ public class PlayerInventory : MonoBehaviour
     private ItemSO equippedArmor;
     private GameObject currentArmorModel;
 
+    private Tutorial tutorial;
+
     private void Start()
     {
+
+        tutorial = Tutorial.Instance;
+
         weaponSlots = new ItemSO[2];
         inventoryItems = new List<InventorySlot>();
         alreadyCraftedRecipes = new List<CraftingRecipe>();
@@ -35,6 +40,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (item.itemType == ItemType.Material)
         {
+            tutorial.UpdateCollectTasks(item as MaterialSO);
             InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item && slot.Quantity.HasValue);
 
             if (existingSlot != null)
@@ -48,6 +54,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (item.itemType == ItemType.Weapon)
         {
+  
             if (weaponSlots[0] == null)
             {
                 weaponSlots[0] = item;
