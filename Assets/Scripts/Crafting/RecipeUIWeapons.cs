@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+
 
 public class RecipeUIWeapons : RecipeUI
 {
     [SerializeField] private Button equipButton1;
     [SerializeField] private Button equipButton2;
     [SerializeField] private Button equippedButton;
-
+    //
     public override void Setup(CraftingRecipe recipe, Chest chest, PlayerInventory playerInventory, CraftingStation craftingStation)
     {
         base.Setup(recipe, chest, playerInventory, craftingStation);
