@@ -121,39 +121,23 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(ItemSO item)
     {
-        if (item.itemType == ItemType.Weapon)
+        InventorySlot slot = inventoryItems.Find(s => s.Item == item);
+        if (slot != null)
         {
-            if (weaponSlots[0] == item)
+            if (item.itemType == ItemType.Material && slot.Quantity > 1)
             {
-                weaponSlots[0] = null;
-                Debug.Log($"{item.itemName} removed from weapon slot 1");
+                slot.DecreaseQuantity(1);
+                Debug.Log($"{item.itemName} quantity decreased. Remaining: {slot.Quantity}");
             }
-            else if (weaponSlots[1] == item)
+            else
             {
-                weaponSlots[1] = null;
-                Debug.Log($"{item.itemName} removed from weapon slot 2");
+                inventoryItems.Remove(slot);
+                Debug.Log($"{item.itemName} completely removed from inventory.");
             }
         }
         else
         {
-            InventorySlot slot = inventoryItems.Find(s => s.Item == item);
-            if (slot != null)
-            {
-                if (item.itemType == ItemType.Material && slot.Quantity > 1)
-                {
-                    slot.DecreaseQuantity(1);
-                    Debug.Log($"{item.itemName} quantity decreased. Remaining: {slot.Quantity}");
-                }
-                else
-                {
-                    inventoryItems.Remove(slot);
-                    Debug.Log($"{item.itemName} completely removed from inventory.");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Item not found in inventory.");
-            }
+            Debug.LogWarning($"{item.itemName} not found in inventory.");
         }
 
         uiManager.UpdateInventoryDisplay();
@@ -465,7 +449,7 @@ public class PlayerInventory : MonoBehaviour
 
         foreach (var slot in inventoryItems)
         {
-            if (slot.Item.itemType == ItemType.Weapon)
+            if (slot.Item.itemType == ItemType.Tool)
             {
                 CraftingRecipe recipe = alreadyCraftedRecipes.Find(r => r.result == slot.Item);
                 if (recipe != null)
@@ -483,5 +467,10 @@ public class PlayerInventory : MonoBehaviour
                 alreadyCraftedRecipes.Remove(armorRecipe);
             }
         }
+    }
+
+    public bool IsToolEquipped(ItemSO tool)
+    {
+        return inventoryItems.Find(slot => slot.Item == tool) != null;
     }
 }

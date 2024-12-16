@@ -1,14 +1,28 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RecipeUITools : RecipeUI
 {
+    [SerializeField] private Button equipButton;
+    [SerializeField] private Button unequipButton;
+
+    public override void Setup(CraftingRecipe recipe, Chest chest, PlayerInventory playerInventory, CraftingStation craftingStation)
+    {
+        base.Setup(recipe, chest, playerInventory, craftingStation);
+
+        equipButton.onClick.AddListener(() => EquipTool());
+        unequipButton.onClick.AddListener(() => UnequipTool());
+
+        UpdateUI();
+    }
+
     protected override void UpdateCraftStatus()
     {
         for (int i = 0; i < materialIcons.Length; i++)
         {
             if (i < recipe.requiredMaterials.Count)
             {
-                materialQuantities[i].text = playerInventory.GetItemCount(recipe.requiredMaterials[i].material).ToString() + "/" + recipe.requiredMaterials[i].quantity.ToString();
+                materialQuantities[i].text = chest.GetItemCount(recipe.requiredMaterials[i].material).ToString() + "/" + recipe.requiredMaterials[i].quantity.ToString();
                 materialQuantities[i].gameObject.SetActive(true);
             }
             else
@@ -19,11 +33,32 @@ public class RecipeUITools : RecipeUI
 
         craftButton.interactable = chest.HasMaterials(recipe.requiredMaterials);
         craftButton.gameObject.SetActive(true);
+        equipButton.gameObject.SetActive(false);
+        unequipButton.gameObject.SetActive(false);
     }
 
     protected override void UpdateEquipStatus()
     {
-        craftButton.gameObject.SetActive(true);
+        bool isEquipped = playerInventory.IsToolEquipped(recipe.result);
+
+        craftButton.gameObject.SetActive(false);
+
+        if (isEquipped)
+        {
+            equipButton.gameObject.SetActive(false);
+            unequipButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            equipButton.gameObject.SetActive(true);
+            unequipButton.gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < materialIcons.Length; i++)
+        {
+            materialIcons[i].gameObject.SetActive(false);
+            materialQuantities[i].gameObject.SetActive(false);
+        }
     }
 
     protected override void TryCraft()
@@ -37,18 +72,47 @@ public class RecipeUITools : RecipeUI
         if (chest.HasMaterials(recipe.requiredMaterials))
         {
             chest.ConsumeMaterials(recipe.requiredMaterials);
-            playerInventory.AddItem(recipe.result);
 
             playerInventory.AddCraftedRecipe(recipe);
 
             craftingStation.RefreshUI();
             UpdateUI();
 
-            Debug.Log($"{recipe.result.itemName} crafted successfully.");
+            Debug.Log($"{recipe.result.itemName} crafted successfully and added to the inventory.");
         }
         else
         {
             Debug.Log("Insufficient materials to craft this tool.");
+        }
+    }
+
+    private void EquipTool()
+    {
+        if (playerInventory.IsRecipeCrafted(recipe))
+        {
+            playerInventory.AddItem(recipe.result);
+
+            Debug.Log($"{recipe.result.itemName} equipped from inventory.");
+            UpdateUI();
+        }
+        else
+        {
+            Debug.LogWarning($"{recipe.result.itemName} is not crafted yet.");
+        }
+    }
+
+    private void UnequipTool()
+    {
+        if (playerInventory.IsToolEquipped(recipe.result))
+        {
+            playerInventory.RemoveItem(recipe.result);
+
+            Debug.Log($"{recipe.result.itemName} unequipped and removed from inventory.");
+            UpdateUI();
+        }
+        else
+        {
+            Debug.LogWarning($"{recipe.result.itemName} is not equipped, cannot unequip.");
         }
     }
 }
