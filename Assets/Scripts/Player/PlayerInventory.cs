@@ -125,8 +125,10 @@ public class PlayerInventory : MonoBehaviour
         {
             if (weaponSlots[0] == item)
             {
-                weaponSlots[0] = null;
-                Debug.Log($"{item.itemName} removed from weapon slot 1.");
+                weaponSlots[0] = weaponSlots[1];
+                weaponSlots[1] = null;
+
+                Debug.Log($"{item.itemName} removed from weapon slot 1. Slot 2 weapon moved to slot 1.");
             }
             else if (weaponSlots[1] == item)
             {
@@ -149,6 +151,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         uiManager.UpdateInventoryDisplay();
+        NotifyRecipeUI();
     }
 
     public List<InventorySlot> RemoveAllMaterials()
@@ -237,20 +240,21 @@ public class PlayerInventory : MonoBehaviour
             return;
         }
 
+        if (slot == 2 && weaponSlots[0] == null)
+        {
+            Debug.LogWarning("Cannot equip weapon in slot 2 if slot 1 is empty.");
+            return;
+        }
+
         if (slot == 1)
         {
             weaponSlots[0] = weapon;
-            Debug.Log($"{weapon.itemName} equipped in slot 1");
+            Debug.Log($"{weapon.itemName} equipped in slot 1.");
         }
         else if (slot == 2)
         {
             weaponSlots[1] = weapon;
-            Debug.Log($"{weapon.itemName} equipped in slot 2");
-        }
-        else
-        {
-            Debug.LogError($"Invalid slot index: {slot}. Cannot equip weapon.");
-            return;
+            Debug.Log($"{weapon.itemName} equipped in slot 2.");
         }
 
         uiManager.UpdateInventoryDisplay();
