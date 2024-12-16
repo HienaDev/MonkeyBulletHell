@@ -297,6 +297,30 @@ public class PlayerInventory : MonoBehaviour
         NotifyRecipeUI();
     }
 
+    public void UnequipArmor()
+    {
+        if (equippedArmor != null)
+        {
+            Debug.Log($"{equippedArmor.itemName} unequipped as armor.");
+
+            if (currentArmorModel != null)
+            {
+                Destroy(currentArmorModel);
+                currentArmorModel = null;
+            }
+
+            equippedArmor = null;
+
+            uiManager.UpdateInventoryDisplay();
+            NotifyRecipeUI();
+        }
+        else
+        {
+            Debug.LogWarning("No armor is currently equipped to unequip.");
+        }
+    }
+
+
     private void NotifyRecipeUI()
     {
         RecipeUI recipeUI = FindFirstObjectByType<RecipeUI>();

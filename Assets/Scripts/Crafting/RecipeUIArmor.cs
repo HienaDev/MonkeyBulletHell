@@ -4,31 +4,24 @@ using UnityEngine.UI;
 public class RecipeUIArmor : RecipeUI
 {
     [SerializeField] private Button equipButton;
-    [SerializeField] private Button equippedButton;
+    [SerializeField] private Button unequipButton;
 
     public override void Setup(CraftingRecipe recipe, Chest chest, PlayerInventory playerInventory, CraftingStation craftingStation)
     {
         base.Setup(recipe, chest, playerInventory, craftingStation);
 
         equipButton.onClick.AddListener(() => EquipArmor());
+        unequipButton.onClick.AddListener(() => UnequipArmor());
 
         UpdateUI();
     }
 
     protected override void UpdateCraftStatus()
     {
-        if (chest.HasMaterials(recipe.requiredMaterials))
-        {
-            craftButton.interactable = true;
-        }
-        else
-        {
-            craftButton.interactable = false;
-        }
-
+        craftButton.interactable = chest.HasMaterials(recipe.requiredMaterials);
         craftButton.gameObject.SetActive(true);
         equipButton.gameObject.SetActive(false);
-        equippedButton.gameObject.SetActive(false);
+        unequipButton.gameObject.SetActive(false);
 
         for (int i = 0; i < materialIcons.Length; i++)
         {
@@ -53,12 +46,12 @@ public class RecipeUIArmor : RecipeUI
         if (isEquipped)
         {
             equipButton.gameObject.SetActive(false);
-            equippedButton.gameObject.SetActive(true);
+            unequipButton.gameObject.SetActive(true);
         }
         else
         {
             equipButton.gameObject.SetActive(true);
-            equippedButton.gameObject.SetActive(false);
+            unequipButton.gameObject.SetActive(false);
         }
 
         for (int i = 0; i < materialIcons.Length; i++)
@@ -73,7 +66,6 @@ public class RecipeUIArmor : RecipeUI
         if (chest.HasMaterials(recipe.requiredMaterials))
         {
             chest.ConsumeMaterials(recipe.requiredMaterials);
-
             playerInventory.AddCraftedRecipe(recipe);
 
             craftingStation.RefreshUI();
@@ -94,5 +86,11 @@ public class RecipeUIArmor : RecipeUI
             playerInventory.EquipArmor(recipe.result);
             UpdateUI();
         }
+    }
+
+    private void UnequipArmor()
+    {
+        playerInventory.UnequipArmor();
+        UpdateUI();
     }
 }
