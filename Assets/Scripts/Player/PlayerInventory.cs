@@ -121,23 +121,31 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(ItemSO item)
     {
-        InventorySlot slot = inventoryItems.Find(s => s.Item == item);
-        if (slot != null)
+        if (item.itemType == ItemType.Weapon)
         {
-            if (item.itemType == ItemType.Material && slot.Quantity > 1)
+            if (weaponSlots[0] == item)
             {
-                slot.DecreaseQuantity(1);
-                Debug.Log($"{item.itemName} quantity decreased. Remaining: {slot.Quantity}");
+                weaponSlots[0] = null;
+                Debug.Log($"{item.itemName} removed from weapon slot 1.");
             }
-            else
+            else if (weaponSlots[1] == item)
             {
-                inventoryItems.Remove(slot);
-                Debug.Log($"{item.itemName} completely removed from inventory.");
+                weaponSlots[1] = null;
+                Debug.Log($"{item.itemName} removed from weapon slot 2.");
             }
         }
         else
         {
-            Debug.LogWarning($"{item.itemName} not found in inventory.");
+            InventorySlot slot = inventoryItems.Find(s => s.Item == item);
+            if (slot != null)
+            {
+                inventoryItems.Remove(slot);
+                Debug.Log($"{item.itemName} removed from inventory.");
+            }
+            else
+            {
+                Debug.LogWarning($"{item.itemName} not found in inventory.");
+            }
         }
 
         uiManager.UpdateInventoryDisplay();
