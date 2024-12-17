@@ -141,17 +141,24 @@ public class PlayerInventory : MonoBehaviour
             InventorySlot slot = inventoryItems.Find(s => s.Item == item);
             if (slot != null)
             {
-                inventoryItems.Remove(slot);
-                Debug.Log($"{item.itemName} removed from inventory.");
+                if (item.itemType == ItemType.Material && slot.Quantity > 1)
+                {
+                    slot.DecreaseQuantity(1);
+                    Debug.Log($"{item.itemName} quantity decreased. Remaining: {slot.Quantity}");
+                }
+                else
+                {
+                    inventoryItems.Remove(slot);
+                    Debug.Log($"{item.itemName} completely removed from inventory.");
+                }
             }
             else
             {
-                Debug.LogWarning($"{item.itemName} not found in inventory.");
+                Debug.LogWarning("Item not found in inventory.");
             }
         }
 
         uiManager.UpdateUI();
-        NotifyRecipeUI();
     }
 
     public List<InventorySlot> RemoveAllMaterials()
