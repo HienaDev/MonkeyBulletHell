@@ -1,3 +1,4 @@
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,12 +7,16 @@ public class RecipeUIArmor : RecipeUI
     [SerializeField] private Button equipButton;
     [SerializeField] private Button unequipButton;
 
+    private UIManager uiManager;
+
     public override void Setup(CraftingRecipe recipe, Chest chest, PlayerInventory playerInventory, CraftingStation craftingStation)
     {
         base.Setup(recipe, chest, playerInventory, craftingStation);
 
         equipButton.onClick.AddListener(() => EquipArmor());
         unequipButton.onClick.AddListener(() => UnequipArmor());
+
+        uiManager = FindFirstObjectByType<UIManager>();
 
         UpdateUI();
     }
@@ -84,6 +89,7 @@ public class RecipeUIArmor : RecipeUI
         if (playerInventory.IsRecipeCrafted(recipe))
         {
             playerInventory.EquipArmor(recipe.result);
+
             UpdateUI();
         }
     }
@@ -91,6 +97,7 @@ public class RecipeUIArmor : RecipeUI
     private void UnequipArmor()
     {
         playerInventory.UnequipArmor();
+
         UpdateUI();
     }
 }

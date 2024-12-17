@@ -5,11 +5,15 @@ using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Inventory UI")]
     [SerializeField] private Image[] inventorySlots;
     [SerializeField] private Image[] inventoryIcons;
     [SerializeField] private TextMeshProUGUI[] itemCounts;
     [SerializeField] private Color selectedSlotColor;
     [SerializeField] private Color deselectedSlotColor;
+
+    [Header("Armor Level UI")]
+    [SerializeField] private Image[] armorIcons;
 
     private int selectedSlot;
     private PlayerInventory playerInventory;
@@ -23,6 +27,7 @@ public class UIManager : MonoBehaviour
         wasEmpty = true;
         HideInventoryIcons();
         HideInventoryNumbers();
+        HideArmorIcons();
         SelectInventorySlot(-1);
     }
 
@@ -86,10 +91,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateInventoryDisplay()
+    public void UpdateUI()
     {
-        DisplayInventory();
-
+        UpdateArmorDisplay();
+        UpdateInventory();
+        
         if (occupiedSlots.Count > 0)
         {
             if (wasEmpty)
@@ -106,7 +112,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void DisplayInventory()
+    private void UpdateInventory()
     {
         HideInventoryIcons();
         HideInventoryNumbers();
@@ -227,5 +233,27 @@ public class UIManager : MonoBehaviour
         {
             slot.color = deselectedSlotColor;
         }
+    }
+
+    public void UpdateArmorDisplay()
+    {
+        if (playerInventory.GetEquippedArmor() == null)
+        {
+            HideArmorIcons();
+            return;
+        }
+
+        int activeIcons = Mathf.Clamp(Mathf.RoundToInt((1.0f - playerInventory.GetEquippedArmor().damageReduction) * 20), 0, armorIcons.Length);
+
+        for (int i = 0; i < armorIcons.Length; i++)
+        {
+            armorIcons[i].enabled = i < activeIcons;
+        }
+    }
+
+    public void HideArmorIcons()
+    {
+        foreach (Image icon in armorIcons)
+            icon.enabled = false;
     }
 }

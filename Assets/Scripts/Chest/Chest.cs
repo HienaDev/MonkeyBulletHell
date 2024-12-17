@@ -278,7 +278,7 @@ public class Chest : MonoBehaviour
             }
         }
 
-        uiManager.UpdateInventoryDisplay();
+        uiManager.UpdateUI();
         NotifyRecipeUI();
     }
 

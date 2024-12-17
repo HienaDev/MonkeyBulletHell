@@ -47,7 +47,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 existingSlot.IncreaseQuantity(1);
                 Debug.Log($"{item.itemName} quantity increased to {existingSlot.Quantity}");
-                uiManager.UpdateInventoryDisplay();
+                uiManager.UpdateUI();
                 return;
             }
         }
@@ -84,7 +84,7 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        uiManager.UpdateInventoryDisplay();
+        uiManager.UpdateUI();
     }
 
     public void AddCraftedRecipe(CraftingRecipe recipe)
@@ -150,7 +150,7 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        uiManager.UpdateInventoryDisplay();
+        uiManager.UpdateUI();
         NotifyRecipeUI();
     }
 
@@ -168,7 +168,7 @@ public class PlayerInventory : MonoBehaviour
 
         inventoryItems.RemoveAll(slot => slot.Item.itemType == ItemType.Material);
 
-        uiManager.UpdateInventoryDisplay();
+        uiManager.UpdateUI();
 
         return materialsToStore;
     }
@@ -219,7 +219,7 @@ public class PlayerInventory : MonoBehaviour
 
         RemoveItem(selectedItem);
 
-        uiManager.UpdateInventoryDisplay();
+        uiManager.UpdateUI();
 
         ItemSO currentItem = GetItemAtSlot(lastSelectedIndex);
         if (currentItem != null && currentItem.itemType == ItemType.Material && GetItemCount(currentItem) > 0)
@@ -257,7 +257,7 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log($"{weapon.itemName} equipped in slot 2.");
         }
 
-        uiManager.UpdateInventoryDisplay();
+        uiManager.UpdateUI();
         NotifyRecipeUI();
     }
 
@@ -289,7 +289,7 @@ public class PlayerInventory : MonoBehaviour
             Debug.LogWarning("This armor does not have a prefab.");
         }
 
-        uiManager.UpdateInventoryDisplay();
+        uiManager.UpdateUI();
         NotifyRecipeUI();
     }
 
@@ -307,7 +307,7 @@ public class PlayerInventory : MonoBehaviour
 
             equippedArmor = null;
 
-            uiManager.UpdateInventoryDisplay();
+            uiManager.UpdateUI();
             NotifyRecipeUI();
         }
         else
@@ -436,7 +436,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (uiManager != null)
         {
-            uiManager.UpdateInventoryDisplay();
+            uiManager.UpdateUI();
         }
     }
 
