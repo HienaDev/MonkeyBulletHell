@@ -36,7 +36,7 @@ public class AttackPatterns : MonoBehaviour
     private Color emissionColor;
     private Color adjustedEmissionColor;
 
-    private Vector3 startPosition;
+    [SerializeField]  private Transform startPosition;
     private Quaternion initialRotation;
 
     private Coroutine lastCoroutine;
@@ -45,7 +45,6 @@ public class AttackPatterns : MonoBehaviour
     private void Start()
     {
 
-        startPosition = transform.position;
         initialRotation = transform.rotation;
 
         leftEyeMaterial = leftEye.GetComponent<Renderer>().material;
@@ -79,7 +78,7 @@ public class AttackPatterns : MonoBehaviour
         if(lastCoroutine != null)
             StopCoroutine(lastCoroutine);
 
-        transform.position = startPosition;
+        transform.position = startPosition.position;
         transform.rotation = initialRotation;
     }
 

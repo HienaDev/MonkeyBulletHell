@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 879702174461100619}
   - component: {fileID: 5006807519298367251}
   - component: {fileID: 8698947155658468831}
+  - component: {fileID: 8984568882316774184}
   m_Layer: 0
   m_Name: MoaiStomperPivot
   m_TagString: Untagged
@@ -178,6 +179,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8984568882316774184}
+        m_TargetAssemblyTypeName: MoaiBoss, Assembly-CSharp
+        m_MethodName: DropMaterials
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gracePeriod: 0
   blinkDuration: 0.1
   playerInventory: {fileID: 0}
@@ -228,6 +241,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPack: {fileID: 8299221067387495061, guid: 44fff586707a7394caf0183d1b40b855,
     type: 3}
+--- !u!114 &8984568882316774184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3831295876134205284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c69fb803862da4997f5d4a61573533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialsToDrop:
+  - {fileID: 9074866883454138722, guid: fce8d61f1b1382e438fb8470e4e2158c, type: 3}
+  - {fileID: 1384634223423584380, guid: 2eb9762132256db4eaa928139e88f0c0, type: 3}
 --- !u!1 &5155797091492486646
 GameObject:
   m_ObjectHideFlags: 0

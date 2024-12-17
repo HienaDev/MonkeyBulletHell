@@ -10,12 +10,13 @@ public class TriggerCameraShake : MonoBehaviour
     [SerializeField] private GameObject fightingPoint;
 
     [SerializeField] private float goUpDuration;
+    [SerializeField] private GenerateObjectsAroundCircle wallsScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cameraLogic = FindFirstObjectByType<FollowTarget>();
-        StartGoingToFightingPoint();
+        
     }
 
     // Update is called once per frame
@@ -26,18 +27,11 @@ public class TriggerCameraShake : MonoBehaviour
 
     public void TriggerShake()
     {
-        cameraLogic.ShakeCamera(shakeDuration, 1f, true);
+        cameraLogic.ShakeCamera(shakeDuration, 3f, true);
+        wallsScript.WallsComeUp();
+        StartGoingToFightingPoint();
     }
 
-    public void StartArenaShake()
-    {
-        animator.SetTrigger("ArenaStart");
-    }
-
-    public void RemoveArena()
-    {
-        animator.SetTrigger("ArenaClose");
-    }
 
     public void StartGoingToFightingPoint()
     {

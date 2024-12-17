@@ -17,8 +17,7 @@ public class SpawnMoaiOnCollision : MonoBehaviour
         if ((monkeyLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             moai.StartCombat();
-            rockDoor.StartArenaShake();
-
+            rockDoor.TriggerShake();
             gameObject.SetActive(false);
 
             enemySpawner.StopSpawning();
