@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class BoatLogic : MonoBehaviour
 {
-
     [SerializeField] private FadeScreen fadeScreen;
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private TextMeshProUGUI travelingUI;
@@ -35,7 +34,6 @@ public class BoatLogic : MonoBehaviour
 
     public void TriggerTeleport()
     {
-
         if (needsWeapons)
             if (!inventory.PlayerHasWeaponEquipped())
             {

@@ -4,17 +4,10 @@ using UnityEngine.UI;
 
 public class FadeScreen : MonoBehaviour
 {
-
-
     [SerializeField] private Image fadeScreen;
+    [SerializeField] private GameObject[] objectsToFade;
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private float blackDuration = 3f;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     public void TriggerFade(float fadeDuration, float blackDuration)
     {
@@ -23,14 +16,28 @@ public class FadeScreen : MonoBehaviour
 
     private IEnumerator Fade(float fadeDuration, float blackDuration)
     {
-
-
-
         float lerpValue = 0;
         while (lerpValue < 1)
         {
             lerpValue += Time.deltaTime / fadeDuration;
             fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, lerpValue);
+
+            // Fade Objects
+            foreach (var obj in objectsToFade)
+            {
+                CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+                if (canvasGroup != null)
+                {
+                    canvasGroup.alpha = 1 - lerpValue;
+                }
+
+                // deactivate objects when they are fully faded
+                if (lerpValue >= 1)
+                {
+                    obj.SetActive(false);
+                }
+            }
+
             yield return null;
         }
 
@@ -42,6 +49,5 @@ public class FadeScreen : MonoBehaviour
             fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, lerpValue);
             yield return null;
         }
-
     }
 }
