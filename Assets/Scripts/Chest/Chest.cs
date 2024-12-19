@@ -198,11 +198,6 @@ public class Chest : MonoBehaviour
         }
     }
 
-    private bool PlayerIsNearChest()
-    {
-        return Vector3.Distance(transform.position, player.transform.position) < 2f;
-    }
-
     private void StopPlayerMovement()
     {
         if (playerRigidbody != null)

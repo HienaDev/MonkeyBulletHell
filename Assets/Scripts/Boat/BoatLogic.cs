@@ -19,12 +19,12 @@ public class BoatLogic : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform easterIslandLocation;
 
-
     [SerializeField] private GameObject noWeaponWarning;
     [SerializeField] private Color cantInteractColor;
     private Outline outline;
 
     [SerializeField] private UnityEvent doOnTeleport;
+    [SerializeField] private UnityEvent onTeleportComplete;
 
     private void Start()
     {
@@ -35,20 +35,34 @@ public class BoatLogic : MonoBehaviour
     public void TriggerTeleport()
     {
         if (needsWeapons)
+        {
             if (!inventory.PlayerHasWeaponEquipped())
             {
                 StartCoroutine(CantUseBoat());
                 return;
             }
-         
-        // after being allowed to pass once, we remove the restriction to avoid soft locks 
+        }
+
         needsWeapons = false;
 
+        StartCoroutine(HandleTeleportWithFade());
+    }
+
+    private IEnumerator HandleTeleportWithFade()
+    {
         fadeScreen.TriggerFade(fadeDuration, blackDuration);
+
         travelingUI.enabled = true;
 
         doOnTeleport.Invoke();
-        StartCoroutine(GoToEaster());
+
+        yield return StartCoroutine(GoToEaster());
+
+        yield return new WaitForSeconds(blackDuration - fadeDuration);
+
+        travelingUI.enabled = false;
+
+        onTeleportComplete?.Invoke();
     }
 
     private IEnumerator CantUseBoat()
@@ -60,7 +74,6 @@ public class BoatLogic : MonoBehaviour
         yield return new WaitForSeconds(2f);
         noWeaponWarning.SetActive(false);
         outline.OutlineColor = defaultColor;
-
     }
 
     private IEnumerator GoToEaster()

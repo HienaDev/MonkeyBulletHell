@@ -492,4 +492,9 @@ public class PlayerInventory : MonoBehaviour
     {
         return inventoryItems.Find(slot => slot.Item == tool) != null;
     }
+
+    public List<InventorySlot> GetInventory()
+    {
+        return inventoryItems;
+    }
 }

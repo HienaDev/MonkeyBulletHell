@@ -9,6 +9,7 @@ public class Cheats : MonoBehaviour
     [SerializeField] private ToolSO pickaxe;
     [SerializeField] private ToolSO axe;
     [SerializeField] private HealthSystem moaiHealth;
+    [SerializeField] private RunSummaryScreen runSummaryScreen;
 
     void Update()
     {   
@@ -77,6 +78,12 @@ public class Cheats : MonoBehaviour
         {
             moaiHealth.SetImmortal(false);
             moaiHealth.DealDamage(1000);
+        }
+
+        // Display Run Summary Screen
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            runSummaryScreen.DisplaySummary();
         }
     }
 }
