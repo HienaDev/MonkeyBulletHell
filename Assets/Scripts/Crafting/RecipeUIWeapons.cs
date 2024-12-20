@@ -83,6 +83,7 @@ public class RecipeUIWeapons : RecipeUI
             }
 
             playerInventory.EquipWeapon(slot, recipe.result);
+            Tutorial.Instance.CraftedSlingshot(recipe.result as WeaponSO);
             Debug.Log($"{recipe.result.itemName} equipped in slot {slot}.");
             UpdateUI();
         }
