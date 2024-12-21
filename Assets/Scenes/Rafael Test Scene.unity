@@ -38325,6 +38325,7 @@ MonoBehaviour:
   saveFileName: MonkeyHellSave
   playerInventory: {fileID: 919132149385261831}
   chest: {fileID: 1291030347}
+  tutorial: {fileID: 690847463}
 --- !u!4 &2128120845
 Transform:
   m_ObjectHideFlags: 0

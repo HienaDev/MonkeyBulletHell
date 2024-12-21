@@ -8,6 +8,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private string saveFileName;
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private Chest chest;
+    [SerializeField] private Tutorial tutorial;
 
     public static SaveManager Instance { get; private set; }
     private string targetScene;
@@ -41,12 +42,18 @@ public class SaveManager : MonoBehaviour
         {
             chest = FindFirstObjectByType<Chest>();
         }
+
+        if (tutorial == null)
+        {
+            tutorial = FindFirstObjectByType<Tutorial>();
+        }
     }
 
     private struct GameSaveData
     {
         public PlayerInventory.SaveData playerInventoryData;
         public Chest.SaveData chestData;
+        public Tutorial.SaveData tutorialData;
     }
 
     private void Update()
@@ -76,6 +83,7 @@ public class SaveManager : MonoBehaviour
 
         saveData.playerInventoryData = playerInventory.GetSaveData();
         saveData.chestData = chest.GetSaveData();
+        saveData.tutorialData = tutorial.GetSaveData();
 
         string jsonSaveData = JsonUtility.ToJson(saveData, true);
 
@@ -92,6 +100,7 @@ public class SaveManager : MonoBehaviour
 
         saveData.playerInventoryData = playerInventory.GetSaveData();
         saveData.chestData = chest.GetSaveData();
+        saveData.tutorialData = tutorial.GetSaveData();
 
         string jsonSaveData = JsonUtility.ToJson(saveData, true);
 
@@ -112,6 +121,7 @@ public class SaveManager : MonoBehaviour
 
             playerInventory.LoadSaveData(saveData.playerInventoryData);
             chest.LoadSaveData(saveData.chestData);
+            tutorial.LoadSaveData(saveData.tutorialData);
 
             print("Game Loaded");
 

@@ -201,4 +201,98 @@ public class Tutorial : MonoBehaviour
         fullBoardAnimator.enabled = true;
     }
 
+    [System.Serializable]
+    public struct SaveData
+    {
+        public bool stickTaskComplete;
+        public int stickCount;
+        public bool stoneTaskComplete;
+        public int stoneCount;
+        public bool leafTaskComplete;
+        public int leafCount;
+        public bool part1Complete;
+        public bool storageInteractionComplete;
+        public bool craftSlingshotComplete;
+        public bool boatTravelComplete;
+        public bool killMoaiComplete;
+    }
+
+    public SaveData GetSaveData()
+    {
+        SaveData saveData;
+
+        saveData.stickTaskComplete = stickTaskComplete;
+        saveData.stickCount = stickCount;
+        saveData.stoneTaskComplete = stoneTaskComplete;
+        saveData.stoneCount = stoneCount;
+        saveData.leafTaskComplete = leafTaskComplete;
+        saveData.leafCount = leafCount;
+        saveData.part1Complete = part1Complete;
+        saveData.storageInteractionComplete = storageInteractionComplete;
+        saveData.craftSlingshotComplete = craftSlingshotComplete;
+        saveData.boatTravelComplete = boatTravelComplete;
+        saveData.killMoaiComplete = killMoaiComplete;
+
+        return saveData;
+    }
+
+    public void LoadSaveData(SaveData saveData)
+    {
+        stickTaskComplete = saveData.stickTaskComplete;
+        stickCount = saveData.stickCount;
+        stoneTaskComplete = saveData.stoneTaskComplete;
+        stoneCount = saveData.stoneCount;
+        leafTaskComplete = saveData.leafTaskComplete;
+        leafCount = saveData.leafCount;
+        part1Complete = saveData.part1Complete;
+        storageInteractionComplete = saveData.storageInteractionComplete;
+        craftSlingshotComplete = saveData.craftSlingshotComplete;
+        boatTravelComplete = saveData.boatTravelComplete;
+        killMoaiComplete = saveData.killMoaiComplete;
+
+        if (stickTaskComplete)
+        {
+            stickTask.GetComponent<TextMeshProUGUI>().text = stickCollectTask + $" {stickCount}/{stickQuantity}";
+            stickTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        }
+
+        if (stoneTaskComplete)
+        {
+            stoneTask.GetComponent<TextMeshProUGUI>().text = stoneCollectTask + $" {stoneCount}/{stoneQuantity}";
+            stoneTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        }
+
+        if (leafTaskComplete)
+        {
+            leafTask.GetComponent<TextMeshProUGUI>().text = leafCollectTask + $" {leafCount}/{leafQuantity}";
+            leafTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        }
+
+        if (part1Complete)
+        {
+            ActivatePart2Tasks();
+        }
+
+        if (storageInteractionComplete)
+        {
+            storageTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        }
+
+        if (craftSlingshotComplete)
+        {
+            craftSlingshotTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        }
+
+        if (boatTravelComplete)
+        {
+            boatTravelTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        }
+
+        if (killMoaiComplete)
+        {
+            killMoaiTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        }
+
+        CheckPart2Tasks();
+    }
 }
