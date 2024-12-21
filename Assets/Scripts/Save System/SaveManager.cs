@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SaveManager : MonoBehaviour
 {
@@ -9,12 +10,13 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private Chest chest;
 
     public static SaveManager Instance { get; private set; }
+    private string targetScene;
 
-    private void Start()
+    private void Awake()
     {
         saveFileName = Application.persistentDataPath + "/" + saveFileName;
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        LookForReferences();
 
         if (Instance == null)
         {
@@ -26,6 +28,19 @@ public class SaveManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void LookForReferences()
+    {
+        if (playerInventory == null)
+        {
+            playerInventory = FindFirstObjectByType<PlayerInventory>();
+        }
+
+        if (chest == null)
+        {
+            chest = FindFirstObjectByType<Chest>();
+        }
     }
 
     private struct GameSaveData
@@ -55,6 +70,8 @@ public class SaveManager : MonoBehaviour
 
     public void QuickSaveGame()
     {
+        LookForReferences();
+
         GameSaveData saveData;
 
         saveData.playerInventoryData = playerInventory.GetSaveData();
@@ -69,6 +86,8 @@ public class SaveManager : MonoBehaviour
 
     public void CreateNewGame()
     {
+        LookForReferences();
+
         GameSaveData saveData;
 
         saveData.playerInventoryData = playerInventory.GetSaveData();
@@ -83,6 +102,8 @@ public class SaveManager : MonoBehaviour
 
     public bool QuickLoadGame()
     {
+        LookForReferences();
+
         if (File.Exists(saveFileName))
         {
             string jsonSaveData = File.ReadAllText(saveFileName);
@@ -121,5 +142,36 @@ public class SaveManager : MonoBehaviour
     public bool SaveFileExists()
     {
         return File.Exists(saveFileName);
+    }
+
+    public void SetTargetScene(string sceneName)
+    {
+        targetScene = sceneName;
+    }
+
+    public void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == targetScene)
+        {
+            SceneManager.sceneLoaded -= OnGameSceneLoaded;
+
+            StartCoroutine(LoadGameDataAfterDelay());
+        }
+    }
+
+    public IEnumerator LoadGameDataAfterDelay()
+    {
+        yield return null;
+
+        LookForReferences();
+
+        if (SaveFileExists())
+        {
+            QuickLoadGame();
+        }
+        else
+        {
+            CreateNewGame();
+        }
     }
 }
