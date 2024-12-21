@@ -138,10 +138,10 @@ public class UIManager : MonoBehaviour
 
             ShowInventorySlot(otherSlotIndex);
             ShowInventoryIcon(otherSlotIndex, slot.Item.inventoryIcon);
-            
-            if (slot.Item.itemType == ItemType.Material && slot.Quantity.HasValue)
+
+            if (slot.Item.itemType == ItemType.Material && slot.Quantity > 0)
             {
-                itemCounts[otherSlotIndex].text = slot.Quantity.Value.ToString();
+                itemCounts[otherSlotIndex].text = slot.Quantity.ToString();
                 itemCounts[otherSlotIndex].gameObject.SetActive(true);
             }
             else
@@ -157,7 +157,7 @@ public class UIManager : MonoBehaviour
         {
             SelectInventorySlot(occupiedSlots[selectedSlot % occupiedSlots.Count]);
         }
-        else        
+        else
         {
             ClearSelectedSlot();
         }
@@ -170,7 +170,9 @@ public class UIManager : MonoBehaviour
             int slotIndex = occupiedSlots.FindIndex(slot => inventoryIcons[slot].sprite == item.inventoryIcon);
             if (slotIndex != -1)
             {
-                itemCounts[slotIndex].text = playerInventory.GetItemCount(item).ToString();
+                var quantity = playerInventory.GetItemCount(item);
+                itemCounts[slotIndex].text = quantity > 0 ? quantity.ToString() : string.Empty;
+                itemCounts[slotIndex].gameObject.SetActive(quantity > 0);
             }
         }
     }
@@ -198,7 +200,6 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        // Find the nearest slot index to the last selected index
         int nearestSlotIndex = -1;
         int minDistance = int.MaxValue;
 

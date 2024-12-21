@@ -143,7 +143,7 @@ public class Chest : MonoBehaviour
 
                 if (existingSlot != null)
                 {
-                    existingSlot.IncreaseQuantity(slot.Quantity ?? 0);
+                    existingSlot.IncreaseQuantity(slot.Quantity);
                 }
                 else
                 {
@@ -259,14 +259,14 @@ public class Chest : MonoBehaviour
             InventorySlot slot = materialsInChest.Find(s => s.Item == requirement.material);
             while (quantityToRemove > 0 && slot != null)
             {
-                if (slot.Quantity.HasValue && slot.Quantity > quantityToRemove)
+                if (slot.Quantity > quantityToRemove)
                 {
                     slot.DecreaseQuantity(quantityToRemove);
                     quantityToRemove = 0;
                 }
                 else
                 {
-                    quantityToRemove -= slot.Quantity ?? 0;
+                    quantityToRemove -= slot.Quantity;
                     materialsInChest.Remove(slot);
                     slot = materialsInChest.Find(s => s.Item == requirement.material);
                 }
@@ -284,5 +284,27 @@ public class Chest : MonoBehaviour
         {
             recipeUI.UpdateUI();
         }
+    }
+
+    [System.Serializable]
+    public struct SaveData
+    {
+        public List<InventorySlot> materialsInChest;
+    }
+
+    public SaveData GetSaveData()
+    {
+        SaveData saveData;
+
+        saveData.materialsInChest = materialsInChest;
+
+        return saveData;
+    }
+
+    public void LoadSaveData(SaveData saveData)
+    {
+        materialsInChest = saveData.materialsInChest;
+
+        uiManager?.UpdateUI();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -18,7 +19,6 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-
         tutorial = Tutorial.Instance;
 
         weaponSlots = new ItemSO[2];
@@ -41,7 +41,7 @@ public class PlayerInventory : MonoBehaviour
         if (item.itemType == ItemType.Material)
         {
             tutorial.UpdateCollectTasks(item as MaterialSO);
-            InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item && slot.Quantity.HasValue);
+            InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item);
 
             if (existingSlot != null)
             {
@@ -54,7 +54,6 @@ public class PlayerInventory : MonoBehaviour
 
         if (item.itemType == ItemType.Weapon)
         {
-  
             if (weaponSlots[0] == null)
             {
                 weaponSlots[0] = item;
@@ -74,7 +73,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (inventoryItems.Count < maxInventoryMaterialsAndToolsSlots)
             {
-                int? quantity = item.itemType == ItemType.Material ? 1 : (int?)null;
+                int quantity = item.itemType == ItemType.Material ? 1 : 1;
                 inventoryItems.Add(new InventorySlot(item, quantity));
                 Debug.Log($"{item.itemName} added to inventory.");
             }
@@ -496,5 +495,48 @@ public class PlayerInventory : MonoBehaviour
     public List<InventorySlot> GetInventory()
     {
         return inventoryItems;
+    }
+
+    [System.Serializable]
+    public struct SaveData
+    {
+        public List<InventorySlot> inventoryItems;
+        public ItemSO[] weaponSlots;
+        public List<CraftingRecipe> alreadyCraftedRecipes;
+        public ItemSO equippedArmor;
+    }
+
+    public SaveData GetSaveData()
+    {
+        SaveData saveData;
+
+        saveData.inventoryItems = inventoryItems;
+        saveData.weaponSlots = weaponSlots;
+        saveData.alreadyCraftedRecipes = alreadyCraftedRecipes;
+        saveData.equippedArmor = equippedArmor;
+
+        return saveData;
+    }
+
+    public void LoadSaveData(SaveData saveData)
+    {
+        inventoryItems = saveData.inventoryItems;
+        weaponSlots = saveData.weaponSlots;
+        alreadyCraftedRecipes = saveData.alreadyCraftedRecipes;
+        equippedArmor = saveData.equippedArmor;
+
+        if (currentArmorModel != null)
+        {
+            Destroy(currentArmorModel);
+        }
+
+        if (equippedArmor != null && equippedArmor.itemPrefab != null)
+        {
+            currentArmorModel = Instantiate(equippedArmor.itemPrefab, armorAnchor);
+            currentArmorModel.transform.localPosition = Vector3.zero;
+            currentArmorModel.transform.localRotation = Quaternion.identity;
+        }
+
+        uiManager?.UpdateUI();
     }
 }

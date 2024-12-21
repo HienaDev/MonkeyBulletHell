@@ -1,9 +1,10 @@
+[System.Serializable]
 public class InventorySlot
 {
-    public ItemSO Item { get; private set; }
-    public int? Quantity { get; private set; }
+    public ItemSO Item;
+    public int Quantity;
 
-    public InventorySlot(ItemSO item, int? quantity = null)
+    public InventorySlot(ItemSO item, int quantity = 1)
     {
         Item = item;
         Quantity = quantity;
@@ -11,15 +12,14 @@ public class InventorySlot
 
     public void IncreaseQuantity(int amount)
     {
-        if (Quantity.HasValue)
-            Quantity += amount;
+        Quantity += amount;
     }
 
     public void DecreaseQuantity(int amount)
     {
-        if (Quantity.HasValue && Quantity > amount)
-            Quantity -= amount;
-        else
-            Quantity = null;
+        Quantity -= amount;
+
+        if (Quantity < 0)
+            Quantity = 0;
     }
 }
