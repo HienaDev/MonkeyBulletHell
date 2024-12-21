@@ -55,6 +55,9 @@ public abstract class RecipeUI : MonoBehaviour
             craftingStation.PopulateItemGrid();
 
             UpdateUI();
+
+            SaveManager.Instance.QuickSaveGame();
+
             Debug.Log($"{recipe.result.itemName} crafted successfully.");
         }
         else if (playerInventory.IsRecipeCrafted(recipe))

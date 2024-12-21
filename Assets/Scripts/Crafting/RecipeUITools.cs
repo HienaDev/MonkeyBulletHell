@@ -78,6 +78,8 @@ public class RecipeUITools : RecipeUI
             craftingStation.RefreshUI();
             UpdateUI();
 
+            SaveManager.Instance.QuickSaveGame();
+
             Debug.Log($"{recipe.result.itemName} crafted successfully and added to the inventory.");
         }
         else

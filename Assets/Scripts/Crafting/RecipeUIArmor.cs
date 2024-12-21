@@ -76,6 +76,8 @@ public class RecipeUIArmor : RecipeUI
             craftingStation.RefreshUI();
             UpdateUI();
 
+            SaveManager.Instance.QuickSaveGame();
+
             Debug.Log($"{recipe.result.itemName} crafted successfully.");
         }
         else

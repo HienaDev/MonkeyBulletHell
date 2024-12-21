@@ -38322,7 +38322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cfe84f435311c2419466460cff4fc1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveFileName: monkeyhellsave
+  saveFileName: MonkeyHellSave
   playerInventory: {fileID: 919132149385261831}
   chest: {fileID: 1291030347}
 --- !u!4 &2128120845
@@ -38909,7 +38909,7 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
@@ -38935,7 +38935,7 @@ PrefabInstance:
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 690847463}
+      objectReference: {fileID: 2128120844}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
@@ -38954,7 +38954,7 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: CompleteMoai
+      value: QuickSaveGame
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
@@ -38964,7 +38964,7 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: Tutorial, Assembly-CSharp
+      value: SaveManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
