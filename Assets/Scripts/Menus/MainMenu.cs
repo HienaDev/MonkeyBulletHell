@@ -1,13 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Main Menu")]
     [SerializeField] private Button continueButton;
     [SerializeField] private GameObject newGameMessage;
     [SerializeField] private GameObject exitMessage;
     [SerializeField] private string sceneToLoad;
+
+    [Header("Loading Screen")]
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private TextMeshProUGUI loadingText;
+
 
     void Start()
     {
@@ -25,7 +33,7 @@ public class MainMenu : MonoBehaviour
 
             SceneManager.sceneLoaded += SaveManager.Instance.OnGameSceneLoaded;
 
-            SceneManager.LoadScene(sceneToLoad);
+            StartCoroutine(LoadSceneAsync(sceneToLoad));
         }
     }
 
@@ -39,9 +47,9 @@ public class MainMenu : MonoBehaviour
         {   
             SaveManager.Instance.SetTargetScene(sceneToLoad);
 
-            SceneManager.sceneLoaded += SaveManager.Instance.OnGameSceneLoaded;            
+            SceneManager.sceneLoaded += SaveManager.Instance.OnGameSceneLoaded;
 
-            SceneManager.LoadScene(sceneToLoad);
+            StartCoroutine(LoadSceneAsync(sceneToLoad));
         }
     }
 
@@ -51,9 +59,9 @@ public class MainMenu : MonoBehaviour
 
         SaveManager.Instance.SetTargetScene(sceneToLoad);
 
-        SceneManager.sceneLoaded += SaveManager.Instance.OnGameSceneLoaded;        
+        SceneManager.sceneLoaded += SaveManager.Instance.OnGameSceneLoaded;
 
-        SceneManager.LoadScene(sceneToLoad);
+        StartCoroutine(LoadSceneAsync(sceneToLoad));
     }
 
     public void CancelNewGame()
@@ -81,5 +89,25 @@ public class MainMenu : MonoBehaviour
     public void CancelExitGame()
     {
         exitMessage.SetActive(false);
+    }
+
+    private IEnumerator LoadSceneAsync(string sceneName)
+    {
+        loadingScreen.SetActive(true);
+
+        if (loadingText != null) loadingText.text = "Loading... 0%";
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f) * 100;
+
+            if (loadingText != null) loadingText.text = $"Loading... {Mathf.RoundToInt(progress)}%";
+
+            yield return null;
+        }
+
+        loadingScreen.SetActive(false);
     }
 }
