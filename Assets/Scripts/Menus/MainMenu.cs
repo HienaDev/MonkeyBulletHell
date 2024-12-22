@@ -11,17 +11,46 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject newGameMessage;
     [SerializeField] private GameObject exitMessage;
     [SerializeField] private string sceneToLoad;
+    [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject creditsMenu;
 
     [Header("Loading Screen")]
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private TextMeshProUGUI loadingText;
 
 
-    void Start()
+    private void Start()
     {
         if (!SaveManager.Instance.SaveFileExists())
         {
             continueButton.GetComponent<Button>().interactable = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (newGameMessage.activeSelf)
+            {
+                CancelNewGame();
+            }
+            else if (settingsMenu.activeSelf)
+            {
+                CloseSettingsMenu();
+            }
+            else if (creditsMenu.activeSelf)
+            {
+                CloseCreditsMenu();
+            }
+            else if (exitMessage.activeSelf)
+            {
+                CancelExitGame();
+            }
+            else
+            {
+                ExitGame();
+            }
         }
     }
     
@@ -67,6 +96,26 @@ public class MainMenu : MonoBehaviour
     public void CancelNewGame()
     {
         newGameMessage.SetActive(false);
+    }
+
+    public void OpenSettingsMenu()
+    {
+        settingsMenu.SetActive(true);
+    }
+
+    public void CloseSettingsMenu()
+    {
+        settingsMenu.SetActive(false);
+    }
+
+    public void OpenCreditsMenu()
+    {
+        creditsMenu.SetActive(true);
+    }
+
+    public void CloseCreditsMenu()
+    {
+        creditsMenu.SetActive(false);
     }
 
     public void ExitGame()
