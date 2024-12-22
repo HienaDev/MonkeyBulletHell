@@ -3193,7 +3193,7 @@ MonoBehaviour:
   continueButton: {fileID: 912445928}
   newGameMessage: {fileID: 1553322302}
   exitMessage: {fileID: 911175917}
-  sceneToLoad: Rafael Test Scene
+  sceneToLoad: Main Scene
   settingsMenu: {fileID: 1034304688}
   creditsMenu: {fileID: 1963593523}
   loadingScreen: {fileID: 2090600171}

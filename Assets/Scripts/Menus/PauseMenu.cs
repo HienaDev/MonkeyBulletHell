@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject settingsMenuUI;
     [SerializeField] private GameObject quitMessage;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private ShootingPlayer playerShot;
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private TextMeshProUGUI loadingText;
 
@@ -39,6 +40,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 0f;
         playerMovement.enabled = false;
+        playerShot.enabled = false;
         pauseMenuUI.SetActive(true);
     }
 
@@ -46,6 +48,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         playerMovement.enabled = true;
+        playerShot.enabled = true;
         pauseMenuUI.SetActive(false);
     }
 
