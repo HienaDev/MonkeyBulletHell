@@ -1,17 +1,26 @@
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SaveManager : MonoBehaviour
 {
+    [Header("Save File")]
     [SerializeField] private string saveFileName;
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private Chest chest;
     [SerializeField] private Tutorial tutorial;
 
-    public static SaveManager Instance { get; private set; }
+    [Header("Save Notification")]
+    [SerializeField] private TextMeshProUGUI saveNotificationText;
+    [SerializeField] private float fadeDuration = 1.0f;
+    [SerializeField] private float displayDuration = 2.0f;
+
+    private Coroutine currentSaveNotificationCoroutine;
     private string targetScene;
+
+    public static SaveManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -46,6 +55,15 @@ public class SaveManager : MonoBehaviour
         if (tutorial == null)
         {
             tutorial = FindFirstObjectByType<Tutorial>();
+        }
+
+        if (saveNotificationText == null)
+        {
+            GameObject notificationObject = GameObject.Find("Save Game Text");
+            if (notificationObject != null)
+            {
+                saveNotificationText = notificationObject.GetComponent<TextMeshProUGUI>();
+            }
         }
     }
 
@@ -89,7 +107,10 @@ public class SaveManager : MonoBehaviour
 
         File.WriteAllText(saveFileName, jsonSaveData);
 
-        print("Game Saved");
+        if (saveNotificationText != null && currentSaveNotificationCoroutine == null)
+        {
+            currentSaveNotificationCoroutine = StartCoroutine(ShowSaveNotification("Game Saved"));
+        }
     }
 
     public void CreateNewGame()
@@ -183,5 +204,37 @@ public class SaveManager : MonoBehaviour
         {
             CreateNewGame();
         }
+    }
+
+    private IEnumerator ShowSaveNotification(string message)
+    {
+        if (saveNotificationText == null)
+            yield break;
+
+        saveNotificationText.text = message;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            saveNotificationText.alpha = alpha;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        saveNotificationText.alpha = 1;
+
+        yield return new WaitForSeconds(displayDuration);
+
+        elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+            saveNotificationText.alpha = alpha;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        saveNotificationText.alpha = 0;
+
+        currentSaveNotificationCoroutine = null;
     }
 }
