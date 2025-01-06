@@ -72,6 +72,10 @@ public class ShootingPlayer : MonoBehaviour
                 Debug.Log("startlaser");
                 StartLaser();
             }
+            if (((Input.GetKeyUp(shoot))))
+            {
+                animator.ResetTrigger("Shoot");
+            }
             if (Input.GetKey(shoot) && laserLikeProjectile)
             {
                 AimLaser();
@@ -89,7 +93,7 @@ public class ShootingPlayer : MonoBehaviour
 
     private void ShootProjectiles()
     {
-
+        animator.SetTrigger("Shoot");
         instantiatedShots[currentShot].transform.position = firePoint.transform.position;
 
         Vector3 direction = Mouse3D.GetMouseObjectPosition() - instantiatedShots[currentShot].transform.position;

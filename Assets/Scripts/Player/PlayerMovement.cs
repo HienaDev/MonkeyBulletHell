@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     public Vector3 Velocity { get { return velocity; } }
 
-
+    [SerializeField] private float rotationSpeed = 10f;
 
     [SerializeField] private Transform cameraPlayer;
 
@@ -77,8 +77,8 @@ public class PlayerMovement : MonoBehaviour
 
         velocity = fowardRelative + rightRelative;
 
-        if ((velocity.magnitude != 0))
-            monkeyModel.transform.rotation = Quaternion.LookRotation(velocity + new Vector3(0, 90, 0));
+
+            //monkeyModel.transform.rotation = Quaternion.LookRotation(velocity + new Vector3(0, 90, 0));
 
         animator.SetFloat("MovSpeed", velocity.magnitude);
 
