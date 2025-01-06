@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = fowardRelative + rightRelative;
 
 
-            //monkeyModel.transform.rotation = Quaternion.LookRotation(velocity + new Vector3(0, 90, 0));
+        monkeyModel.transform.rotation = Quaternion.LookRotation(velocity);// + new Vector3(0, 90, 0));
 
         animator.SetFloat("MovSpeed", velocity.magnitude);
 
