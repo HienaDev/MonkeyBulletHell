@@ -3302,7 +3302,7 @@ PrefabInstance:
     - target: {fileID: 6225011876736543515, guid: 51a2ce2263f78a14ebbcbb7d4fd6aaca,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 111.70999
+      value: 99.56
       objectReference: {fileID: 0}
     - target: {fileID: 6225011876736543515, guid: 51a2ce2263f78a14ebbcbb7d4fd6aaca,
         type: 3}
@@ -23614,6 +23614,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9b1b5d6355521484ba905d76f81d17e8, type: 2}
     - target: {fileID: -7855185830583382065, guid: e8da994821306f44db73915897eef8f1,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01704317
+      objectReference: {fileID: 0}
+    - target: {fileID: -7855185830583382065, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -23.709
       objectReference: {fileID: 0}
@@ -23626,6 +23631,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.9470047
+      objectReference: {fileID: 0}
+    - target: {fileID: -7855185830583382065, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7071232706699148380, guid: e8da994821306f44db73915897eef8f1,
         type: 3}
@@ -23687,6 +23697,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 53.169
       objectReference: {fileID: 0}
+    - target: {fileID: -3937565066248518238, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -2260569910058729556, guid: e8da994821306f44db73915897eef8f1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23701,6 +23716,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.6950054
+      objectReference: {fileID: 0}
+    - target: {fileID: -2260569910058729556, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1520832344978098896, guid: e8da994821306f44db73915897eef8f1,
         type: 3}
@@ -23767,6 +23787,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 49.742
       objectReference: {fileID: 0}
+    - target: {fileID: 3875124629196724957, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4232017777517190790, guid: e8da994821306f44db73915897eef8f1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23782,6 +23807,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 23.542698
       objectReference: {fileID: 0}
+    - target: {fileID: 4232017777517190790, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6253400757731348571, guid: e8da994821306f44db73915897eef8f1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23796,6 +23826,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 20.502361
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253400757731348571, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833311126390149132, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.01723091
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833311126390149132, guid: e8da994821306f44db73915897eef8f1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.003666123
       objectReference: {fileID: 0}
     - target: {fileID: 7513421826079076779, guid: e8da994821306f44db73915897eef8f1,
         type: 3}
