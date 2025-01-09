@@ -36,10 +36,12 @@ public class AttackPatterns : MonoBehaviour
     private Color emissionColor;
     private Color adjustedEmissionColor;
 
-    [SerializeField]  private Transform startPosition;
+    [SerializeField] private Transform startPosition;
     private Quaternion initialRotation;
 
     private Coroutine lastCoroutine;
+
+    [SerializeField]  private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -60,6 +62,8 @@ public class AttackPatterns : MonoBehaviour
 
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetImmortal(true);
+
+
 
     }
 
@@ -143,6 +147,7 @@ public class AttackPatterns : MonoBehaviour
         //    timer += Time.deltaTime;
         //    yield return null;
         //}
+        animator.SetTrigger("Beam");
 
         yield return new WaitForSeconds(turnDuration);
 
@@ -154,6 +159,8 @@ public class AttackPatterns : MonoBehaviour
         Vector3 finalAngleLaser = new Vector3(0f, yAngle + laserAngle, 0f);
 
         GameObject laserTemp = Instantiate(laserPrefab, firePointOnHead.transform);
+
+        laserTemp.transform.position += new Vector3(0f, 3f, 0f);
 
         while (lerpValue <= 1)
         {
@@ -215,6 +222,13 @@ public class AttackPatterns : MonoBehaviour
             shotTemp.transform.eulerAngles = new Vector3(0, i * degreeIteration, 0);
             shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
         }
+    }
+
+    private IEnumerator TargetChasePlayer()
+    {
+        yield return null;
+
+        AoeAttackOnHead();
     }
 
     private IEnumerator MoveAlongArc()
