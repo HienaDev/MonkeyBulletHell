@@ -196,7 +196,7 @@ public class ShootingPlayer : MonoBehaviour
         {
             Destroy(shot);
         }
-        Debug.Log("weapon equipped");
+
 
         instantiatedShots = new List<GameObject>();
         currentWeapon = weapon;
