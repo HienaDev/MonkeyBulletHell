@@ -18287,8 +18287,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 185}
-  m_SizeDelta: {x: -800, y: -570}
+  m_AnchoredPosition: {x: 0, y: 90}
+  m_SizeDelta: {x: -800, y: -735.6924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &787774587
 CanvasRenderer:
@@ -18342,7 +18342,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 43a7d98bd4222b64e933596512dc09ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74e153d01a5d2c84f995653ce993ee01, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19206,7 +19206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20, y: 0}
+  m_AnchoredPosition: {x: -17, y: -21}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &841231593
@@ -27018,7 +27018,8 @@ MonoBehaviour:
   m_text: CANT GO WITHOUT A WEAPON
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41c144f5e3fb2a54b88b1768f42c110c, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -4424944835143723263, guid: 41c144f5e3fb2a54b88b1768f42c110c,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -40636,7 +40637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 185}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: -800, y: -570}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1815307750
@@ -40662,13 +40663,14 @@ MonoBehaviour:
   m_text: NOTHING TO CRAFT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41c144f5e3fb2a54b88b1768f42c110c, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -4424944835143723263, guid: 41c144f5e3fb2a54b88b1768f42c110c,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282401090
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -50396,6 +50398,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Armor Crafting Station
       objectReference: {fileID: 0}
+    - target: {fileID: 8847965525020788387, guid: 3e0e2751961473948919a24782ac6495,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -51173,6 +51180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423199417024013751, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4519589047787681123, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
@@ -52304,6 +52316,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 702060370}
     m_Modifications:
+    - target: {fileID: 474806312718820530, guid: 6862f246c945e9a4d94b37db1b26b608,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 830577028172882607, guid: 6862f246c945e9a4d94b37db1b26b608,
         type: 3}
       propertyPath: player
@@ -52369,10 +52386,27 @@ PrefabInstance:
       propertyPath: doOnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 690847463}
+    - target: {fileID: 5527409437751968987, guid: 6862f246c945e9a4d94b37db1b26b608,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4a41dbeb3d66ae94ca76007a6a92e94f,
+        type: 3}
     - target: {fileID: 6259661872402812649, guid: 6862f246c945e9a4d94b37db1b26b608,
         type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 7848219892914402247, guid: 6862f246c945e9a4d94b37db1b26b608,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4424944835143723263, guid: 41c144f5e3fb2a54b88b1768f42c110c,
+        type: 2}
+    - target: {fileID: 7848219892914402247, guid: 6862f246c945e9a4d94b37db1b26b608,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8700281667827735328, guid: 6862f246c945e9a4d94b37db1b26b608,
         type: 3}
