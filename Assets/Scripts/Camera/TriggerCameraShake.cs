@@ -27,7 +27,7 @@ public class TriggerCameraShake : MonoBehaviour
 
     public void TriggerShake()
     {
-        cameraLogic.ShakeCamera(shakeDuration, 3f, true);
+        cameraLogic.ShakeCamera(shakeDuration, 1f, true);
         wallsScript.WallsComeUp();
         StartGoingToFightingPoint();
     }

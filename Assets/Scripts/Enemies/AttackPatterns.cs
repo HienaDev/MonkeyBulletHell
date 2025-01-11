@@ -2,12 +2,18 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.XR;
 using Unity.Cinemachine;
+using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 
 public class AttackPatterns : MonoBehaviour
 {
 
     [SerializeField] private GameObject firePointOnHead;
+    [SerializeField] private GameObject firePointOnLeftHand;
+    [SerializeField] private GameObject firePointOnRightHand;
     [SerializeField] private GameObject player;
+
+    [SerializeField] private GameObject target;
 
     [SerializeField] private FollowTarget cameraLogic;
     [SerializeField] private float shakeDuration = 0.3f;
@@ -17,9 +23,9 @@ public class AttackPatterns : MonoBehaviour
 
     [Header("Start"), SerializeField] private float speedStomp = 20f;
 
-    [Header("AOEAttack"), SerializeField] private float numberOfProjectiles = 5;
-    [SerializeField] private float shotSpeed = 10f;
+    [Header("AOEAttack"), SerializeField] private float shotSpeed = 10f;
     [SerializeField] private float attackCooldown = 5f; // Duration of the arc movement
+    [SerializeField] private GameObject enemyShotPrefabExploding;
     [SerializeField] private GameObject enemyShotPrefab;
     [SerializeField] private float radius = 10f;     // Radius of the circle
     [SerializeField] private float height = 5f; // Peak height of the arc
@@ -30,8 +36,10 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private float laserDuration = 0.5f; // Duration of the laser motion (in seconds)
     [SerializeField] private float turnDuration = 0.3f; // Duration of the laser motion (in seconds)
 
-    [Header("ChasePlayer"), SerializeField] private float walkMovSpeed = 5f;
-    [SerializeField] private float flyMovSpeed = 3f;
+    [Header("ChasePlayer"), SerializeField] private float walkMovSpeedPhase1 = 3f;
+    [SerializeField] private float walkMovSpeedPhase2 = 6f;
+    [SerializeField] private float flyMovSpeed = 5f;
+    [SerializeField] private float flyMovSpeed2 = 10f;
 
     [Header("Eyes"), SerializeField] private GameObject leftEye;
     private Material leftEyeMaterial;
@@ -46,6 +54,10 @@ public class AttackPatterns : MonoBehaviour
     private Coroutine lastCoroutine;
 
     [SerializeField] private Animator animator;
+
+    private int currentPhase = 1;
+
+    public void ChangePhase(int phase) => currentPhase = phase;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -83,6 +95,95 @@ public class AttackPatterns : MonoBehaviour
 
         transform.position = startPosition.position;
         transform.rotation = initialRotation;
+        animator.SetTrigger("Nothing");
+    }
+
+    private void Phase1Attacks()
+    {
+        int attack = Random.Range(0, 5);
+
+        switch(attack)
+        {
+            case 0:
+                // Walk to player
+                lastCoroutine = StartCoroutine(ChasePlayer(2f, walkMovSpeedPhase1, false));
+                break;
+            case 1:
+                // Fly and stomp
+                lastCoroutine = StartCoroutine(ChasePlayer(2f, flyMovSpeed, true));
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                Debug.Log("Bad phase 1 attacks");
+                break;
+        }
+
+
+    }
+
+    private IEnumerator FlyAndStompPhase1()
+    {
+        animator.SetTrigger("Jump");
+        yield return new WaitForSeconds(2f);
+        lastCoroutine = StartCoroutine(ChasePlayer(3f, flyMovSpeed, true));
+        target.SetActive(true);
+        StartCoroutine(ScaleTargetDecal(3f));
+        yield return new WaitForSeconds(3f);
+        target.SetActive(false);
+        animator.SetTrigger("Stomp");
+        // Triger attack on stomp animation
+    }
+
+    private IEnumerator ScaleTargetDecal(float time)
+    {
+        float lerpValue = 0f;
+
+        while(lerpValue < 1)
+        {
+
+            lerpValue += Time.deltaTime / time;
+            target.transform.localScale = Vector3.Lerp(new Vector3(0.001f, 0.001f, 0.001f), new Vector3(0.007f, 0.007f, 0.007f), lerpValue);
+            yield return null;
+        }
+    }
+
+    public void FlyAndStomp()
+    {
+        switch (currentPhase)
+        {
+            case 1:
+                AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 8);
+                break;
+            case 2:
+                AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 8);
+                AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 8);
+                break;
+            case 3:
+                lastCoroutine = StartCoroutine(FlyAndStomp4Waves());
+                break;
+            case 4:
+                break;
+            default:
+                Debug.Log("Wrong stomp attack");
+                break;
+        }
+    }
+
+    private IEnumerator FlyAndStomp4Waves()
+    {
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5);
+        yield return new WaitForSeconds(1f);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5);
+        yield return new WaitForSeconds(1f);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5);
+        yield return new WaitForSeconds(1f);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5);
+
     }
 
     public void StartCombat()
@@ -97,7 +198,9 @@ public class AttackPatterns : MonoBehaviour
         animator.SetTrigger("Spawn");
         yield return new WaitForSeconds(5f);
 
-        StartCoroutine(ChasePlayer(walkMovSpeed, 3f, false));
+        
+
+        lastCoroutine = StartCoroutine(FlyAndStompPhase1());
 
         //StartRandomAttack();
     }
@@ -118,11 +221,20 @@ public class AttackPatterns : MonoBehaviour
             yield return null;
         }
 
-
-        AoeAttackOnHead();
+        StartCoroutine(LaserAttack());
+        //HandStomp();
     }
 
+    private void HandStomp()
+    {
+        animator.SetTrigger("HandStomp");
+    }
 
+    public void HandStompCalledInAnimation()
+    {
+        AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 5);
+        AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 5);
+    }
 
     private IEnumerator StartStomp()
     {
@@ -225,15 +337,15 @@ public class AttackPatterns : MonoBehaviour
         return randomPosition;
     }
 
-    public void AoeAttackOnHead()
+    public void AoeAttackOnHead(Transform position, GameObject projectile, int numberOfProjectiles)
     {
 
         float degreeIteration = 360 / numberOfProjectiles;
 
         for (int i = 0; i < numberOfProjectiles; i++)
         {
-            GameObject shotTemp = Instantiate(enemyShotPrefab);
-            shotTemp.transform.position = firePointOnHead.transform.position;
+            GameObject shotTemp = Instantiate(projectile);
+            shotTemp.transform.position = position.position;
             shotTemp.transform.eulerAngles = new Vector3(0, i * degreeIteration, 0);
             shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
         }
@@ -276,7 +388,7 @@ public class AttackPatterns : MonoBehaviour
         transform.position = endPosition;
         cameraLogic.ShakeCamera(shakeDuration, 0.2f, false);
 
-        AoeAttackOnHead();
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5);
 
         yield return new WaitForSeconds(attackCooldown);
 
