@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.XR;
+using Unity.Cinemachine;
 
 public class AttackPatterns : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private float laserDuration = 0.5f; // Duration of the laser motion (in seconds)
     [SerializeField] private float turnDuration = 0.3f; // Duration of the laser motion (in seconds)
 
+    [Header("ChasePlayer"), SerializeField] private float walkMovSpeed = 5f;
+    [SerializeField] private float flyMovSpeed = 3f;
+
     [Header("Eyes"), SerializeField] private GameObject leftEye;
     private Material leftEyeMaterial;
     [SerializeField] private GameObject rightEye;
@@ -41,7 +45,7 @@ public class AttackPatterns : MonoBehaviour
 
     private Coroutine lastCoroutine;
 
-    [SerializeField]  private Animator animator;
+    [SerializeField] private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -67,11 +71,6 @@ public class AttackPatterns : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void ResetBoss()
     {
@@ -79,7 +78,7 @@ public class AttackPatterns : MonoBehaviour
         rightEyeMaterial.SetColor("_EmissionColor", emissionColor);
 
 
-        if(lastCoroutine != null)
+        if (lastCoroutine != null)
             StopCoroutine(lastCoroutine);
 
         transform.position = startPosition.position;
@@ -88,30 +87,46 @@ public class AttackPatterns : MonoBehaviour
 
     public void StartCombat()
     {
-
+        healthSystem.SetImmortal(false);
+        bossHealthBar.SetActive(true);
         StartCoroutine(StartCombatCR());
     }
 
-    private IEnumerator StartCombatCR()
+    public IEnumerator StartCombatCR()
+    {
+        animator.SetTrigger("Spawn");
+        yield return new WaitForSeconds(5f);
+
+        StartCoroutine(ChasePlayer(walkMovSpeed, 3f, false));
+
+        //StartRandomAttack();
+    }
+    private IEnumerator ChasePlayer(float movSpeed, float duration, bool flying)
     {
 
-        float lerpValue = 0;
-        while (lerpValue <= 1)
+        float timer = 0f;
+
+        if (!flying)
+            animator.SetTrigger("Walk");
+
+        while (timer < duration)
         {
-            lerpValue += Time.deltaTime / 5f;
-            leftEyeMaterial.SetColor("_EmissionColor", Color.Lerp(emissionColor, adjustedEmissionColor, lerpValue));
-            rightEyeMaterial.SetColor("_EmissionColor", Color.Lerp(emissionColor, adjustedEmissionColor, lerpValue));
+            timer += Time.deltaTime;
+            transform.eulerAngles = new Vector3(0f, GetYAngleToTarget(player.transform.position) - 180, 0);
+            Vector3 dir = new Vector3(player.transform.position.x, 0f, player.transform.position.z) - new Vector3(transform.position.x, 0f, transform.position.z);
+            transform.position += dir.normalized * movSpeed * Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(1f);
-        healthSystem.SetImmortal(false);
-        bossHealthBar.SetActive(true);
-        StartRandomAttack();
+
+
+        AoeAttackOnHead();
     }
+
+
 
     private IEnumerator StartStomp()
     {
-        while(transform.position.y > 1)
+        while (transform.position.y > 1)
         {
             transform.position -= Vector3.up * Time.deltaTime * speedStomp;
             yield return null;
@@ -193,7 +208,7 @@ public class AttackPatterns : MonoBehaviour
 
 
     // Call this method to get a random position within the circle
-    public Vector3 GetRandomPosition()  
+    public Vector3 GetRandomPosition()
     {
         // Generate a random angle in radians
         float randomAngle = Random.Range(0f, Mathf.PI * 2);
@@ -224,12 +239,7 @@ public class AttackPatterns : MonoBehaviour
         }
     }
 
-    private IEnumerator TargetChasePlayer()
-    {
-        yield return null;
 
-        AoeAttackOnHead();
-    }
 
     private IEnumerator MoveAlongArc()
     {
