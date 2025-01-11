@@ -2938,6 +2938,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chest: {fileID: 1291030347}
+  slingShot: {fileID: 11400000, guid: 2a6c335209efe0f4f966a87f20e7b3e7, type: 2}
+  moaiCannon: {fileID: 11400000, guid: 262634cfdfd0d344bae10909b667dfef, type: 2}
   playerInventory: {fileID: 919132149385261831}
   playerHealthSystem: {fileID: 1137208365}
   materials:
@@ -26915,6 +26917,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1736035698}
+        m_TargetAssemblyTypeName: SpawnEnemy, Assembly-CSharp
+        m_MethodName: ClearEnemies
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onTeleportComplete:
     m_PersistentCalls:
       m_Calls:
@@ -46505,6 +46519,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5015477704489325026}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &2063039699 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 173591896178605203, guid: 387ec5574caeb3448a7524381a7dc959,
+    type: 3}
+  m_PrefabInstance: {fileID: 5015477704489325026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2063567380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48665,6 +48685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPattern: {fileID: 1757500180}
+  damageCollider: {fileID: 2063039699}
 --- !u!1 &919132149385261819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6976084960997700239, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
@@ -50231,6 +50252,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 173591896178605203, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 173591896178605203, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -50244,6 +50270,11 @@ PrefabInstance:
       propertyPath: health
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: renderers
+      value: 
+      objectReference: {fileID: 24730300774693075}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: blinkMaterial
@@ -50264,6 +50295,86 @@ PrefabInstance:
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 919132149385261831}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: renderers.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4932766058925404507}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[1]'
+      value: 
+      objectReference: {fileID: 7513421825282679009}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1809461413477216741}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[3]'
+      value: 
+      objectReference: {fileID: 3244699053106435949}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[4]'
+      value: 
+      objectReference: {fileID: 678568463760610009}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[5]'
+      value: 
+      objectReference: {fileID: 4835104797721427781}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[6]'
+      value: 
+      objectReference: {fileID: 4437120584081138198}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[7]'
+      value: 
+      objectReference: {fileID: 8172783265080478224}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[8]'
+      value: 
+      objectReference: {fileID: 138918907641574829}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[9]'
+      value: 
+      objectReference: {fileID: 2411399688069608862}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[10]'
+      value: 
+      objectReference: {fileID: 1292145195139042815}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[11]'
+      value: 
+      objectReference: {fileID: 7702539692673066106}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[12]'
+      value: 
+      objectReference: {fileID: 3046395824657599249}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[13]'
+      value: 
+      objectReference: {fileID: 2152139328823415534}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'renderers.Array.data[14]'
+      value: 
+      objectReference: {fileID: 24730300774693075}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.size

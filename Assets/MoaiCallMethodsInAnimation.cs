@@ -3,6 +3,7 @@ using UnityEngine;
 public class MoaiCallMethodsInAnimation : MonoBehaviour
 {
     [SerializeField] private AttackPatterns attackPattern;
+    [SerializeField] private Collider damageCollider;
 
     public void HandStomp()
     {
@@ -18,4 +19,8 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
     {
         attackPattern.FlyAndStomp();
     }
+
+    public void BecomeImmortal() => damageCollider.enabled = (false);
+
+    public void NoLongerImmortal() => damageCollider.enabled = (true);
 }

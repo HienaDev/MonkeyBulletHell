@@ -64,6 +64,8 @@ public class AttackPatterns : MonoBehaviour
 
     public void ChangePhase(int phase) => currentPhase = phase;
 
+    private int lastAttack = 7;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -115,7 +117,7 @@ public class AttackPatterns : MonoBehaviour
                 Phase2Attacks();
                 break;
             case 3:
-                Phase2Attacks();
+                Phase3Attacks();
                 break;
             case 4:
                 EnragePhase();
@@ -129,6 +131,16 @@ public class AttackPatterns : MonoBehaviour
     private void Phase1Attacks()
     {
         int attack = Random.Range(0, 4);
+
+        // if last attack was walking, we hand stomp
+        if (lastAttack == 0)
+        {
+            attack = 3;
+        }
+        
+
+        if(attack == lastAttack)
+            attack = Random.Range(0, 4);
 
         Debug.Log($"Phase 1 attack {attack} chosen");
 
@@ -156,12 +168,24 @@ public class AttackPatterns : MonoBehaviour
                 break;
         }
 
-
+        lastAttack = attack;
     }
 
     private void Phase2Attacks()
     {
-        int attack = Random.Range(0, 5);
+        int attack = Random.Range(0, 4);
+
+        // if last attack was walking, we hand stomp
+        if (lastAttack == 0)
+        {
+            attack = 3;
+        }
+
+
+        if (attack == lastAttack)
+            attack = Random.Range(0, 4);
+
+        Debug.Log($"Phase 2 attack {attack} chosen");
 
         switch (attack)
         {
@@ -187,12 +211,24 @@ public class AttackPatterns : MonoBehaviour
                 break;
         }
 
-
+        lastAttack = attack;
     }
 
     private void Phase3Attacks()
     {
-        int attack = Random.Range(0, 5);
+                int attack = Random.Range(0, 4);
+
+        // if last attack was walking, we hand stomp
+        if (lastAttack == 0)
+        {
+            attack = 3;
+        }
+        
+
+        if(attack == lastAttack)
+            attack = Random.Range(0, 4);
+
+        Debug.Log($"Phase 3 attack {attack} chosen");
 
         switch (attack)
         {
@@ -218,12 +254,24 @@ public class AttackPatterns : MonoBehaviour
                 break;
         }
 
-
+        lastAttack = attack;
     }
 
     private void EnragePhase()
     {
-        int attack = Random.Range(0, 5);
+                int attack = Random.Range(0, 4);
+
+        // if last attack was walking, we hand stomp
+        if (lastAttack == 0)
+        {
+            attack = 3;
+        }
+        
+
+        if(attack == lastAttack)
+            attack = Random.Range(0, 4);
+
+        Debug.Log($"Phase Enrage attack {attack} chosen");
 
         switch (attack)
         {
@@ -249,7 +297,7 @@ public class AttackPatterns : MonoBehaviour
                 break;
         }
 
-
+        lastAttack = attack;
     }
 
     private IEnumerator FlyAndStompPhases(int phase)

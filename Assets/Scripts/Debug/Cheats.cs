@@ -3,6 +3,8 @@ using UnityEngine;
 public class Cheats : MonoBehaviour
 {
     [SerializeField] private Chest chest;
+    [SerializeField] private WeaponSO slingShot;
+    [SerializeField] private WeaponSO moaiCannon;
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private HealthSystem playerHealthSystem;
     [SerializeField] private MaterialSO[] materials;
@@ -19,10 +21,22 @@ public class Cheats : MonoBehaviour
             chest.StoreAllMaterials();
         }
 
+        // Add Axe to player inventory
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F1))
+        {
+            playerInventory.AddItem(slingShot);
+        }
+
         // Fill chest with materials
         if (Input.GetKeyDown(KeyCode.F2))
         {
             chest.FillChestWithMaterials(materials);
+        }
+
+        // Add Axe to player inventory
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F2))
+        {
+            playerInventory.AddItem(moaiCannon);
         }
 
         // Add Pickaxe to player inventory

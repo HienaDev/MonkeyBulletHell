@@ -37,35 +37,61 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField] private AttackPatterns attackPatterns;
 
+    [SerializeField] private Renderer renderers;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
         player = GetComponent<TAG_Player>();
 
-        if (GetComponentInChildren<Renderer>() != null)
+        if (renderers == null)
         {
-            defaultMaterials = GetComponentInChildren<Renderer>().materials;
-            rendererModel = GetComponentInChildren<Renderer>();
+            if (GetComponentInChildren<Renderer>() != null)
+            {
+                defaultMaterials = GetComponentInChildren<Renderer>().materials;
+                rendererModel = GetComponentInChildren<Renderer>();
 
+            }
+            else
+            {
+                rendererModel = transform.parent.GetComponentInChildren<Renderer>();
+
+                if (rendererModel != null)
+                {
+                    defaultMaterials = rendererModel.materials;
+
+                }
+            }
+
+            blinkMaterials = new Material[defaultMaterials.Length];
+
+            for (int i = 0; i < blinkMaterials.Length; i++)
+            {
+                blinkMaterials[i] = blinkMaterial;
+            }
         }
         else
         {
-            rendererModel = transform.parent.GetComponentInChildren<Renderer>();
+
+            defaultMaterials = renderers.materials;
+            rendererModel = renderers;
 
             if (rendererModel != null)
             {
                 defaultMaterials = rendererModel.materials;
 
             }
+
+
+            blinkMaterials = new Material[defaultMaterials.Length];
+
+            for (int i = 0; i < blinkMaterials.Length; i++)
+            {
+                blinkMaterials[i] = blinkMaterial;
+            }
         }
 
-        blinkMaterials = new Material[defaultMaterials.Length];
-
-        for (int i = 0; i < blinkMaterials.Length; i++)
-        {
-            blinkMaterials[i] = blinkMaterial;
-        }
 
         if (healthImageUI == null)
         {
@@ -169,14 +195,17 @@ public class HealthSystem : MonoBehaviour
 
                         if (health / maxHealth < 0.6f)
                         {
+                            Debug.Log("Change to phase 2");
                             attackPatterns.ChangePhase(2);
                         }
                         else if (health / maxHealth < 0.3f)
                         {
+                            Debug.Log("Change to phase 3");
                             attackPatterns.ChangePhase(3);
                         }
                         else if (health / maxHealth < 0.1f)
                         {
+                            Debug.Log("Change to phase 4");
                             attackPatterns.ChangePhase(4);
                         }
                     }

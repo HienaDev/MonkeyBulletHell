@@ -19,7 +19,7 @@ MonoBehaviour:
   speedWithWeapon: 2
   projectilePrefab: {fileID: 9143849981931036120, guid: 3e77d53f5ced51a4ea39a19b24111142,
     type: 3}
-  fireRate: 0.1
+  fireRate: 0.3
   shotSpeed: 100
   laserLikeProjectile: 0
   laserDuration: 0
