@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 5650610266258275300}
   - component: {fileID: 3356231775801049943}
   - component: {fileID: 6596512388353062945}
+  - component: {fileID: -3198070708780720532}
   m_Layer: 0
   m_Name: Ancient Moai Core
   m_TagString: Untagged
@@ -278,6 +279,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hitEffectToggle: 0
+  hitEffect: {fileID: 0}
 --- !u!114 &6596512388353062945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +299,33 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!54 &-3198070708780720532
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5691367064225367085}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7568960731880620176
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +337,7 @@ GameObject:
   - component: {fileID: 2027405048230108214}
   - component: {fileID: 7523888540165345758}
   - component: {fileID: 2038312882824512023}
+  - component: {fileID: 2729866233672760193}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -382,3 +413,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2729866233672760193
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7568960731880620176}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.003524208, y: 0.0011258224, z: 0.0015725084}
+  m_Center: {x: 0.0000000018626451, y: -0.00077532744, z: 0}

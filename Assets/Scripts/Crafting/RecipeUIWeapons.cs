@@ -76,6 +76,7 @@ public class RecipeUIWeapons : RecipeUI
     {
         if (playerInventory.IsRecipeCrafted(recipe))
         {
+            
             if (slot == 2 && !playerInventory.IsWeaponEquippedInSlot(1))
             {
                 Debug.LogWarning("Cannot equip in slot 2 if slot 1 is empty.");

@@ -5,7 +5,6 @@ public class TriggerCameraShake : MonoBehaviour
 
     private FollowTarget cameraLogic;
     [SerializeField] private float shakeDuration = 1f;
-    [SerializeField] private Animator animator;
     [SerializeField] private GameObject defaultPoint;
     [SerializeField] private GameObject fightingPoint;
 

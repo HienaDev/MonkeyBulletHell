@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2640081809177688895}
   - component: {fileID: 6000454545675885718}
   - component: {fileID: -6128527766474326278}
+  - component: {fileID: -8624074481829111817}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -159,6 +160,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hitEffectToggle: 0
+  hitEffect: {fileID: 0}
 --- !u!114 &-6128527766474326278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +180,33 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!54 &-8624074481829111817
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780298983005370840}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3140625432017152684
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +218,7 @@ GameObject:
   - component: {fileID: 6022451945931894934}
   - component: {fileID: 7271645847361891076}
   - component: {fileID: 1284297726793062082}
+  - component: {fileID: 8726026068478531951}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -263,3 +294,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3140625432017152684}
   m_Mesh: {fileID: 8718879300460643150, guid: 01d9e20db5a20be4d8b4cbcfb129666b, type: 3}
+--- !u!65 &8726026068478531951
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140625432017152684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00257514, y: 0.018318763, z: 0.0025468923}
+  m_Center: {x: -0.00019783183, y: -0.0001285123, z: -0.000032047283}

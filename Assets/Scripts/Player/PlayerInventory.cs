@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerInventory : MonoBehaviour
     private GameObject currentArmorModel;
 
     private Tutorial tutorial;
+
+    [SerializeField] private GameObject weaponHolder;
 
     private void Start()
     {
@@ -54,6 +57,11 @@ public class PlayerInventory : MonoBehaviour
 
         if (item.itemType == ItemType.Weapon)
         {
+            if(weaponHolder != null)
+            {
+                weaponHolder.SetActive(true);
+            }
+
             if (weaponSlots[0] == null)
             {
                 weaponSlots[0] = item;
@@ -124,6 +132,11 @@ public class PlayerInventory : MonoBehaviour
         {
             if (weaponSlots[0] == item)
             {
+                if (weaponSlots[1] == null)
+                {
+                    weaponHolder.SetActive(false);
+                }
+
                 weaponSlots[0] = weaponSlots[1];
                 weaponSlots[1] = null;
 
@@ -262,6 +275,8 @@ public class PlayerInventory : MonoBehaviour
             weaponSlots[1] = weapon;
             Debug.Log($"{weapon.itemName} equipped in slot 2.");
         }
+
+        weaponHolder.SetActive(true);
 
         uiManager.UpdateUI();
         NotifyRecipeUI();

@@ -14,14 +14,35 @@ public class Cheats : MonoBehaviour
     [SerializeField] private RunSummaryScreen runSummaryScreen;
 
     void Update()
-    {   
+    {
+
+        // Put boss on phase 2
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            moaiHealth.Heal(50);
+            moaiHealth.DealDamage(16);
+        }
+        // Put boss on phase 3
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            moaiHealth.Heal(50);
+            moaiHealth.DealDamage(31);
+        }
+        // Put boss on enrage phase
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            moaiHealth.Heal(50);
+            moaiHealth.DealDamage(46);
+        }
+
+
         // Store all materials in chest
         if (Input.GetKeyDown(KeyCode.F1))
         {
             chest.StoreAllMaterials();
         }
 
-        // Add Axe to player inventory
+        // Add slingShot to player inventory
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F1))
         {
             playerInventory.AddItem(slingShot);
@@ -33,7 +54,7 @@ public class Cheats : MonoBehaviour
             chest.FillChestWithMaterials(materials);
         }
 
-        // Add Axe to player inventory
+        // Add moaiCannon to player inventory
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F2))
         {
             playerInventory.AddItem(moaiCannon);

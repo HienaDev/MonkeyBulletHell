@@ -163,7 +163,7 @@ public class HealthSystem : MonoBehaviour
 
                 health -= damage;
 
-                Debug.Log("lost hp");
+                //Debug.Log("lost hp");
 
                 if (health <= 0)
                 {
@@ -193,12 +193,12 @@ public class HealthSystem : MonoBehaviour
                     {
 
 
-                        if (health / maxHealth < 0.6f)
+                        if (health / maxHealth < 0.7f && health / maxHealth > 0.4f)
                         {
                             Debug.Log("Change to phase 2");
                             attackPatterns.ChangePhase(2);
                         }
-                        else if (health / maxHealth < 0.3f)
+                        else if (health / maxHealth < 0.4f && health / maxHealth > 0.1f)
                         {
                             Debug.Log("Change to phase 3");
                             attackPatterns.ChangePhase(3);
@@ -258,7 +258,7 @@ public class HealthSystem : MonoBehaviour
         if (GetComponentInChildren<Renderer>() != null)
             foreach (Material mat in defaultMaterials)
             {
-                Debug.Log(mat);
+                //Debug.Log(mat);
                 mat.EnableKeyword("_EMISSION");
                 mat.SetColor("_EmissionColor", Color.white * 0.3f);
             }

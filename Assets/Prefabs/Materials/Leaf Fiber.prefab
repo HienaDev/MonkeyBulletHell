@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2559250030807912136}
   - component: {fileID: 6565435399320673815}
   - component: {fileID: -264105138704422304}
+  - component: {fileID: -5145963396142536946}
   m_Layer: 0
   m_Name: Leaf Fiber
   m_TagString: Untagged
@@ -159,6 +160,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hitEffectToggle: 0
+  hitEffect: {fileID: 0}
 --- !u!114 &-264105138704422304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +180,33 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!54 &-5145963396142536946
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2835049642362258674}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3165791917680413660
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,6 +219,7 @@ GameObject:
   - component: {fileID: 7507578661612162037}
   - component: {fileID: 4452643657894014571}
   - component: {fileID: 4488219165842473490}
+  - component: {fileID: 2272832820687517450}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -285,6 +316,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &2272832820687517450
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165791917680413660}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.0000019073486}
 --- !u!1 &6105199328755659515
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +349,7 @@ GameObject:
   - component: {fileID: 4010804917843343670}
   - component: {fileID: 5646671087745444489}
   - component: {fileID: 2463710232616300190}
+  - component: {fileID: 8634025381609953412}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -395,6 +448,27 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!65 &8634025381609953412
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105199328755659515}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.0000005, z: 1.0000005}
+  m_Center: {x: 0.00000005960464, y: 0, z: -0.00000032782557}
 --- !u!1 &7318266079091533454
 GameObject:
   m_ObjectHideFlags: 0

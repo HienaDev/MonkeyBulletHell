@@ -66,6 +66,8 @@ public class AttackPatterns : MonoBehaviour
 
     private int lastAttack = 7;
 
+    private List<GameObject> projectiles = new List<GameObject>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -103,8 +105,22 @@ public class AttackPatterns : MonoBehaviour
         transform.position = startPosition.position;
         transform.rotation = initialRotation;
         currentPhase = 1;
+
+        ClearProjectiles();
+
         animator.SetTrigger("Nothing");
     }
+
+    public void ClearProjectiles()
+    {
+        foreach (GameObject go in projectiles)
+        {
+            Destroy(go);
+        }
+
+        projectiles.Clear();
+    }
+
 
     private void Attacks()
     {
@@ -148,7 +164,7 @@ public class AttackPatterns : MonoBehaviour
         {
             case 0:
                 // Walk to player
-                lastCoroutine = StartCoroutine(ChasePlayer(2f, walkMovSpeedPhase1, false));
+                lastCoroutine = StartCoroutine(ChasePlayer(walkMovSpeedPhase1, 2f,  false));
                 break;
             case 1:
                 // Fly and stomp
@@ -191,7 +207,7 @@ public class AttackPatterns : MonoBehaviour
         {
             case 0:
                 // Walk to player
-                lastCoroutine = StartCoroutine(ChasePlayer(3f, walkMovSpeedPhase2, false));
+                lastCoroutine = StartCoroutine(ChasePlayer(walkMovSpeedPhase2, 3f, false));
                 break;
             case 1:
                 // Fly and stomp
@@ -234,7 +250,7 @@ public class AttackPatterns : MonoBehaviour
         {
             case 0:
                 // Walk to player
-                lastCoroutine = StartCoroutine(ChasePlayer(2f, walkMovSpeedPhase1, false));
+                lastCoroutine = StartCoroutine(ChasePlayer( walkMovSpeedPhase2, 2f, false));
                 break;
             case 1:
                 // Fly and stomp
@@ -259,45 +275,46 @@ public class AttackPatterns : MonoBehaviour
 
     private void EnragePhase()
     {
-                int attack = Random.Range(0, 4);
+        //        int attack = Random.Range(0, 4);
 
-        // if last attack was walking, we hand stomp
-        if (lastAttack == 0)
-        {
-            attack = 3;
-        }
-        
+        //// if last attack was walking, we hand stomp
+        //if (lastAttack == 0)
+        //{
+        //    attack = 3;
+        //}
 
-        if(attack == lastAttack)
-            attack = Random.Range(0, 4);
 
-        Debug.Log($"Phase Enrage attack {attack} chosen");
+        //if(attack == lastAttack)
+        //    attack = Random.Range(0, 4);
 
-        switch (attack)
-        {
-            case 0:
-                // Walk to player
-                lastCoroutine = StartCoroutine(ChasePlayer(2f, walkMovSpeedPhase1, false));
-                break;
-            case 1:
-                // Fly and stomp
-                lastCoroutine = StartCoroutine(FlyAndStompPhases(4));
-                break;
-            case 2:
-                // Laser Attack
-                lastCoroutine = StartCoroutine(LaserAttack(60f, 2f));
-                break;
-            case 3:
-                animator.SetTrigger("HandStomp");
-                break;
-            case 4:
-                break;
-            default:
-                Debug.Log("Bad phase 1 attacks");
-                break;
-        }
+        //Debug.Log($"Phase Enrage attack {attack} chosen");
 
-        lastAttack = attack;
+        //switch (attack)
+        //{
+        //    case 0:
+        //        // Walk to player
+        //        lastCoroutine = StartCoroutine(ChasePlayer(walkMovSpeedPhase2, 2f, false));
+        //        break;
+        //    case 1:
+        //        // Fly and stomp
+        //        lastCoroutine = StartCoroutine(FlyAndStompPhases(4));
+        //        break;
+        //    case 2:
+        //        // Laser Attack
+        //        lastCoroutine = StartCoroutine(LaserAttack(60f, 2f));
+        //        break;
+        //    case 3:
+        //        animator.SetTrigger("HandStomp");
+        //        break;
+        //    case 4:
+        //        break;
+        //    default:
+        //        Debug.Log("Bad phase 1 attacks");
+        //        break;
+        //}
+
+        //lastAttack = attack;
+        animator.SetTrigger("HandStomp Faster");
     }
 
     private IEnumerator FlyAndStompPhases(int phase)
@@ -309,7 +326,7 @@ public class AttackPatterns : MonoBehaviour
             mesh.enabled = false;
         }
         //moaiPhysicalCollider.SetActive(false);
-        lastCoroutine = StartCoroutine(ChasePlayer(3f, flyMovSpeed * phase, true));
+        lastCoroutine = StartCoroutine(ChasePlayer(flyMovSpeed * phase / 3, 3f, true));
         target.SetActive(true);
         StartCoroutine(ScaleTargetDecal(3f));
         yield return new WaitForSeconds(3f);
@@ -382,29 +399,31 @@ public class AttackPatterns : MonoBehaviour
                 AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 8);
                 break;
             case 2:
-                AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 8);
-                AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 8);
+                AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 16, true, enemyShotPrefabExploding);
                 break;
             case 3:
                 lastCoroutine = StartCoroutine(FlyAndStomp4Waves());
                 break;
             case 4:
+                lastCoroutine = StartCoroutine(FlyAndStomp4Waves());
                 break;
             default:
                 Debug.Log("Wrong stomp attack");
                 break;
         }
+
+        Attacks();
     }
 
     private IEnumerator FlyAndStomp4Waves()
     {
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5);
-        yield return new WaitForSeconds(1f);
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5);
-        yield return new WaitForSeconds(1f);
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5);
-        yield return new WaitForSeconds(1f);
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5, initialAngle:18);
+        yield return new WaitForSeconds(0.1f);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5, initialAngle: 18 * 2);
+        yield return new WaitForSeconds(0.1f);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5, initialAngle: 18 * 3);
+        yield return new WaitForSeconds(0.1f);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5, initialAngle: 18 * 4);
 
     }
 
@@ -443,7 +462,8 @@ public class AttackPatterns : MonoBehaviour
             yield return null;
         }
 
-        Attacks();
+        if(!flying)
+            Attacks();
         //HandStomp();
     }
 
@@ -490,6 +510,19 @@ public class AttackPatterns : MonoBehaviour
 
                 break;
             case 4:
+                doubleStomp = Random.Range(0, 3) < 1 ? true : false;
+                if (doubleStomp)
+                {
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 8);
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 8);
+                    animator.SetTrigger("HandStomp Faster");
+                }
+                else
+                {
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 8);
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 8, initialAngle: 45f);
+                }
+
                 break;
             default:
                 Debug.Log("Wrong stomp attack");
@@ -507,10 +540,15 @@ public class AttackPatterns : MonoBehaviour
             AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 6, initialAngle: 45f);
             AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 6);
         }
-        else
+        else if (currentPhase == 3)
         {
             AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 8, true, enemyShotPrefabExploding, initialAngle: 45f);
             AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 8, true, enemyShotPrefab);
+        }
+        else
+        {
+            AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 5, true, enemyShotPrefabExploding, initialAngle: Random.Range(0f, 45f));
+            AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 4, true, enemyShotPrefab, initialAngle: Random.Range(0f, 45f));
         }
     }
 
@@ -626,6 +664,8 @@ public class AttackPatterns : MonoBehaviour
                 else
                     shotTemp = Instantiate(projectile);
 
+                projectiles.Add(shotTemp);
+
                 shotTemp.transform.position = position.position;
                 shotTemp.transform.eulerAngles = new Vector3(0, initialAngle + i * degreeIteration, 0);
                 shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
@@ -638,6 +678,7 @@ public class AttackPatterns : MonoBehaviour
             for (int i = 0; i < numberOfProjectiles; i++)
             {
                 GameObject shotTemp = Instantiate(projectile);
+                projectiles.Add(shotTemp);
                 shotTemp.transform.position = position.position;
                 shotTemp.transform.eulerAngles = new Vector3(0, initialAngle + i * degreeIteration, 0);
                 shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;

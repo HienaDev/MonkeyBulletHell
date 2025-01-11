@@ -15,30 +15,30 @@ public class PlayerShot : MonoBehaviour
         audioSource.loop = false;
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 1f;
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<TAG_Enemy>() != null)
+        if (other.GetComponent<TAG_Enemy>() != null)
         {
-            Debug.Log("is enemy: " + other.name);
+            //Debug.Log("is enemy: " + other.name);
 
-                other.GetComponent<HealthSystem>().DealDamage(damage);
+            other.GetComponent<HealthSystem>().DealDamage(damage);
 
-            if(audioClips.Length > 0)
+            if (audioClips.Length > 0)
             {
                 audioSource.pitch = Random.Range(0.9f, 1.1f);
                 audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
                 audioSource.Play();
             }
-            
+
 
         }
     }
