@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 
+
 public class AttackPatterns : MonoBehaviour
 {
 
@@ -32,14 +33,18 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private float duration = 2f; // Duration of the arc movement
 
     [Header("LaserAttack"), SerializeField] private GameObject laserPrefab;
-    [SerializeField] private float laserAngle = 90f; // Total angle to rotate during the laser (in degrees)
-    [SerializeField] private float laserDuration = 0.5f; // Duration of the laser motion (in seconds)
+    [SerializeField] private float laserAngleDefault = 90f; // Total angle to rotate during the laser (in degrees)
+    [SerializeField] private float laserDurationDefault = 0.5f; // Duration of the laser motion (in seconds)
     [SerializeField] private float turnDuration = 0.3f; // Duration of the laser motion (in seconds)
 
     [Header("ChasePlayer"), SerializeField] private float walkMovSpeedPhase1 = 3f;
     [SerializeField] private float walkMovSpeedPhase2 = 6f;
     [SerializeField] private float flyMovSpeed = 5f;
     [SerializeField] private float flyMovSpeed2 = 10f;
+
+    [Header("Stomp"), SerializeField] private GameObject moaiPhysicalCollider;
+    [SerializeField] private Renderer[] meshRenderers;
+
 
     [Header("Eyes"), SerializeField] private GameObject leftEye;
     private Material leftEyeMaterial;
@@ -95,14 +100,39 @@ public class AttackPatterns : MonoBehaviour
 
         transform.position = startPosition.position;
         transform.rotation = initialRotation;
+        currentPhase = 1;
         animator.SetTrigger("Nothing");
+    }
+
+    private void Attacks()
+    {
+        switch (currentPhase)
+        {
+            case 1:
+                Phase1Attacks();
+                break;
+            case 2:
+                Phase2Attacks();
+                break;
+            case 3:
+                Phase2Attacks();
+                break;
+            case 4:
+                EnragePhase();
+                break;
+            default:
+                Debug.Log("Wrong stomp attack");
+                break;
+        }
     }
 
     private void Phase1Attacks()
     {
-        int attack = Random.Range(0, 5);
+        int attack = Random.Range(0, 4);
 
-        switch(attack)
+        Debug.Log($"Phase 1 attack {attack} chosen");
+
+        switch (attack)
         {
             case 0:
                 // Walk to player
@@ -110,11 +140,14 @@ public class AttackPatterns : MonoBehaviour
                 break;
             case 1:
                 // Fly and stomp
-                lastCoroutine = StartCoroutine(ChasePlayer(2f, flyMovSpeed, true));
+                lastCoroutine = StartCoroutine(FlyAndStompPhases(1));
                 break;
             case 2:
+                // Laser Attack
+                lastCoroutine = StartCoroutine(LaserAttack(120f, 2f));
                 break;
             case 3:
+                animator.SetTrigger("HandStomp");
                 break;
             case 4:
                 break;
@@ -126,31 +159,172 @@ public class AttackPatterns : MonoBehaviour
 
     }
 
-    private IEnumerator FlyAndStompPhase1()
+    private void Phase2Attacks()
+    {
+        int attack = Random.Range(0, 5);
+
+        switch (attack)
+        {
+            case 0:
+                // Walk to player
+                lastCoroutine = StartCoroutine(ChasePlayer(3f, walkMovSpeedPhase2, false));
+                break;
+            case 1:
+                // Fly and stomp
+                lastCoroutine = StartCoroutine(FlyAndStompPhases(2));
+                break;
+            case 2:
+                // Laser Attack
+                lastCoroutine = StartCoroutine(LaserAttack(60f, 2f));
+                break;
+            case 3:
+                animator.SetTrigger("HandStomp");
+                break;
+            case 4:
+                break;
+            default:
+                Debug.Log("Bad phase 1 attacks");
+                break;
+        }
+
+
+    }
+
+    private void Phase3Attacks()
+    {
+        int attack = Random.Range(0, 5);
+
+        switch (attack)
+        {
+            case 0:
+                // Walk to player
+                lastCoroutine = StartCoroutine(ChasePlayer(2f, walkMovSpeedPhase1, false));
+                break;
+            case 1:
+                // Fly and stomp
+                lastCoroutine = StartCoroutine(FlyAndStompPhases(3));
+                break;
+            case 2:
+                // Laser Attack
+                lastCoroutine = StartCoroutine(LaserAttack(60f, 2f));
+                break;
+            case 3:
+                animator.SetTrigger("HandStomp");
+                break;
+            case 4:
+                break;
+            default:
+                Debug.Log("Bad phase 1 attacks");
+                break;
+        }
+
+
+    }
+
+    private void EnragePhase()
+    {
+        int attack = Random.Range(0, 5);
+
+        switch (attack)
+        {
+            case 0:
+                // Walk to player
+                lastCoroutine = StartCoroutine(ChasePlayer(2f, walkMovSpeedPhase1, false));
+                break;
+            case 1:
+                // Fly and stomp
+                lastCoroutine = StartCoroutine(FlyAndStompPhases(4));
+                break;
+            case 2:
+                // Laser Attack
+                lastCoroutine = StartCoroutine(LaserAttack(60f, 2f));
+                break;
+            case 3:
+                animator.SetTrigger("HandStomp");
+                break;
+            case 4:
+                break;
+            default:
+                Debug.Log("Bad phase 1 attacks");
+                break;
+        }
+
+
+    }
+
+    private IEnumerator FlyAndStompPhases(int phase)
     {
         animator.SetTrigger("Jump");
         yield return new WaitForSeconds(2f);
-        lastCoroutine = StartCoroutine(ChasePlayer(3f, flyMovSpeed, true));
+        foreach (Renderer mesh in meshRenderers)
+        {
+            mesh.enabled = false;
+        }
+        //moaiPhysicalCollider.SetActive(false);
+        lastCoroutine = StartCoroutine(ChasePlayer(3f, flyMovSpeed * phase, true));
         target.SetActive(true);
         StartCoroutine(ScaleTargetDecal(3f));
         yield return new WaitForSeconds(3f);
+        foreach (Renderer mesh in meshRenderers)
+        {
+            mesh.enabled = true;
+        }
+        //moaiPhysicalCollider.SetActive(true);
         target.SetActive(false);
         animator.SetTrigger("Stomp");
         // Triger attack on stomp animation
     }
 
+
+
     private IEnumerator ScaleTargetDecal(float time)
     {
         float lerpValue = 0f;
 
-        while(lerpValue < 1)
+        while (lerpValue < 1)
         {
 
-            lerpValue += Time.deltaTime / time;
-            target.transform.localScale = Vector3.Lerp(new Vector3(0.001f, 0.001f, 0.001f), new Vector3(0.007f, 0.007f, 0.007f), lerpValue);
+            lerpValue += Time.deltaTime / (time - 1.5f);
+            target.transform.localScale = Vector3.Lerp(new Vector3(0.001f, 0.001f, 2f), new Vector3(0.007f, 0.007f, 2f), lerpValue);
             yield return null;
         }
+
+        StartCoroutine(BlinkCoroutineTarget());
     }
+
+    private IEnumerator BlinkCoroutineTarget()
+    {
+
+        float timeElapsed = 0f;
+
+        DecalProjector targetDecal = target.GetComponent<DecalProjector>();
+        Color originalColor = targetDecal.material.GetColor("_Color");
+
+        while (timeElapsed < 1.5f)
+        {
+            // Calculate blink interval based on how much time is left, to increase frequency near the end
+            float progress = timeElapsed / 1.5f;
+            float currentBlinkInterval = Mathf.Lerp(0.3f, 0.05f, progress); // Starts slower, ends faster
+
+            // Switch to white material
+            targetDecal.material.SetColor("_Color", Color.white);
+            Debug.Log(targetDecal.material.GetColor("_Color"));
+            yield return new WaitForSeconds(currentBlinkInterval / 2);
+
+            // Switch back to the original material
+            targetDecal.material.SetColor("_Color", originalColor);
+            Debug.Log(targetDecal.material.GetColor("_Color"));
+            yield return new WaitForSeconds(currentBlinkInterval / 2);
+
+            // Update the elapsed time
+            timeElapsed += currentBlinkInterval;
+        }
+
+        // Ensure the original material is set after blinking finishes
+        targetDecal.material.SetColor("_Color", originalColor);
+        Debug.Log(targetDecal.material.GetColor("_Color"));
+    }
+
 
     public void FlyAndStomp()
     {
@@ -198,9 +372,9 @@ public class AttackPatterns : MonoBehaviour
         animator.SetTrigger("Spawn");
         yield return new WaitForSeconds(5f);
 
-        
 
-        lastCoroutine = StartCoroutine(FlyAndStompPhase1());
+        Attacks();
+        //lastCoroutine = StartCoroutine(LaserAttack(360f, 2f));
 
         //StartRandomAttack();
     }
@@ -221,7 +395,7 @@ public class AttackPatterns : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(LaserAttack());
+        Attacks();
         //HandStomp();
     }
 
@@ -232,8 +406,64 @@ public class AttackPatterns : MonoBehaviour
 
     public void HandStompCalledInAnimation()
     {
-        AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 5);
-        AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 5);
+        switch (currentPhase)
+        {
+            case 1:
+                AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 4);
+                AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 4, initialAngle: 45f);
+                break;
+            case 2:
+                bool doubleStomp = Random.Range(0, 3) < 1 ? true : false;
+                if (doubleStomp)
+                {
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 6);
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 6, initialAngle: 45f);
+                    animator.SetTrigger("HandStomp Faster");
+                }
+                else
+                {
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 6, true, enemyShotPrefab);
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 6, true, enemyShotPrefabExploding, 45f);
+                }
+                break;
+            case 3:
+                doubleStomp = Random.Range(0, 3) < 1 ? true : false;
+                if (doubleStomp)
+                {
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 8);
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 8);
+                    animator.SetTrigger("HandStomp Faster");
+                }
+                else
+                {
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 8);
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 8, initialAngle: 45f);
+                }
+
+                break;
+            case 4:
+                break;
+            default:
+                Debug.Log("Wrong stomp attack");
+                break;
+        }
+
+        Attacks();
+
+    }
+
+    public void FastStomp()
+    {
+        if(currentPhase == 2)
+        {
+            AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 6, initialAngle: 45f);
+            AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 6);
+        }
+        else
+        {
+            AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 8, true, enemyShotPrefabExploding, initialAngle: 45f);
+            AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 8, true, enemyShotPrefab);
+        }
     }
 
     private IEnumerator StartStomp()
@@ -251,29 +481,14 @@ public class AttackPatterns : MonoBehaviour
     {
         int rng = Random.Range(0, 4);
         if (rng == 3)
-            lastCoroutine = StartCoroutine(LaserAttack());
+            lastCoroutine = StartCoroutine(LaserAttack(laserAngleDefault, laserDurationDefault));
         else
             lastCoroutine = StartCoroutine(MoveAlongArc());
     }
 
-    private IEnumerator LaserAttack()
+    private IEnumerator LaserAttack(float laserAngle, float laserDuration)
     {
-        //float yAngle = GetYAngleToTarget(player.transform.position);
 
-        //Vector3 initialAngleMoai = transform.eulerAngles;
-        //Vector3 finalAngleMoai = new Vector3(0f, yAngle - 180 - 90, 0);
-
-
-        //Debug.Log("initial: " + initialAngleMoai + ", finalAngleMoai" + finalAngleMoai);
-
-        //float timer = 0f;
-
-        //while (timer <= turnDuration)
-        //{
-        //    transform.eulerAngles = new Vector3(0f, GetYAngleToTarget(player.transform.position) - 180 - 90, 0);
-        //    timer += Time.deltaTime;
-        //    yield return null;
-        //}
         animator.SetTrigger("Beam");
 
         yield return new WaitForSeconds(turnDuration);
@@ -282,8 +497,19 @@ public class AttackPatterns : MonoBehaviour
 
         float yAngle = GetYAngleToTarget(player.transform.position);
 
-        Vector3 initialAngleLaser = new Vector3(0f, yAngle - laserAngle, 0f);
-        Vector3 finalAngleLaser = new Vector3(0f, yAngle + laserAngle, 0f);
+        Vector3 initialAngleLaser;
+        Vector3 finalAngleLaser;
+        if (laserAngle < 90f)
+        {
+            initialAngleLaser = new Vector3(0f, yAngle - laserAngle, 0f);
+            finalAngleLaser = new Vector3(0f, yAngle + laserAngle, 0f);
+        }
+        else
+        {
+            initialAngleLaser = new Vector3(0f, yAngle - 90f, 0f);
+            finalAngleLaser = new Vector3(0f, yAngle + laserAngle - 90f, 0f);
+        }
+
 
         GameObject laserTemp = Instantiate(laserPrefab, firePointOnHead.transform);
 
@@ -299,9 +525,7 @@ public class AttackPatterns : MonoBehaviour
 
         Destroy(laserTemp);
 
-        yield return new WaitForSeconds(attackCooldown);
-
-        StartRandomAttack();
+        Attacks();
     }
 
     private float GetYAngleToTarget(Vector3 targetPosition)
@@ -337,18 +561,41 @@ public class AttackPatterns : MonoBehaviour
         return randomPosition;
     }
 
-    public void AoeAttackOnHead(Transform position, GameObject projectile, int numberOfProjectiles)
+    public void AoeAttackOnHead(Transform position, GameObject projectile, int numberOfProjectiles, bool halfProjectiles = false, GameObject secondProjectile = null, float initialAngle = 0f)
     {
 
         float degreeIteration = 360 / numberOfProjectiles;
 
-        for (int i = 0; i < numberOfProjectiles; i++)
+        if (halfProjectiles)
         {
-            GameObject shotTemp = Instantiate(projectile);
-            shotTemp.transform.position = position.position;
-            shotTemp.transform.eulerAngles = new Vector3(0, i * degreeIteration, 0);
-            shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
+            bool half = false;
+            for (int i = 0; i < numberOfProjectiles; i++)
+            {
+                GameObject shotTemp;
+
+                if (half)
+                    shotTemp = Instantiate(secondProjectile);
+                else
+                    shotTemp = Instantiate(projectile);
+
+                shotTemp.transform.position = position.position;
+                shotTemp.transform.eulerAngles = new Vector3(0, initialAngle + i * degreeIteration, 0);
+                shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
+
+                half = !half;
+            }
         }
+        else
+        {
+            for (int i = 0; i < numberOfProjectiles; i++)
+            {
+                GameObject shotTemp = Instantiate(projectile);
+                shotTemp.transform.position = position.position;
+                shotTemp.transform.eulerAngles = new Vector3(0, initialAngle + i * degreeIteration, 0);
+                shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
+            }
+        }
+
     }
 
 

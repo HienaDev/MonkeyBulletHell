@@ -43206,12 +43206,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907667797}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.012849298, z: -0, w: 0.99991745}
+  m_LocalPosition: {x: -0.0006947367, y: -0.017230896, z: 0.0036851915}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 543450652345726625}
+  m_Father: {fileID: 6833311125053735238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1907667799
 CapsuleCollider:
@@ -48549,7 +48549,6 @@ Transform:
   - {fileID: 6833311125053735238}
   - {fileID: 488134768}
   - {fileID: 354515623}
-  - {fileID: 1907667798}
   - {fileID: 1037288736}
   - {fileID: 1033750625}
   m_Father: {fileID: 1757500176}
@@ -50252,6 +50251,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d936b33c73296fb48afe897391842fbe, type: 2}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: attackPatterns
+      value: 
+      objectReference: {fileID: 1757500180}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: destroyOnDeath
       value: 
       objectReference: {fileID: 2063039697}
@@ -50388,10 +50392,95 @@ PrefabInstance:
       objectReference: {fileID: 1033750624}
     - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: moaiPhysicalCollider
+      value: 
+      objectReference: {fileID: 1907667797}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: enemyShotPrefabExploding
       value: 
       objectReference: {fileID: 9143849981931036120, guid: 04d6d082485739b4bad6394ccfee0273,
         type: 3}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: meshRenderers.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4932766058925404507}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[1]'
+      value: 
+      objectReference: {fileID: 7513421825282679009}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1809461413477216741}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[3]'
+      value: 
+      objectReference: {fileID: 3244699053106435949}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[4]'
+      value: 
+      objectReference: {fileID: 678568463760610009}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[5]'
+      value: 
+      objectReference: {fileID: 4835104797721427781}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[6]'
+      value: 
+      objectReference: {fileID: 4437120584081138198}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[7]'
+      value: 
+      objectReference: {fileID: 8172783265080478224}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[8]'
+      value: 
+      objectReference: {fileID: 138918907641574829}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[9]'
+      value: 
+      objectReference: {fileID: 2411399688069608862}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[10]'
+      value: 
+      objectReference: {fileID: 1292145195139042815}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[11]'
+      value: 
+      objectReference: {fileID: 7702539692673066106}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[12]'
+      value: 
+      objectReference: {fileID: 3046395824657599249}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[13]'
+      value: 
+      objectReference: {fileID: 2152139328823415534}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: 'meshRenderers.Array.data[14]'
+      value: 
+      objectReference: {fileID: 24730300774693075}
     - target: {fileID: 6668038572056289010, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -52081,6 +52170,7 @@ Transform:
   - {fileID: 3875124630529985431}
   - {fileID: 7211039029209882182}
   - {fileID: 964180496}
+  - {fileID: 1907667798}
   m_Father: {fileID: 543450652345726625}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6833940099197172761

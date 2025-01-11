@@ -9,6 +9,11 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
         attackPattern.HandStompCalledInAnimation();
     }
 
+    public void FastHandStomp()
+    {
+        attackPattern.FastStomp();
+    }
+
     public void FlyAndStomp()
     {
         attackPattern.FlyAndStomp();

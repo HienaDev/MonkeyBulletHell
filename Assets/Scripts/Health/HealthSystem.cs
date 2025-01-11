@@ -35,6 +35,8 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private PlayerInventory playerInventory;
     private TAG_Player player;
 
+    [SerializeField] private AttackPatterns attackPatterns;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,10 +53,10 @@ public class HealthSystem : MonoBehaviour
         {
             rendererModel = transform.parent.GetComponentInChildren<Renderer>();
 
-            if(rendererModel != null)
+            if (rendererModel != null)
             {
                 defaultMaterials = rendererModel.materials;
-   
+
             }
         }
 
@@ -83,7 +85,7 @@ public class HealthSystem : MonoBehaviour
         if (Time.time - justGotDamaged < gracePeriod)
         {
 
-            if(Time.time - justBlinked > blinkDuration)
+            if (Time.time - justBlinked > blinkDuration)
             {
                 justBlinked = Time.time;
                 if (!transparent)
@@ -111,7 +113,7 @@ public class HealthSystem : MonoBehaviour
                 transparent = !transparent;
             }
         }
-        else if(!   transparent)
+        else if (!transparent)
         {
             //Debug.Log("stop blink");
             //foreach (Material mat in defaultMaterials)
@@ -126,15 +128,15 @@ public class HealthSystem : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        if(!immortal)
-            if(Time.time - justGotDamaged > gracePeriod)
+        if (!immortal)
+            if (Time.time - justGotDamaged > gracePeriod)
             {
-                if(player != null)
-                    if(playerInventory.GetEquippedArmor() != null)
+                if (player != null)
+                    if (playerInventory.GetEquippedArmor() != null)
                         damage *= playerInventory.GetEquippedArmor().damageReduction;
 
                 health -= damage;
-                
+
                 Debug.Log("lost hp");
 
                 if (health <= 0)
@@ -145,7 +147,7 @@ public class HealthSystem : MonoBehaviour
                         doOnDeath.Invoke();
                     }
 
-                    if(player != null)
+                    if (player != null)
                     {
                         PlayerDie();
                     }
@@ -161,6 +163,23 @@ public class HealthSystem : MonoBehaviour
                 else
                 {
                     justGotDamaged = Time.time;
+                    if (attackPatterns != null)
+                    {
+
+
+                        if (health / maxHealth < 0.6f)
+                        {
+                            attackPatterns.ChangePhase(2);
+                        }
+                        else if (health / maxHealth < 0.3f)
+                        {
+                            attackPatterns.ChangePhase(3);
+                        }
+                        else if (health / maxHealth < 0.1f)
+                        {
+                            attackPatterns.ChangePhase(4);
+                        }
+                    }
                 }
 
                 StartCoroutine(LoseHpUI());
