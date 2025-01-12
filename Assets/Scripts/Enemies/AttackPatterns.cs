@@ -4,6 +4,7 @@ using UnityEngine.XR;
 using Unity.Cinemachine;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 
 public class AttackPatterns : MonoBehaviour
@@ -61,6 +62,7 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private Animator animator;
 
     private int currentPhase = 1;
+    public int CurrentPhase => currentPhase;
 
     public void ChangePhase(int phase) => currentPhase = phase;
 

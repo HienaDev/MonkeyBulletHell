@@ -36,6 +36,7 @@ public class HealthSystem : MonoBehaviour
     private TAG_Player player;
 
     [SerializeField] private AttackPatterns attackPatterns;
+    [SerializeField] private GameObject dropOnPhaseChange;
 
     [SerializeField] private Renderer renderers;
 
@@ -193,17 +194,17 @@ public class HealthSystem : MonoBehaviour
                     {
 
 
-                        if (health / maxHealth < 0.7f && health / maxHealth > 0.4f)
+                        if (health / maxHealth < 0.7f && health / maxHealth > 0.4f && attackPatterns.CurrentPhase != 2)
                         {
                             Debug.Log("Change to phase 2");
                             attackPatterns.ChangePhase(2);
                         }
-                        else if (health / maxHealth < 0.4f && health / maxHealth > 0.1f)
+                        else if (health / maxHealth < 0.4f && health / maxHealth > 0.1f && attackPatterns.CurrentPhase != 3)
                         {
                             Debug.Log("Change to phase 3");
                             attackPatterns.ChangePhase(3);
                         }
-                        else if (health / maxHealth < 0.1f)
+                        else if (health / maxHealth < 0.1f && attackPatterns.CurrentPhase != 4)
                         {
                             Debug.Log("Change to phase 4");
                             attackPatterns.ChangePhase(4);
