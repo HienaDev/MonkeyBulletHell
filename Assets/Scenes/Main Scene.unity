@@ -50389,7 +50389,7 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
@@ -50408,6 +50408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1691096901}
@@ -50420,15 +50425,20 @@ PrefabInstance:
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 767192542}
+      objectReference: {fileID: 1757500185}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 2063039700}
+      objectReference: {fileID: 767192542}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 2063039700}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
       objectReference: {fileID: 690847463}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
@@ -50439,6 +50449,11 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
@@ -50454,16 +50469,21 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: WallsComeDown
+      value: CompleteMoai
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: DropMaterials
+      value: WallsComeDown
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: DropMaterials
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
       value: CompleteMoai
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
@@ -50474,16 +50494,21 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: GenerateObjectsAroundCircle, Assembly-CSharp
+      value: Tutorial, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: MoaiBoss, Assembly-CSharp
+      value: GenerateObjectsAroundCircle, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: MoaiBoss, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
       value: Tutorial, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
@@ -50499,6 +50524,11 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5128874249816240038, guid: 387ec5574caeb3448a7524381a7dc959,
