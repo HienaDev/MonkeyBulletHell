@@ -83,4 +83,18 @@ public class BoatLogic : MonoBehaviour
 
         player.transform.position = easterIslandLocation.position;
     }
+
+    public bool CheckForWeapons()
+    {
+        if (needsWeapons)
+        {
+            if (!inventory.PlayerHasWeaponEquipped())
+            {
+                StartCoroutine(CantUseBoat());
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
