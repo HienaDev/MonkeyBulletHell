@@ -50302,6 +50302,12 @@ PrefabInstance:
       objectReference: {fileID: 919132149385261831}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: dropOnPhaseChange
+      value: 
+      objectReference: {fileID: 8299221067387495061, guid: 44fff586707a7394caf0183d1b40b855,
+        type: 3}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: renderers.Array.size
       value: 15
       objectReference: {fileID: 0}

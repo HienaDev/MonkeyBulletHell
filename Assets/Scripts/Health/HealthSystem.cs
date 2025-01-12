@@ -198,16 +198,19 @@ public class HealthSystem : MonoBehaviour
                         {
                             Debug.Log("Change to phase 2");
                             attackPatterns.ChangePhase(2);
+                            DropItemOnPhase();
                         }
                         else if (health / maxHealth < 0.4f && health / maxHealth > 0.1f && attackPatterns.CurrentPhase != 3)
                         {
                             Debug.Log("Change to phase 3");
                             attackPatterns.ChangePhase(3);
+                            DropItemOnPhase();
                         }
                         else if (health / maxHealth < 0.1f && attackPatterns.CurrentPhase != 4)
                         {
                             Debug.Log("Change to phase 4");
                             attackPatterns.ChangePhase(4);
+                            DropItemOnPhase();
                         }
                     }
                 }
@@ -218,6 +221,12 @@ public class HealthSystem : MonoBehaviour
 
     }
 
+    public void DropItemOnPhase()
+    {
+        Vector2 randomPosition = Random.insideUnitCircle * 10f;
+        Instantiate(dropOnPhaseChange, new Vector3(transform.position.x + randomPosition.x, transform.position.y, transform.position.z + randomPosition.y), Quaternion.identity);
+
+    }
 
     public void PlayerDie()
     {

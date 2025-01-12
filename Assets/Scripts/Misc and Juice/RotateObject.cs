@@ -7,6 +7,6 @@ public class RotateObject : MonoBehaviour
     void Update()
     {
         // Rotate the object around its Y-axis
-        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
 }
