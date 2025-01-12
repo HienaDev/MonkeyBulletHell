@@ -48691,6 +48691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPattern: {fileID: 1757500180}
   damageCollider: {fileID: 2063039699}
+  cameraShake: {fileID: 1691096901}
 --- !u!1 &919132149385261819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6976084960997700239, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
