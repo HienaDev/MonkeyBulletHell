@@ -24,6 +24,12 @@ public class TriggerCameraShake : MonoBehaviour
 
     }
 
+    public void TriggerShakeCamera()
+    {
+        cameraLogic.ShakeCamera(0.5f, 1f, true);
+
+    }
+
     public void TriggerShake()
     {
         cameraLogic.ShakeCamera(shakeDuration, 1f, true);

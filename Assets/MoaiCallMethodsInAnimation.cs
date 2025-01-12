@@ -8,19 +8,19 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
 
     public void HandStomp()
     {
-        cameraShake.TriggerShake();
+        cameraShake.TriggerShakeCamera();
         attackPattern.HandStompCalledInAnimation();
     }
 
     public void FastHandStomp()
     {
-        cameraShake.TriggerShake();
+        cameraShake.TriggerShakeCamera();
         attackPattern.FastStomp();
     }
 
     public void FlyAndStomp()
     {
-        cameraShake.TriggerShake();
+        cameraShake.TriggerShakeCamera();
         attackPattern.FlyAndStomp();
 
     }
