@@ -26962,6 +26962,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  mapUI: {fileID: 0}
 --- !u!135 &1177720505
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -28702,7 +28703,7 @@ MonoBehaviour:
   travellingText: Traveling to easter island
   blackDuration: 3
   inventory: {fileID: 919132149385261831}
-  needsWeapons: 0
+  needsWeapons: 1
   player: {fileID: 919132149385261819}
   easterIslandLocation: {fileID: 117246067}
   noWeaponWarning: {fileID: 1197982518}
@@ -28737,6 +28738,7 @@ MonoBehaviour:
   onTeleportComplete:
     m_PersistentCalls:
       m_Calls: []
+  mapUI: {fileID: 558063319}
 --- !u!114 &1239952968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28757,17 +28759,17 @@ MonoBehaviour:
   doOnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 558063319}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1239952965}
+        m_TargetAssemblyTypeName: BoatLogic, Assembly-CSharp
+        m_MethodName: TriggerTeleport
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   hitEffectToggle: 0
   hitEffect: {fileID: 0}
@@ -43130,7 +43132,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1177720504}
         m_TargetAssemblyTypeName: BoatLogic, Assembly-CSharp
-        m_MethodName: TriggerTeleport
+        m_MethodName: TeleportToIsland
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -45286,7 +45288,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1239952965}
         m_TargetAssemblyTypeName: BoatLogic, Assembly-CSharp
-        m_MethodName: TriggerTeleport
+        m_MethodName: TeleportToIsland
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -51340,7 +51342,7 @@ PrefabInstance:
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 527.2
+      value: 150.5
       objectReference: {fileID: 0}
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
@@ -51350,7 +51352,7 @@ PrefabInstance:
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 43.8
+      value: 43.7
       objectReference: {fileID: 0}
     - target: {fileID: 670836993355344820, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
