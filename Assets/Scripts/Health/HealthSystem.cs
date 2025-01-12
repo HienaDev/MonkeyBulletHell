@@ -221,9 +221,8 @@ public class HealthSystem : MonoBehaviour
 
     }
 
-    public void ResetBoss()
+    public void ResetBoss() 
     {
-        Heal(10000);
         SetImmortal(true);
     }
 
