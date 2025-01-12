@@ -260,6 +260,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9060337126683218652}
     m_Modifications:
+    - target: {fileID: -8819031522997356507, guid: 7108e2ab68976074cb169e636a50496f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7108e2ab68976074cb169e636a50496f,
         type: 3}
       propertyPath: m_LocalScale.x

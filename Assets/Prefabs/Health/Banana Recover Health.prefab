@@ -69,8 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804476d7a23f14f438b5b1e606db3f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAmount: 1
-  jumpForce: 50
+  healAmount: 1.5
 --- !u!54 &6582672079775081012
 Rigidbody:
   m_ObjectHideFlags: 0
