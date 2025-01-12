@@ -26,6 +26,8 @@ public class BoatLogic : MonoBehaviour
     [SerializeField] private UnityEvent doOnTeleport;
     [SerializeField] private UnityEvent onTeleportComplete;
 
+    [SerializeField] private GameObject mapUI;
+
     private void Start()
     {
         outline = GetComponent<Outline>();
@@ -43,8 +45,15 @@ public class BoatLogic : MonoBehaviour
             }
         }
 
+        mapUI.SetActive(true);
+
         needsWeapons = false;
 
+
+    }
+
+    public void TeleportToIsland()
+    {
         StartCoroutine(HandleTeleportWithFade());
     }
 
