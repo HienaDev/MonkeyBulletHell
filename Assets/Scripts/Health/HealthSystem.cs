@@ -221,6 +221,12 @@ public class HealthSystem : MonoBehaviour
 
     }
 
+    public void ResetBoss()
+    {
+        Heal(10000);
+        SetImmortal(true);
+    }
+
     public void DropItemOnPhase()
     {
         Vector2 randomPosition = Random.insideUnitCircle * 10f;
