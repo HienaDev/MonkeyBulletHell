@@ -58,8 +58,10 @@ public class SmallMoaiLaser : MonoBehaviour
 
         float yAngle = GetYAngleToTarget(player.transform.position);
 
-        Vector3 initialAngleLaser = new Vector3(0f, yAngle - laserAngle, 0f);
-        Vector3 finalAngleLaser = new Vector3(0f, yAngle + laserAngle, 0f);
+        float randomOffset = Random.Range(-50f, 50f);
+
+        Vector3 initialAngleLaser = new Vector3(0f, yAngle - laserAngle - randomOffset, 0f);
+        Vector3 finalAngleLaser = new Vector3(0f, yAngle + laserAngle + randomOffset, 0f);
 
         GameObject laserTemp = Instantiate(laserPrefab, firePointOnHead.transform);
 

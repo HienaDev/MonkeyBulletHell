@@ -200,13 +200,13 @@ public class HealthSystem : MonoBehaviour
                             attackPatterns.ChangePhase(2);
                             DropItemOnPhase();
                         }
-                        else if (health / maxHealth < 0.4f && health / maxHealth > 0.05f && attackPatterns.CurrentPhase != 3)
+                        else if (health / maxHealth < 0.4f && health / maxHealth > 0.1f && attackPatterns.CurrentPhase != 3)
                         {
                             Debug.Log("Change to phase 3");
                             attackPatterns.ChangePhase(3);
                             DropItemOnPhase();
                         }
-                        else if (health / maxHealth < 0.05f && attackPatterns.CurrentPhase != 4)
+                        else if (health / maxHealth < 0.1f && attackPatterns.CurrentPhase != 4)
                         {
                             Debug.Log("Change to phase 4");
                             attackPatterns.ChangePhase(4);

@@ -50,9 +50,9 @@ MonoBehaviour:
   laserPrefab: {fileID: 2387353571154048718, guid: 88dd771be01b53340aa7366966b7ca0f,
     type: 3}
   laserAngle: 45
-  laserDuration: 3
+  laserDuration: 2
   turnDuration: 0
-  attackCooldown: 5
+  attackCooldown: 3
 --- !u!1 &3488242393208321422
 GameObject:
   m_ObjectHideFlags: 0

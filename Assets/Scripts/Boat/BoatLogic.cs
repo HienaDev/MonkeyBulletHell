@@ -69,12 +69,14 @@ public class BoatLogic : MonoBehaviour
         yield return new WaitForSeconds(blackDuration - fadeDuration);
         travelingUI.GetComponent<Animator>().SetTrigger("Out");
 
-        onTeleportComplete?.Invoke();
+        
 
         yield return new WaitForSeconds(2f);
         travelingUI.GetComponent<Animator>().SetTrigger("Reset");
         yield return null;
         travelingUI.SetActive(false);
+
+        onTeleportComplete.Invoke();
     }
 
     private IEnumerator CantUseBoat()
