@@ -10,6 +10,8 @@ public class SpawnEnemy : MonoBehaviour
     private float justSpawned;
     [SerializeField] private float spawnRadius;
 
+    [SerializeField] private Transform positionToBeBias;
+
     [SerializeField] private Terrain terrain;
 
     [SerializeField] private float groundCheckDistance;
@@ -20,6 +22,9 @@ public class SpawnEnemy : MonoBehaviour
     private List<GameObject> enemies;
 
     private bool spawning = false;
+
+    [SerializeField] private int enemiesToSpawnRightAway = 10;
+    private bool spawnedInitial = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +42,16 @@ public class SpawnEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if(spawning && !spawnedInitial)
+        {
+            spawnedInitial = true;
+            for(int i = 0; i < enemiesToSpawnRightAway; i++)
+            {
+                StartCoroutine(SpawnEnemyPrefab());
+            }
+        }
+
         if (Time.time - justSpawned > spawnCooldown && spawning)
         {
             Debug.Log("Spawned");
@@ -57,7 +72,7 @@ public class SpawnEnemy : MonoBehaviour
         }
 
         GameObject tempEnemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], transform);
-        tempEnemy.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.z);
+        tempEnemy.transform.position = new Vector3(spawnPos.x, -1f, spawnPos.z);
         enemies.Add(tempEnemy);
 
         justSpawned = Time.time;
@@ -69,13 +84,8 @@ public class SpawnEnemy : MonoBehaviour
         Vector3 terrainPosition = terrain.transform.position;
         Vector3 terrainSize = terrain.terrainData.size;
 
-
-        float centerX = terrainPosition.x + terrainSize.x / 2f;
-        float centerZ = terrainPosition.z + terrainSize.z / 2f;
-
-
-        float randomX = Mathf.Lerp(Random.Range(terrainPosition.x, terrainPosition.x + terrainSize.x), centerX, Random.value);
-        float randomZ = Mathf.Lerp(Random.Range(terrainPosition.z, terrainPosition.z + terrainSize.z), centerZ, Random.value);
+        float randomX = Mathf.Lerp(Random.Range(terrainPosition.x, terrainPosition.x + terrainSize.x), positionToBeBias.position.x, Random.value);
+        float randomZ = Mathf.Lerp(Random.Range(terrainPosition.z, terrainPosition.z + terrainSize.z), positionToBeBias.position.z, Random.value);
 
 
         float terrainHeight = terrain.SampleHeight(new Vector3(randomX, 0, randomZ));
