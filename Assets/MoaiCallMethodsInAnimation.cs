@@ -52,6 +52,11 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
         Destroy(moaiObject);
     }
 
+    public void ResetAnimations()
+    {
+        GetComponent<Animator>().SetBool("Nothing", false);
+    }
+
 
     public void BecomeImmortal() => damageCollider.enabled = (false);
 

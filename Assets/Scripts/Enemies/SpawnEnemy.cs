@@ -104,7 +104,7 @@ public class SpawnEnemy : MonoBehaviour
             Gizmos.color = Color.red;
 
             Gizmos.DrawWireSphere(transform.position, spawnRadius);
-            Gizmos.DrawSphere(transform.position, spawnRadius);
+
         }
     }
 
@@ -118,7 +118,7 @@ public class SpawnEnemy : MonoBehaviour
         {
             Destroy(enemy);
         }
-
+        spawnedInitial = false;
         enemies.Clear();
     }
 }

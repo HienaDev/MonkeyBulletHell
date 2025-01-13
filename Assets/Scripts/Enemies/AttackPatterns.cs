@@ -116,7 +116,7 @@ public class AttackPatterns : MonoBehaviour
 
         ClearProjectiles();
 
-        animator.SetTrigger("Nothing");
+        animator.SetBool("Nothing", true);
     }
 
     public void ClearProjectiles()
