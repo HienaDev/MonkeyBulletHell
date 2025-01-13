@@ -153,6 +153,8 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+    public bool IsFullHealth() => health / maxHealth == 1f;
+
     public void DealDamage(float damage)
     {
         if (!immortal)
