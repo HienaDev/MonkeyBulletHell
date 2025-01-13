@@ -10,6 +10,7 @@ public class DashInDirection : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f; // Duration of the dash (in seconds)
     [SerializeField] private float gracePeriod = 0.1f; // Duration of the dash (in seconds)
     [SerializeField] private KeyCode dashKey = KeyCode.LeftShift; // Key to trigger the dash (Left Shift)
+    [SerializeField] private KeyCode alternateDashKey = KeyCode.LeftShift; // Key to trigger the dash (Left Shift)
     [SerializeField] private GameObject characterModel; // Reference to the model for rotation
 
     [SerializeField] private Image dashUI;
@@ -41,7 +42,7 @@ public class DashInDirection : MonoBehaviour
     private void Update()
     {
         // Check if the dash key is pressed and we're not already dashing
-        if (Input.GetKeyDown(dashKey) && !isDashing && Time.time - justDashed > dashCooldown && playerMovement.Velocity.magnitude > 0.2f)
+        if ((Input.GetKeyDown(dashKey) || Input.GetKeyDown(alternateDashKey)) && !isDashing && Time.time - justDashed > dashCooldown && playerMovement.Velocity.magnitude > 0.2f)
         {
             justDashed = Time.time;
             StartCoroutine(Dash());

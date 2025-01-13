@@ -7,8 +7,9 @@ public class BoatLogic : MonoBehaviour
 {
     [SerializeField] private FadeScreen fadeScreen;
     [SerializeField] private float fadeDuration = 1f;
-    [SerializeField] private TextMeshProUGUI travelingUI;
+    [SerializeField] private TextMeshProUGUI travelingUItext;
     [SerializeField] private string travellingText;
+    [SerializeField] private GameObject travelingUI;
     [SerializeField] private float blackDuration = 3f;
 
     private float justTeleported;
@@ -31,7 +32,7 @@ public class BoatLogic : MonoBehaviour
     private void Start()
     {
         outline = GetComponent<Outline>();
-        travelingUI.text = travellingText;
+
     }
 
     public void TriggerTeleport()
@@ -61,17 +62,19 @@ public class BoatLogic : MonoBehaviour
     {
         fadeScreen.TriggerFade(fadeDuration, blackDuration);
 
-        travelingUI.enabled = true;
-
         doOnTeleport.Invoke();
 
         yield return StartCoroutine(GoToEaster());
 
         yield return new WaitForSeconds(blackDuration - fadeDuration);
-
-        travelingUI.enabled = false;
+        travelingUI.GetComponent<Animator>().SetTrigger("Out");
 
         onTeleportComplete?.Invoke();
+
+        yield return new WaitForSeconds(2f);
+        travelingUI.GetComponent<Animator>().SetTrigger("Reset");
+        yield return null;
+        travelingUI.SetActive(false);
     }
 
     private IEnumerator CantUseBoat()
@@ -87,7 +90,8 @@ public class BoatLogic : MonoBehaviour
 
     private IEnumerator GoToEaster()
     {
-        travelingUI.enabled = false;
+        travelingUItext.text = travellingText;
+        travelingUI.SetActive(true);
         yield return new WaitForSeconds(2f);
 
         player.transform.position = easterIslandLocation.position;
