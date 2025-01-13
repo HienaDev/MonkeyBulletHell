@@ -230,7 +230,7 @@ public class AttackPatterns : MonoBehaviour
                 break;
             case 2:
                 // Laser Attack
-                lastCoroutine = StartCoroutine(LaserAttack(60f, 2f));
+                lastCoroutine = StartCoroutine(LaserAttack(120f, 1.5f));
                 break;
             case 3:
                 animator.SetTrigger("HandStomp");
@@ -273,7 +273,7 @@ public class AttackPatterns : MonoBehaviour
                 break;
             case 2:
                 // Laser Attack
-                lastCoroutine = StartCoroutine(LaserAttack(60f, 2f));
+                lastCoroutine = StartCoroutine(LaserAttack(240f, 2f));
                 break;
             case 3:
                 animator.SetTrigger("HandStomp");
@@ -431,13 +431,13 @@ public class AttackPatterns : MonoBehaviour
 
     private IEnumerator FlyAndStomp4Waves()
     {
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5, initialAngle:18);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 6, initialAngle:18);
         yield return new WaitForSeconds(0.1f);
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5, initialAngle: 18 * 2);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 6, initialAngle: 18 * 2);
         yield return new WaitForSeconds(0.1f);
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5, initialAngle: 18 * 3);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 6, initialAngle: 18 * 3);
         yield return new WaitForSeconds(0.1f);
-        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5, initialAngle: 18 * 4);
+        AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 6, initialAngle: 18 * 4);
 
     }
 
@@ -566,7 +566,7 @@ public class AttackPatterns : MonoBehaviour
         else
         {
             AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 5, true, enemyShotPrefabExploding, initialAngle: Random.Range(0f, 45f));
-            AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 4, true, enemyShotPrefab, initialAngle: Random.Range(0f, 45f));
+            AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 5, true, enemyShotPrefab, initialAngle: Random.Range(0f, 45f));
         }
 
         Attacks();
