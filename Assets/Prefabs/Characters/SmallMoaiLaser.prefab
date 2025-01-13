@@ -194,6 +194,9 @@ MonoBehaviour:
   gracePeriod: 0
   blinkDuration: 0.1
   playerInventory: {fileID: 0}
+  attackPatterns: {fileID: 0}
+  dropOnPhaseChange: {fileID: 0}
+  renderers: {fileID: 0}
 --- !u!114 &879702174461100619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,8 +228,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2, y: 4, z: 1.2}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Size: {x: 2, y: 8, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8698947155658468831
 MonoBehaviour:
   m_ObjectHideFlags: 0

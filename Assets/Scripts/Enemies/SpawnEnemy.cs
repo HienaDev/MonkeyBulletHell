@@ -26,6 +26,8 @@ public class SpawnEnemy : MonoBehaviour
     {
         enemies = new List<GameObject>();
         justSpawned = Time.time;
+
+        spawning = true;
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class SpawnEnemy : MonoBehaviour
     {
         if (Time.time - justSpawned > spawnCooldown && spawning)
         {
+            Debug.Log("Spawned");
             StartCoroutine(SpawnEnemyPrefab());
         }
         
@@ -49,12 +52,13 @@ public class SpawnEnemy : MonoBehaviour
 
         while(!IsValidSpawnPosition(spawnPos)) 
         {
+            Debug.Log("invalid position");
             spawnPos = GetRandomSpawnPosition();
             yield return null;
         }
 
         GameObject tempEnemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], transform);
-        tempEnemy.transform.position = spawnPos;
+        tempEnemy.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.z);
         enemies.Add(tempEnemy);
 
         justSpawned = Time.time;
@@ -85,12 +89,13 @@ public class SpawnEnemy : MonoBehaviour
     {
 
         Vector3 rayOrigin = new Vector3(position.x, position.y + 1f, position.z);
-        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 2f, groundLayer))
+        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer))
         {
             if (hit.collider != null && hit.collider.gameObject.GetComponent<TerrainCollider>() != null)
             {
                 return true;
             }
+            Debug.Log("detects collision");
         }
 
         return false;

@@ -42778,10 +42778,10 @@ MonoBehaviour:
   enemyPrefab:
   - {fileID: 3376969824266731730, guid: abaf4c3d61668d443880f9cd33ce41b3, type: 3}
   - {fileID: 779091545665026175, guid: f97ad7d507f2572479c699cd14245954, type: 3}
-  spawnCooldown: 6
+  spawnCooldown: 4
   spawnRadius: 90
   terrain: {fileID: 112987476}
-  groundCheckDistance: 10
+  groundCheckDistance: 20
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -45447,7 +45447,7 @@ Transform:
   m_GameObject: {fileID: 1887347680}
   serializedVersion: 2
   m_LocalRotation: {x: -0.69351995, y: 0.13794978, z: -0.13794978, w: 0.69351995}
-  m_LocalPosition: {x: 99, y: -19.35, z: 76.60033}
+  m_LocalPosition: {x: 97.45, y: -17.27, z: 76.60033}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46805,25 +46805,25 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 0, g: 0, b: 0, a: 1}
+        key1: {r: 0.6301887, g: 0.6301887, b: 0.6301887, a: 1}
+        key2: {r: 0.78343225, g: 0.78343225, b: 0.78343225, a: 0}
+        key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
-        ctime3: 0
+        ctime1: 11951
+        ctime2: 34155
+        ctime3: 65535
         ctime4: 0
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
-        atime2: 0
+        atime1: 33384
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
@@ -46831,8 +46831,8 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_ColorSpace: 0
-        m_NumColorKeys: 2
-        m_NumAlphaKeys: 2
+        m_NumColorKeys: 4
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
