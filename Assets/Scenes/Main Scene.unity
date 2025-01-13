@@ -35657,7 +35657,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolutionDropdown: {fileID: 776962831}
   sensitivitySlider: {fileID: 1241330895}
-  cameraControl: {fileID: 0}
+  volumeSlider: {fileID: 1361918397}
+  fullscreenToggle: {fileID: 423190008}
   audioMixer: {fileID: 24100000, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!114 &1434686164
 MonoBehaviour:
@@ -61374,15 +61375,15 @@ SceneRoots:
   - {fileID: 420129727}
   - {fileID: 558063323}
   - {fileID: 1602993036}
+  - {fileID: 640265097}
   - {fileID: 1057673837}
   - {fileID: 206531655}
   - {fileID: 2063567380}
   - {fileID: 5203456870265031203}
-  - {fileID: 1398057756}
-  - {fileID: 640265097}
   - {fileID: 182937645}
   - {fileID: 292242545}
   - {fileID: 599468677}
   - {fileID: 18613290}
   - {fileID: 1952311640}
   - {fileID: 15093899}
+  - {fileID: 1398057756}

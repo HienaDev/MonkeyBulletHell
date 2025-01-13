@@ -4735,8 +4735,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionDropdown: {fileID: 1229812762}
+  qualityDropdown: {fileID: 1835874692}
   sensitivitySlider: {fileID: 1749609069}
-  cameraControl: {fileID: 0}
+  volumeSlider: {fileID: 1845033625}
+  fullscreenToggle: {fileID: 1640357974}
   audioMixer: {fileID: 24100000, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!1 &1041699023
 GameObject:

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ControlCamera : MonoBehaviour
 {
-
     [SerializeField] private Transform cameraPivot;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private KeyCode rotateLeft = KeyCode.Q;
@@ -22,13 +21,22 @@ public class ControlCamera : MonoBehaviour
     void Start()
     {
         playerTransform = transform;
+
+        if (PlayerPrefs.HasKey("CameraSensitivity"))
+        {
+            rotationSpeed = PlayerPrefs.GetFloat("CameraSensitivity");
+        }
+        else
+        {
+            rotationSpeed = 100f;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        rotationSpeed = SettingsMenu.GetCameraSensitivity();
-        
+        rotationSpeed = PlayerPrefs.GetFloat("CameraSensitivity", 100f);
+
         Vector3 dir = playerTransform.position - cameraTransform.position;
 
         if (Input.GetKey(rotateLeft))
