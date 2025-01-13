@@ -40,6 +40,8 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField] private Renderer renderers;
 
+    [SerializeField] private bool destroySelfWhenDeath = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -184,9 +186,9 @@ public class HealthSystem : MonoBehaviour
                     {
                         Destroy(destroyOnDeath);
                     }
-                    else
+                    else if (destroySelfWhenDeath)
                     {
-                        Destroy(gameObject);
+                        DestroyObject();
                     }
                 }
                 else
@@ -221,6 +223,11 @@ public class HealthSystem : MonoBehaviour
             }
 
 
+    }
+
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
     }
 
     public void ResetBoss() 

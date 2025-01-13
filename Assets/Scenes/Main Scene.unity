@@ -3770,6 +3770,8 @@ MonoBehaviour:
   axe: {fileID: 11400000, guid: 820e22fa817581545b86c00cec936781, type: 2}
   moaiHealth: {fileID: 1757500185}
   runSummaryScreen: {fileID: 1602993037}
+  bossStartPosition: {fileID: 1627743213}
+  player: {fileID: 919132149385261819}
 --- !u!4 &206531655
 Transform:
   m_ObjectHideFlags: 0
@@ -40616,6 +40618,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1625480290}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1627743212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1627743213}
+  m_Layer: 0
+  m_Name: InitialBossPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1627743213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627743212}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -33.41, y: -20.3, z: 4.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1691096899}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1628879998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4651740327906153702, guid: 6565ac0240c6a8345b1a92d9a611cba2,
@@ -41955,6 +41988,7 @@ Transform:
   - {fileID: 1078956371}
   - {fileID: 1755287461}
   - {fileID: 1757500176}
+  - {fileID: 1627743213}
   m_Father: {fileID: 140278405}
   m_LocalEulerAnglesHint: {x: 0, y: 55.641, z: 0}
 --- !u!114 &1691096901
@@ -57047,6 +57081,8 @@ MonoBehaviour:
   attackPattern: {fileID: 1757500180}
   damageCollider: {fileID: 2063039699}
   cameraShake: {fileID: 1691096901}
+  dropMaterials: {fileID: 2063039700}
+  moaiObject: {fileID: 2063039697}
 --- !u!1 &919132149385261819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6976084960997700239, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
@@ -58680,7 +58716,7 @@ PrefabInstance:
         type: 3}
       propertyPath: destroyOnDeath
       value: 
-      objectReference: {fileID: 2063039697}
+      objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: playerInventory
@@ -58692,6 +58728,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8299221067387495061, guid: 44fff586707a7394caf0183d1b40b855,
         type: 3}
+    - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: destroySelfWhenDeath
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: renderers.Array.size
@@ -58816,7 +58857,7 @@ PrefabInstance:
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 2063039700}
+      objectReference: {fileID: 1757500180}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[4].m_Target
@@ -58860,7 +58901,7 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: DropMaterials
+      value: BossDies
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
@@ -58885,7 +58926,7 @@ PrefabInstance:
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: doOnDeath.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: MoaiBoss, Assembly-CSharp
+      value: AttackPatterns, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3723541373834160100, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
@@ -58949,6 +58990,86 @@ PrefabInstance:
       objectReference: {fileID: 1354240333}
     - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
+      propertyPath: phase1.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase1.b
+      value: 0.6431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase1.g
+      value: 0.6431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase1.r
+      value: 0.6431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase2.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase2.b
+      value: 0.6431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase2.g
+      value: 1.7568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase2.r
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase3.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase3.b
+      value: 0.3306372
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase3.g
+      value: 1.6118628
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase3.r
+      value: 1.6377357
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase4.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase4.b
+      value: 0.26926294
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase4.g
+      value: 0.26926294
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phase4.r
+      value: 1.4415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
       propertyPath: cameraLogic
       value: 
       objectReference: {fileID: 1529373721}
@@ -58971,6 +59092,86 @@ PrefabInstance:
         type: 3}
       propertyPath: blinkColor.r
       value: 0.8907395
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor1.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor1.b
+      value: 0.898113
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor1.g
+      value: 0.898113
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor1.r
+      value: 0.898113
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor2.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor2.b
+      value: 0.32571948
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor2.g
+      value: 4.7760544
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor2.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor3.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor3.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor3.g
+      value: 4.4133162
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor3.r
+      value: 4.1574717
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor4.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor4.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor4.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: phaseColor4.r
+      value: 4.574533
       objectReference: {fileID: 0}
     - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
@@ -58997,6 +59198,11 @@ PrefabInstance:
       propertyPath: initialColor.r
       value: 0.20671873
       objectReference: {fileID: 0}
+    - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
+        type: 3}
+      propertyPath: jointsMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 44cb3f934c7cad043955eee8d63edc99, type: 2}
     - target: {fileID: 6593918621560453248, guid: 387ec5574caeb3448a7524381a7dc959,
         type: 3}
       propertyPath: enemyShotPrefab
@@ -59664,6 +59870,11 @@ PrefabInstance:
         type: 3}
       propertyPath: blinkDuration
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654975513063516044, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: destroySelfWhenDeath
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3876916661725054212, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}

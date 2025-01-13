@@ -47,12 +47,11 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField, ColorUsage(true, true)] private Color blinkColor;
 
 
-    [Header("Eyes"), SerializeField] private GameObject leftEye;
-    private Material leftEyeMaterial;
-    [SerializeField] private GameObject rightEye;
-    private Material rightEyeMaterial;
-    private Color emissionColor;
-    private Color adjustedEmissionColor;
+    [Header("PhasesColors"), SerializeField] private Material jointsMaterial;
+    [SerializeField, ColorUsage(true, true)] private Color phaseColor1;
+    [SerializeField, ColorUsage(true, true)] private Color phaseColor2;
+    [SerializeField, ColorUsage(true, true)] private Color phaseColor3;
+    [SerializeField, ColorUsage(true, true)] private Color phaseColor4;
 
     [SerializeField] private Transform startPosition;
     private Quaternion initialRotation;
@@ -64,7 +63,29 @@ public class AttackPatterns : MonoBehaviour
     private int currentPhase = 1;
     public int CurrentPhase => currentPhase;
 
-    public void ChangePhase(int phase) => currentPhase = phase;
+    public void ChangePhase(int phase)
+    {
+        currentPhase = phase;
+
+        switch (phase)
+        {
+            case 1:
+                jointsMaterial.SetColor("_Color", phaseColor1);
+                break;
+            case 2:
+                jointsMaterial.SetColor("_Color", phaseColor2); ;
+                break;
+            case 3:
+                jointsMaterial.SetColor("_Color", phaseColor3);
+                break;
+            case 4:
+                jointsMaterial.SetColor("_Color", phaseColor4);
+                break;
+            default:
+                Debug.Log("Wrong phase color");
+                break;
+        }
+    } 
 
     private int lastAttack = 7;
 
@@ -76,29 +97,19 @@ public class AttackPatterns : MonoBehaviour
 
         initialRotation = transform.rotation;
 
-        leftEyeMaterial = leftEye.GetComponent<Renderer>().material;
-        rightEyeMaterial = rightEye.GetComponent<Renderer>().material;
-        // Enable the emission keyword to activate emission
-        leftEyeMaterial.EnableKeyword("_EMISSION");
 
-        // Get the current emission color
-        emissionColor = leftEyeMaterial.GetColor("_EmissionColor");
-
-        // Scale the color based on the intensity value
-        adjustedEmissionColor = emissionColor * Mathf.Pow(2, 15); // Matches HDR scaling
 
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetImmortal(true);
 
 
-
+        jointsMaterial.SetColor("_Color", phaseColor1);
     }
 
 
     public void ResetBoss()
     {
-        leftEyeMaterial.SetColor("_EmissionColor", emissionColor);
-        rightEyeMaterial.SetColor("_EmissionColor", emissionColor);
+
 
 
         if (lastCoroutine != null)
@@ -107,6 +118,8 @@ public class AttackPatterns : MonoBehaviour
         transform.position = startPosition.position;
         transform.rotation = initialRotation;
         currentPhase = 1;
+
+        jointsMaterial.SetColor("_Color", phaseColor1);
 
         ClearProjectiles();
 
@@ -517,14 +530,14 @@ public class AttackPatterns : MonoBehaviour
                 doubleStomp = Random.Range(0, 3) < 1 ? true : false;
                 if (doubleStomp)
                 {
-                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 8);
-                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 8);
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 12, initialAngle: Random.Range(-45, 45));
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 12, initialAngle: Random.Range(-45, 45));
                     animator.SetTrigger("HandStomp Faster");
                 }
                 else
                 {
-                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 8);
-                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 8, initialAngle: 45f);
+                    AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 12, initialAngle: Random.Range(-45, 45));
+                    AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 12, initialAngle: Random.Range(-45, 45));
                     Attacks();
                 }
 
@@ -738,5 +751,12 @@ public class AttackPatterns : MonoBehaviour
         StartRandomAttack();
     }
 
+    public void BossDies()
+    {
+        if (lastCoroutine != null)
+            StopCoroutine(lastCoroutine);
+
+        animator.SetTrigger("Death");
+    }
 
 }
