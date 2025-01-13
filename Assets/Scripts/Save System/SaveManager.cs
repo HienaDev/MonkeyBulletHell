@@ -11,6 +11,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private Chest chest;
     [SerializeField] private Tutorial tutorial;
+    [SerializeField] private StoryTelling story;
 
     [Header("Save Notification")]
     [SerializeField] private TextMeshProUGUI saveNotificationText;
@@ -57,6 +58,11 @@ public class SaveManager : MonoBehaviour
             tutorial = FindFirstObjectByType<Tutorial>();
         }
 
+        if (story == null)
+        {
+            story = FindFirstObjectByType<StoryTelling>();
+        }
+
         if (saveNotificationText == null)
         {
             GameObject notificationObject = GameObject.Find("Save Game Text");
@@ -72,6 +78,7 @@ public class SaveManager : MonoBehaviour
         public PlayerInventory.SaveData playerInventoryData;
         public Chest.SaveData chestData;
         public Tutorial.SaveData tutorialData;
+        public StoryTelling.SaveData storyData;
     }
 
     private void Update()
@@ -102,6 +109,7 @@ public class SaveManager : MonoBehaviour
         saveData.playerInventoryData = playerInventory.GetSaveData();
         saveData.chestData = chest.GetSaveData();
         saveData.tutorialData = tutorial.GetSaveData();
+        saveData.storyData = story.GetSaveData();
 
         string jsonSaveData = JsonUtility.ToJson(saveData, true);
 
@@ -123,6 +131,9 @@ public class SaveManager : MonoBehaviour
         saveData.chestData = chest.GetSaveData();
         saveData.tutorialData = tutorial.GetSaveData();
 
+        story.LoadSaveData(new StoryTelling.SaveData { isNewGame = true });
+        saveData.storyData = story.GetSaveData();
+
         string jsonSaveData = JsonUtility.ToJson(saveData, true);
 
         File.WriteAllText(saveFileName, jsonSaveData);
@@ -143,6 +154,7 @@ public class SaveManager : MonoBehaviour
             playerInventory.LoadSaveData(saveData.playerInventoryData);
             chest.LoadSaveData(saveData.chestData);
             tutorial.LoadSaveData(saveData.tutorialData);
+            story.LoadSaveData(saveData.storyData);
 
             print("Game Loaded");
 
