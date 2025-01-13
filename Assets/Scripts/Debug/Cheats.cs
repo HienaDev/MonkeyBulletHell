@@ -17,7 +17,6 @@ public class Cheats : MonoBehaviour
 
     void Update()
     {
-
         // Put boss on phase 2
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2))
         {
