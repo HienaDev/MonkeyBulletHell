@@ -3192,7 +3192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a706f6f0167c74788e7983718906ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  continueButton: {fileID: 0}
+  continueButton: {fileID: 912445931}
   newGameMessage: {fileID: 1553322302}
   exitMessage: {fileID: 911175917}
   sceneToLoad: Main Scene
@@ -4180,7 +4180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &911175918
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4288,7 +4288,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1211423544}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4735,7 +4735,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionDropdown: {fileID: 1229812762}
-  qualityDropdown: {fileID: 1835874692}
   sensitivitySlider: {fileID: 1749609069}
   volumeSlider: {fileID: 1845033625}
   fullscreenToggle: {fileID: 1640357974}
@@ -8194,6 +8193,7 @@ MonoBehaviour:
   playerInventory: {fileID: 0}
   chest: {fileID: 0}
   tutorial: {fileID: 0}
+  story: {fileID: 0}
   saveNotificationText: {fileID: 0}
   fadeDuration: 1
   displayDuration: 2
