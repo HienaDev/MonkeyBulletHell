@@ -8,6 +8,7 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
     [SerializeField] private TriggerCameraShake cameraShake;
     [SerializeField] private MoaiBoss dropMaterials;
     [SerializeField] private GameObject moaiObject;
+    [SerializeField] private GameObject returnToIslandPopUp;
     public void HandStomp()
     {
         cameraShake.TriggerShakeCamera();
@@ -36,7 +37,7 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
 
     private IEnumerator BossScaledToDeath()
     {
-
+        returnToIslandPopUp.SetActive(true);
         yield return new WaitForSeconds(10f);
 
         float lerp = 0f;
