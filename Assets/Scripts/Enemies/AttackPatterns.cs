@@ -481,6 +481,7 @@ public class AttackPatterns : MonoBehaviour
             case 1:
                 AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 4);
                 AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 4, initialAngle: 45f);
+                Attacks();
                 break;
             case 2:
                 bool doubleStomp = Random.Range(0, 3) < 1 ? true : false;
@@ -494,6 +495,7 @@ public class AttackPatterns : MonoBehaviour
                 {
                     AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 6, true, enemyShotPrefab);
                     AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 6, true, enemyShotPrefabExploding, 45f);
+                    Attacks();
                 }
                 break;
             case 3:
@@ -508,6 +510,7 @@ public class AttackPatterns : MonoBehaviour
                 {
                     AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 8);
                     AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 8, initialAngle: 45f);
+                    Attacks();
                 }
 
                 break;
@@ -523,6 +526,7 @@ public class AttackPatterns : MonoBehaviour
                 {
                     AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefabExploding, 8);
                     AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 8, initialAngle: 45f);
+                    Attacks();
                 }
 
                 break;
@@ -531,7 +535,7 @@ public class AttackPatterns : MonoBehaviour
                 break;
         }
 
-        Attacks();
+        
 
     }
 
@@ -552,6 +556,8 @@ public class AttackPatterns : MonoBehaviour
             AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 5, true, enemyShotPrefabExploding, initialAngle: Random.Range(0f, 45f));
             AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefabExploding, 4, true, enemyShotPrefab, initialAngle: Random.Range(0f, 45f));
         }
+
+        Attacks();
     }
 
     private IEnumerator StartStomp()
