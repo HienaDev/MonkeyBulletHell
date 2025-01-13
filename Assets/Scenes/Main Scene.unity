@@ -45526,9 +45526,9 @@ MonoBehaviour:
   enemyPrefab:
   - {fileID: 3376969824266731730, guid: abaf4c3d61668d443880f9cd33ce41b3, type: 3}
   - {fileID: 779091545665026175, guid: f97ad7d507f2572479c699cd14245954, type: 3}
-  spawnCooldown: 4
+  spawnCooldown: 5
   spawnRadius: 90
-  positionToBeBias: {fileID: 0}
+  positionToBeBias: {fileID: 1832769932}
   terrain: {fileID: 112987476}
   groundCheckDistance: 20
   groundLayer:
