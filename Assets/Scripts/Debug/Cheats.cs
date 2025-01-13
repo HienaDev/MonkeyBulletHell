@@ -12,6 +12,8 @@ public class Cheats : MonoBehaviour
     [SerializeField] private ToolSO axe;
     [SerializeField] private HealthSystem moaiHealth;
     [SerializeField] private RunSummaryScreen runSummaryScreen;
+    [SerializeField] private Transform bossStartPosition;
+    [SerializeField] private GameObject player;
 
     void Update()
     {
@@ -34,7 +36,11 @@ public class Cheats : MonoBehaviour
             moaiHealth.Heal(50);
             moaiHealth.DealDamage(46);
         }
-
+        // Put player next to boss
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            player.transform.position = bossStartPosition.position;
+        }
 
         // Store all materials in chest
         if (Input.GetKeyDown(KeyCode.F1))
