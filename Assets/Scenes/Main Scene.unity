@@ -45527,7 +45527,7 @@ MonoBehaviour:
   - {fileID: 3376969824266731730, guid: abaf4c3d61668d443880f9cd33ce41b3, type: 3}
   - {fileID: 779091545665026175, guid: f97ad7d507f2572479c699cd14245954, type: 3}
   spawnCooldown: 5
-  spawnRadius: 90
+  spawnRadius: 80
   positionToBeBias: {fileID: 1832769932}
   terrain: {fileID: 112987476}
   groundCheckDistance: 20
@@ -45535,7 +45535,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   player: {fileID: 919132149385261832}
-  enemiesToSpawnRightAway: 10
+  enemiesToSpawnRightAway: 5
 --- !u!4 &1736035699
 Transform:
   m_ObjectHideFlags: 0

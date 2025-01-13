@@ -83,6 +83,8 @@ public class SpawnEnemy : MonoBehaviour
 
     private bool IsValidSpawnPosition(Vector3 position)
     {
+        if(Vector3.Distance(position, transform.position) > spawnRadius) return false;
+
         Vector3 rayOrigin = new Vector3(position.x, position.y + 1f, position.z);
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer))
         {
@@ -102,6 +104,7 @@ public class SpawnEnemy : MonoBehaviour
             Gizmos.color = Color.red;
 
             Gizmos.DrawWireSphere(transform.position, spawnRadius);
+            Gizmos.DrawSphere(transform.position, spawnRadius);
         }
     }
 
