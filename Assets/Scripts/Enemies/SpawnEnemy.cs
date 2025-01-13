@@ -27,7 +27,6 @@ public class SpawnEnemy : MonoBehaviour
         enemies = new List<GameObject>();
         justSpawned = Time.time;
 
-        spawning = true;
     }
 
     // Update is called once per frame
