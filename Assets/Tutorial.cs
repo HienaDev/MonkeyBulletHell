@@ -1,13 +1,9 @@
-using System;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
     public static Tutorial Instance;
-
-
     [SerializeField] private GameObject tasksPrefab;
 
     [SerializeField] private string stickCollectTask = "Collect sticks ";
@@ -60,15 +56,11 @@ public class Tutorial : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         ActivateCollectionTasks();
-
     }
 
     private void ActivateCollectionTasks()
     {
-
-
         stickTask = Instantiate(tasksPrefab, transform);
         stickTask.GetComponent<TextMeshProUGUI>().text = stickCollectTask + $" 0/{stickQuantity}";
 
@@ -93,13 +85,6 @@ public class Tutorial : MonoBehaviour
 
         killMoaiTask = Instantiate(tasksPrefab, transform);
         killMoaiTask.GetComponent<TextMeshProUGUI>().text = killMoai;
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void UpdateCollectTasks(MaterialSO material)
@@ -141,13 +126,11 @@ public class Tutorial : MonoBehaviour
             }
         }
 
-
         if (stoneTaskComplete && stickTaskComplete && leafTaskComplete && !part1Complete)
         {
             ActivatePart2Tasks();
             part1Complete = true;
         }
-
     }
 
     public void StorageInteracted()

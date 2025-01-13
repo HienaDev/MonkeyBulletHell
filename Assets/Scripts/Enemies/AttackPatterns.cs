@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 
-
-
 public class AttackPatterns : MonoBehaviour
 {
 
@@ -12,17 +10,14 @@ public class AttackPatterns : MonoBehaviour
     [SerializeField] private GameObject firePointOnLeftHand;
     [SerializeField] private GameObject firePointOnRightHand;
     [SerializeField] private GameObject player;
-
     [SerializeField] private GameObject target;
-
     [SerializeField] private FollowTarget cameraLogic;
     [SerializeField] private float shakeDuration = 0.3f;
-
     [SerializeField] private GameObject bossHealthBar;
+
     private HealthSystem healthSystem;
 
     [Header("Start"), SerializeField] private float speedStomp = 20f;
-
     [Header("AOEAttack"), SerializeField] private float shotSpeed = 10f;
     [SerializeField] private float attackCooldown = 5f; // Duration of the arc movement
     [SerializeField] private GameObject enemyShotPrefabExploding;
@@ -73,7 +68,6 @@ public class AttackPatterns : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-
         initialRotation = transform.rotation;
 
         leftEyeMaterial = leftEye.GetComponent<Renderer>().material;
@@ -89,11 +83,7 @@ public class AttackPatterns : MonoBehaviour
 
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetImmortal(true);
-
-
-
     }
-
 
     public void ResetBoss()
     {
@@ -122,7 +112,6 @@ public class AttackPatterns : MonoBehaviour
 
         projectiles.Clear();
     }
-
 
     private void Attacks()
     {
@@ -199,7 +188,6 @@ public class AttackPatterns : MonoBehaviour
             attack = 3;
         }
 
-
         if (attack == lastAttack)
             attack = Random.Range(0, 4);
 
@@ -234,14 +222,13 @@ public class AttackPatterns : MonoBehaviour
 
     private void Phase3Attacks()
     {
-                int attack = Random.Range(0, 4);
+        int attack = Random.Range(0, 4);
 
         // if last attack was walking, we hand stomp
         if (lastAttack == 0)
         {
             attack = 3;
         }
-        
 
         if(attack == lastAttack)
             attack = Random.Range(0, 4);
@@ -342,8 +329,6 @@ public class AttackPatterns : MonoBehaviour
         // Triger attack on stomp animation
     }
 
-
-
     private IEnumerator ScaleTargetDecal(float time)
     {
         float lerpValue = 0f;
@@ -361,7 +346,6 @@ public class AttackPatterns : MonoBehaviour
 
     private IEnumerator BlinkCoroutineTarget()
     {
-
         float timeElapsed = 0f;
 
         DecalProjector targetDecal = target.GetComponent<DecalProjector>();
@@ -425,7 +409,6 @@ public class AttackPatterns : MonoBehaviour
         AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefab, 5, initialAngle: 18 * 3);
         yield return new WaitForSeconds(0.1f);
         AoeAttackOnHead(firePointOnHead.transform, enemyShotPrefabExploding, 5, initialAngle: 18 * 4);
-
     }
 
     public void StartCombat()
@@ -440,7 +423,6 @@ public class AttackPatterns : MonoBehaviour
         animator.SetTrigger("Spawn");
         yield return new WaitForSeconds(5f);
 
-
         Attacks();
         //lastCoroutine = StartCoroutine(LaserAttack(360f, 2f));
 
@@ -448,7 +430,6 @@ public class AttackPatterns : MonoBehaviour
     }
     private IEnumerator ChasePlayer(float movSpeed, float duration, bool flying)
     {
-
         float timer = 0f;
 
         if (!flying)
@@ -533,9 +514,6 @@ public class AttackPatterns : MonoBehaviour
                 Debug.Log("Wrong stomp attack");
                 break;
         }
-
-        
-
     }
 
     public void FastStomp()
@@ -635,7 +613,6 @@ public class AttackPatterns : MonoBehaviour
         return angle;
     }
 
-
     // Call this method to get a random position within the circle
     public Vector3 GetRandomPosition()
     {
@@ -656,7 +633,6 @@ public class AttackPatterns : MonoBehaviour
 
     public void AoeAttackOnHead(Transform position, GameObject projectile, int numberOfProjectiles, bool halfProjectiles = false, GameObject secondProjectile = null, float initialAngle = 0f)
     {
-
         float degreeIteration = 360 / numberOfProjectiles;
 
         if (halfProjectiles)
@@ -737,6 +713,4 @@ public class AttackPatterns : MonoBehaviour
 
         StartRandomAttack();
     }
-
-
 }

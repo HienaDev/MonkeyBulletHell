@@ -1,13 +1,9 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using System.Linq.Expressions;
-using UnityEngine.Audio;
-using Unity.VisualScripting;
 
 public class ShootingPlayer : MonoBehaviour
 {
-
     [SerializeField] private KeyCode shoot = KeyCode.Mouse0;
 
     private float shotSpeed = 200f;
@@ -28,7 +24,6 @@ public class ShootingPlayer : MonoBehaviour
     [SerializeField] private WeaponSO testWeapon;
     private WeaponSO currentWeapon;
 
-
     private AudioSource audioSource;
     private AudioClip[] audioClips;
 
@@ -39,7 +34,6 @@ public class ShootingPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         justShot = Time.time;
 
         animator = GetComponent<Animator>();
@@ -88,7 +82,6 @@ public class ShootingPlayer : MonoBehaviour
                 StopLaser();
             }
         }
-
     }
 
     private void ShootProjectiles()
@@ -156,7 +149,6 @@ public class ShootingPlayer : MonoBehaviour
     public void ResetTrigger()
     {
         animator.ResetTrigger("Shoot");
-
     }
 
     private IEnumerator CreateShots()
@@ -186,8 +178,6 @@ public class ShootingPlayer : MonoBehaviour
                 yield return null;
             }
         }
-        
-
     }
 
     public void SetWeapon(WeaponSO weapon)
@@ -196,7 +186,6 @@ public class ShootingPlayer : MonoBehaviour
         {
             Destroy(shot);
         }
-
 
         instantiatedShots = new List<GameObject>();
         currentWeapon = weapon;

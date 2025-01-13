@@ -5,9 +5,7 @@ using System.Collections;
 
 public class MoaiBossFight : MonoBehaviour
 {
-
     [SerializeField] private DecalProjector target;
-
     [SerializeField, ColorUsage(true, true)] private Color goneColor;
     [SerializeField, ColorUsage(true, true)] private Color initialColor;
     [SerializeField, ColorUsage(true, true)] private Color halfWayColor;
@@ -66,15 +64,8 @@ public class MoaiBossFight : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void TriggerCracksOnGround()
     {
-        
         StartCoroutine(CracksOnGroundCR());
     }
 
@@ -91,7 +82,6 @@ public class MoaiBossFight : MonoBehaviour
             crack.material.SetColor("_Color", initialColor);
         }
 
-
         float lerpValue = 0f;
 
         while(lerpValue < 1f)
@@ -104,7 +94,6 @@ public class MoaiBossFight : MonoBehaviour
             }
             yield return null;
         }
-
 
         foreach (DecalProjector crack in cracksObjects)
         {

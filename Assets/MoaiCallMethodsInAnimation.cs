@@ -22,7 +22,6 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
     {
         cameraShake.TriggerShakeCamera();
         attackPattern.FlyAndStomp();
-
     }
 
     public void BecomeImmortal() => damageCollider.enabled = (false);
