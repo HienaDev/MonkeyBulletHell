@@ -2,28 +2,17 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class PlayerHealthSystem : MonoBehaviour
 {
-
     [SerializeField] private float health = 10;
     private float maxHealth;
-
     [SerializeField] private Image healthImage;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         maxHealth = health;
 
         healthImage.fillAmount = health / maxHealth;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void DealDamage(float damage)
@@ -52,6 +41,5 @@ public class PlayerHealthSystem : MonoBehaviour
             lerpValue += Time.deltaTime;
             yield return null;
         }
-
     }
 }

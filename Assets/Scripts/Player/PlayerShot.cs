@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerShot : MonoBehaviour
 {
-
     [SerializeField] private float damage = 2f;
     [SerializeField] private AudioClip[] audioClips;
     private AudioSource audioSource;
@@ -15,12 +14,6 @@ public class PlayerShot : MonoBehaviour
         audioSource.loop = false;
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 1f;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 
@@ -38,10 +31,6 @@ public class PlayerShot : MonoBehaviour
                 audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
                 audioSource.Play();
             }
-
-
         }
     }
-
-
 }

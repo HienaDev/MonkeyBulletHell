@@ -4,11 +4,9 @@ public class SmallMoaiLaser : MonoBehaviour
 {
     [SerializeField] private GameObject firePointOnHead;
     private GameObject player;
-
     private Animator animator;
 
     [Header("Detection"), SerializeField] private float detectionRadius = 20f;
-
     [Header("LaserAttack"), SerializeField] private GameObject laserPrefab;
     [SerializeField] private float laserAngle = 90f; // Total angle to rotate during the laser (in degrees)
     [SerializeField] private float laserDuration = 0.5f; // Duration of the laser motion (in seconds)
@@ -24,14 +22,11 @@ public class SmallMoaiLaser : MonoBehaviour
     {
         player = FindAnyObjectByType<PlayerMovement>().gameObject;
         animator = GetComponentInChildren<Animator>();
-        
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if ((Vector3.Distance(player.transform.position, transform.position) < detectionRadius) && !spawned)
         {
             spawned = true;
@@ -41,12 +36,9 @@ public class SmallMoaiLaser : MonoBehaviour
 
         if (Vector3.Distance(player.transform.position, transform.position) < detectionRadius && Time.time - justAttacked > attackCooldown && attacking)
         {
-            
             StartCoroutine(LaserAttack());
             transform.eulerAngles = new Vector3(0f, GetYAngleToTarget(player.transform.position) - 180, 0);
         }
-
-
     }
 
     private IEnumerator LaserAttack()
@@ -74,8 +66,6 @@ public class SmallMoaiLaser : MonoBehaviour
         }
 
         Destroy(laserTemp);
-
-
     }
 
     private float GetYAngleToTarget(Vector3 targetPosition)
@@ -98,8 +88,6 @@ public class SmallMoaiLaser : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-
-
         Gizmos.color = Color.yellow;
 
         Gizmos.DrawWireSphere(transform.position, detectionRadius);

@@ -4,13 +4,6 @@ public class MoaiBoss : MonoBehaviour
 {
     [SerializeField] private GameObject[] materialsToDrop;
 
-
-
-    private void Start()
-    {
-
-    }
-
     public void DropMaterials()
     {
         foreach (GameObject material in materialsToDrop)

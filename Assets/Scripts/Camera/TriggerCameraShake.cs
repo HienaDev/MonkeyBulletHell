@@ -1,9 +1,8 @@
 using UnityEngine;
 using System.Collections;
+
 public class TriggerCameraShake : MonoBehaviour
 {
-
-    private FollowTarget cameraLogic;
     [SerializeField] private float shakeDuration = 1f;
     [SerializeField] private GameObject defaultPoint;
     [SerializeField] private GameObject fightingPoint;
@@ -11,23 +10,16 @@ public class TriggerCameraShake : MonoBehaviour
     [SerializeField] private float goUpDuration;
     [SerializeField] private GenerateObjectsAroundCircle wallsScript;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private FollowTarget cameraLogic;
+
     void Start()
     {
         cameraLogic = FindFirstObjectByType<FollowTarget>();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void TriggerShakeCamera()
     {
         cameraLogic.ShakeCamera(0.5f, 1f, true);
-
     }
 
     public void TriggerShake()
@@ -36,7 +28,6 @@ public class TriggerCameraShake : MonoBehaviour
         wallsScript.WallsComeUp();
         StartGoingToFightingPoint();
     }
-
 
     public void StartGoingToFightingPoint()
     {
@@ -59,5 +50,4 @@ public class TriggerCameraShake : MonoBehaviour
         }
        
     }
-
 }

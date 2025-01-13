@@ -2,12 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Events;
-using System.Runtime.CompilerServices;
-using NUnit.Framework;
 
 public class HealthSystem : MonoBehaviour
 {
-
     [SerializeField] private float health = 10;
     private float maxHealth;
 
@@ -45,7 +42,6 @@ public class HealthSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         player = GetComponent<TAG_Player>();
 
         if (renderers == null)
@@ -95,14 +91,12 @@ public class HealthSystem : MonoBehaviour
             }
         }
 
-
         if (healthImageUI == null)
         {
             GameObject tempUI = Instantiate(healthUI, transform);
             healthImageUI = tempUI.GetComponentInChildren<TAG_HealthUI>().gameObject.GetComponent<Image>();
             tempUI.transform.position += new Vector3(0f, entityHeight, 0f);
         }
-
 
         maxHealth = health;
 
@@ -113,7 +107,6 @@ public class HealthSystem : MonoBehaviour
     {
         if (Time.time - justGotDamaged < gracePeriod)
         {
-
             if (Time.time - justBlinked > blinkDuration)
             {
                 justBlinked = Time.time;
@@ -239,7 +232,6 @@ public class HealthSystem : MonoBehaviour
     {
         Vector2 randomPosition = Random.insideUnitCircle * 10f;
         Instantiate(dropOnPhaseChange, new Vector3(transform.position.x + randomPosition.x, transform.position.y, transform.position.z + randomPosition.y), Quaternion.identity);
-
     }
 
     public void PlayerDie()
@@ -258,8 +250,8 @@ public class HealthSystem : MonoBehaviour
 
     private IEnumerator RevivePlayerCR()
     {
-
         yield return new WaitForSeconds(3f);
+
         Heal(maxHealth);
         GetComponentInParent<Animator>().SetTrigger("Revive");
         GetComponentInParent<PlayerMovement>().enabled = true;
@@ -278,7 +270,6 @@ public class HealthSystem : MonoBehaviour
     {
         healthImageUI.fillAmount = health / maxHealth;
 
-
         if (GetComponentInChildren<Renderer>() != null)
             foreach (Material mat in defaultMaterials)
             {
@@ -295,7 +286,6 @@ public class HealthSystem : MonoBehaviour
             {
                 mat.DisableKeyword("_EMISSION");
             }
-
     }
 
     public void Heal(float healAmount)
@@ -312,8 +302,6 @@ public class HealthSystem : MonoBehaviour
 
     public void SetImmortal(bool isImmortal)
     {
-
         immortal = isImmortal;
-
     }
 }
