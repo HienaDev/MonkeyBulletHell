@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ExplodeIntoMoreShots : MonoBehaviour
 {
-
     [SerializeField] private int numberOfShots = 4;
     [SerializeField] private GameObject shotPrefab;
     [SerializeField] private float timerToExplode;
@@ -19,7 +18,6 @@ public class ExplodeIntoMoreShots : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
         objectRenderer = GetComponent<Renderer>();
         if (objectRenderer != null)
         {
@@ -31,14 +29,6 @@ public class ExplodeIntoMoreShots : MonoBehaviour
         }
         StartCoroutine(ExplodeAfterTime());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 
     private IEnumerator ExplodeAfterTime()
     {
@@ -55,7 +45,6 @@ public class ExplodeIntoMoreShots : MonoBehaviour
 
     private void Explode()
     {
-
         float degreeIteration = 360 / numberOfShots;
 
         for (int i = 0; i < numberOfShots; i++)

@@ -7,7 +7,6 @@ public class SmallMoaiStomper : MonoBehaviour
     private Animator animator;
 
     [Header("Detection"), SerializeField] private float detectionRadius = 20f;
-
     [Header("AOEAttack"), SerializeField] private float numberOfProjectiles = 5;
     [SerializeField] private float shotSpeed = 10f;
     [SerializeField] private float attackCooldown = 5f; // Duration of the arc movement
@@ -18,17 +17,10 @@ public class SmallMoaiStomper : MonoBehaviour
 
     private bool attacking = false; 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = FindAnyObjectByType<PlayerMovement>().gameObject;
         animator = GetComponentInChildren<Animator>();    
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -65,7 +57,6 @@ public class SmallMoaiStomper : MonoBehaviour
         float timeElapsed = 0f;
 
         Vector3 startPosition = transform.position;
-
 
         // Calculate the direction to the player
         Vector3 directionToPlayer = (player.transform.position - startPosition).normalized;
@@ -120,7 +111,6 @@ public class SmallMoaiStomper : MonoBehaviour
 
     public void AoeAttackOnHead()
     {
-
         float degreeIteration = 360 / numberOfProjectiles;
 
         float angleToPlayer = GetYAngleToTarget(player.transform.position);

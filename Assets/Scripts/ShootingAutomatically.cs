@@ -4,7 +4,6 @@ using System.Collections;
 
 public class ShootingAutomatically : MonoBehaviour
 {
-
     [SerializeField] private float shotSpeed = 200f;
     [SerializeField] private float fireRate = 0.5f;
     private float justShot;
@@ -23,7 +22,6 @@ public class ShootingAutomatically : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         justShot = Time.time;
 
         animator = GetComponent<Animator>();
@@ -86,10 +84,8 @@ public class ShootingAutomatically : MonoBehaviour
             }
 
             justShot = Time.time;
-            //animator.SetTrigger("Shoot");
-            
+            //animator.SetTrigger("Shoot");     
         }
-            
     }
 
     private Transform FindClosestPlayer()
@@ -118,7 +114,6 @@ public class ShootingAutomatically : MonoBehaviour
     public void ResetTrigger()
     {
         animator.ResetTrigger("Shoot");
-
     }
 
     private IEnumerator CreateShots()
@@ -130,7 +125,6 @@ public class ShootingAutomatically : MonoBehaviour
             instantiatedShots.Add(shotClone);
             yield return null;
         }
-
     }
 
     private void OnTriggerEnter(Collider other)

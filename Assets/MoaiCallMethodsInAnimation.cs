@@ -25,7 +25,6 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
     {
         cameraShake.TriggerShakeCamera();
         attackPattern.FlyAndStomp();
-
     }
 
     public void DropMaterials()

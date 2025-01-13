@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
-
     public bool Grounded {  get; private set; }
 
     private void Start()
@@ -19,6 +18,4 @@ public class GroundCheck : MonoBehaviour
     {
         Grounded = false;
     }
-
-
 }

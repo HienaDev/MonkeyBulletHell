@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,18 +30,10 @@ public class SpawnEnemy : MonoBehaviour
     {
         enemies = new List<GameObject>();
         justSpawned = Time.time;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
     {
-
         if(spawning && !spawnedInitial)
         {
             spawnedInitial = true;
@@ -57,7 +48,6 @@ public class SpawnEnemy : MonoBehaviour
             Debug.Log("Spawned");
             StartCoroutine(SpawnEnemyPrefab());
         }
-        
     }
         
     private IEnumerator SpawnEnemyPrefab()
@@ -80,23 +70,19 @@ public class SpawnEnemy : MonoBehaviour
 
     private Vector3 GetRandomSpawnPosition()
     {
-
         Vector3 terrainPosition = terrain.transform.position;
         Vector3 terrainSize = terrain.terrainData.size;
 
         float randomX = Mathf.Lerp(Random.Range(terrainPosition.x, terrainPosition.x + terrainSize.x), positionToBeBias.position.x, Random.value);
         float randomZ = Mathf.Lerp(Random.Range(terrainPosition.z, terrainPosition.z + terrainSize.z), positionToBeBias.position.z, Random.value);
 
-
         float terrainHeight = terrain.SampleHeight(new Vector3(randomX, 0, randomZ));
-
 
         return new Vector3(randomX, terrainHeight, randomZ);
     }
 
     private bool IsValidSpawnPosition(Vector3 position)
     {
-
         Vector3 rayOrigin = new Vector3(position.x, position.y + 1f, position.z);
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer))
         {

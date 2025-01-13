@@ -5,7 +5,7 @@ public class ArmorSO : ItemSO
 {
     public float damageReduction;
 
-    //TO DO: public SpecialAbility specialAbility;
+    //public SpecialAbility specialAbility;
 
     private void Awake()
     {

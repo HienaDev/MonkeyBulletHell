@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
@@ -80,7 +79,6 @@ public class GenerateObjectsAroundCircle : MonoBehaviour
         {
             wall.GetComponent<ObjectShaker>().enabled = true;
         }
-
  
         float lerpValue = 0f;
         while(lerpValue < 1f)

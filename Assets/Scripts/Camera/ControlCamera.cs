@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class ControlCamera : MonoBehaviour
@@ -17,7 +16,6 @@ public class ControlCamera : MonoBehaviour
     private float currentZoom = 1;
     private Transform playerTransform;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerTransform = transform;
@@ -32,7 +30,6 @@ public class ControlCamera : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         rotationSpeed = PlayerPrefs.GetFloat("CameraSensitivity", 100f);
