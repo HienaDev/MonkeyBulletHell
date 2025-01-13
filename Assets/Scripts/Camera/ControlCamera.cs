@@ -27,6 +27,8 @@ public class ControlCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rotationSpeed = SettingsMenu.GetCameraSensitivity();
+        
         Vector3 dir = playerTransform.position - cameraTransform.position;
 
         if (Input.GetKey(rotateLeft))
@@ -57,9 +59,5 @@ public class ControlCamera : MonoBehaviour
         //{
         //    cameraTransform.position += dir * zoomSpeed;
         //}
-
-        
-
-
     }
 }

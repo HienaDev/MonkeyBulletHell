@@ -7,16 +7,17 @@ using System.Linq;
 
 public class SettingsMenu : MonoBehaviour
 {
-    //[SerializeField] private AudioMixer audioMixer;
     [SerializeField] private TMP_Dropdown   resolutionDropdown;
     [SerializeField] private Slider         sensitivitySlider;
-    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private AudioMixer     audioMixer;
 
     private Resolution[] resolutions;
+    private static float cameraSensitivity;
 
     private void Start()
-    {   
+    {
+        cameraSensitivity = 100f;
+
         resolutions = Screen.resolutions
             .Where(resolution => Mathf.Approximately((float)resolution.width / resolution.height, 16f / 9f))
             .Select(resolution => new Resolution { width = resolution.width, height = resolution.height })
@@ -46,7 +47,8 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        //sensitivitySlider.value = playerMovement.GetSensitivity();
+        sensitivitySlider.value = cameraSensitivity;
+        sensitivitySlider.onValueChanged.AddListener(SetSensitive);
     }
 
     public void SetQuality(int qualityIndex)
@@ -68,7 +70,12 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetSensitive(float sensitivity)
     {
-        //playerMovement.SetSensitivity(sensitivity);
+        cameraSensitivity = sensitivity;
+    }
+
+    public static float GetCameraSensitivity()
+    {
+        return cameraSensitivity;
     }
 
     public void SetVolume(float volume)
