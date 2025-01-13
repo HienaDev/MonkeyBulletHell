@@ -111,7 +111,8 @@ public class SmallMoaiStomper : MonoBehaviour
             
         AoeAttackOnHead();
 
-        yield return new WaitForSeconds(attackCooldown);
+        float newCooldown = Random.Range(attackCooldown - 1f, attackCooldown + 1f);
+        yield return new WaitForSeconds(newCooldown);
 
         //StartRandomAttack();
         StartCoroutine(MoveAlongArc());
@@ -122,11 +123,13 @@ public class SmallMoaiStomper : MonoBehaviour
 
         float degreeIteration = 360 / numberOfProjectiles;
 
+        float angleToPlayer = GetYAngleToTarget(player.transform.position);
+
         for (int i = 0; i < numberOfProjectiles; i++)
         {
             GameObject shotTemp = Instantiate(enemyShotPrefab);
             shotTemp.transform.position = firePointOnHead.transform.position;
-            shotTemp.transform.eulerAngles = new Vector3(0, i * degreeIteration, 0);
+            shotTemp.transform.eulerAngles = new Vector3(0, i * degreeIteration + angleToPlayer, 0);
             shotTemp.GetComponent<Rigidbody>().linearVelocity = shotTemp.transform.forward * shotSpeed;
         }
     }

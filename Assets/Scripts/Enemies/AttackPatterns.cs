@@ -1,10 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.XR;
-using Unity.Cinemachine;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+
 
 
 public class AttackPatterns : MonoBehaviour
@@ -45,6 +43,8 @@ public class AttackPatterns : MonoBehaviour
 
     [Header("Stomp"), SerializeField] private GameObject moaiPhysicalCollider;
     [SerializeField] private Renderer[] meshRenderers;
+    [SerializeField, ColorUsage(true, true)] private Color initialColor;
+    [SerializeField, ColorUsage(true, true)] private Color blinkColor;
 
 
     [Header("Eyes"), SerializeField] private GameObject leftEye;
@@ -365,7 +365,6 @@ public class AttackPatterns : MonoBehaviour
         float timeElapsed = 0f;
 
         DecalProjector targetDecal = target.GetComponent<DecalProjector>();
-        Color originalColor = targetDecal.material.GetColor("_Color");
 
         while (timeElapsed < 1.5f)
         {
@@ -374,12 +373,12 @@ public class AttackPatterns : MonoBehaviour
             float currentBlinkInterval = Mathf.Lerp(0.3f, 0.05f, progress); // Starts slower, ends faster
 
             // Switch to white material
-            targetDecal.material.SetColor("_Color", Color.white);
+            targetDecal.material.SetColor("_Color", blinkColor);
             Debug.Log(targetDecal.material.GetColor("_Color"));
             yield return new WaitForSeconds(currentBlinkInterval / 2);
 
-            // Switch back to the original material
-            targetDecal.material.SetColor("_Color", originalColor);
+            // Switch back to the original material 
+            targetDecal.material.SetColor("_Color", initialColor);
             Debug.Log(targetDecal.material.GetColor("_Color"));
             yield return new WaitForSeconds(currentBlinkInterval / 2);
 
@@ -388,7 +387,7 @@ public class AttackPatterns : MonoBehaviour
         }
 
         // Ensure the original material is set after blinking finishes
-        targetDecal.material.SetColor("_Color", originalColor);
+        targetDecal.material.SetColor("_Color", initialColor);
         Debug.Log(targetDecal.material.GetColor("_Color"));
     }
 
