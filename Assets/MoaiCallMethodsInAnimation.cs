@@ -36,9 +36,9 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
 
     private IEnumerator BossScaledToDeath()
     {
-        returnToIslandPopUp.SetActive(true);
-        yield return new WaitForSeconds(10f);
 
+        yield return new WaitForSeconds(10f);
+        returnToIslandPopUp.SetActive(true);
         float lerp = 0f;
         Vector3 currentScale = moaiObject.transform.localScale;
 
