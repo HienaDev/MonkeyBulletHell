@@ -39,7 +39,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(ItemSO item)
     {
-        if (item.itemType == ItemType.Material)
+        if (item.ItemType == ItemType.Material)
         {
             tutorial.UpdateCollectTasks(item as MaterialSO);
             InventorySlot existingSlot = inventoryItems.Find(slot => slot.Item == item);
@@ -53,7 +53,7 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        if (item.itemType == ItemType.Weapon)
+        if (item.ItemType == ItemType.Weapon)
         {
             if(weaponHolder != null)
             {
@@ -79,7 +79,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (inventoryItems.Count < maxInventoryMaterialsAndToolsSlots)
             {
-                int quantity = item.itemType == ItemType.Material ? 1 : 1;
+                int quantity = item.ItemType == ItemType.Material ? 1 : 1;
                 inventoryItems.Add(new InventorySlot(item, quantity));
                 Debug.Log($"{item.itemName} added to inventory.");
             }
@@ -126,7 +126,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(ItemSO item)
     {
-        if (item.itemType == ItemType.Weapon)
+        if (item.ItemType == ItemType.Weapon)
         {
             if (weaponSlots[0] == item)
             {
@@ -151,7 +151,7 @@ public class PlayerInventory : MonoBehaviour
             InventorySlot slot = inventoryItems.Find(s => s.Item == item);
             if (slot != null)
             {
-                if (item.itemType == ItemType.Material && slot.Quantity > 1)
+                if (item.ItemType == ItemType.Material && slot.Quantity > 1)
                 {
                     slot.DecreaseQuantity(1);
                     Debug.Log($"{item.itemName} quantity decreased. Remaining: {slot.Quantity}");
@@ -177,13 +177,13 @@ public class PlayerInventory : MonoBehaviour
 
         foreach (var slot in inventoryItems)
         {
-            if (slot.Item.itemType == ItemType.Material)
+            if (slot.Item.ItemType == ItemType.Material)
             {
                 materialsToStore.Add(slot);
             }
         }
 
-        inventoryItems.RemoveAll(slot => slot.Item.itemType == ItemType.Material);
+        inventoryItems.RemoveAll(slot => slot.Item.ItemType == ItemType.Material);
 
         uiManager.UpdateUI();
 
@@ -205,7 +205,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         ItemSO selectedItem = GetItemAtSlot(selectedSlotIndex);
-        if (selectedItem == null || selectedItem.itemType == ItemType.Weapon)
+        if (selectedItem == null || selectedItem.ItemType == ItemType.Weapon)
         {
             Debug.Log("Cannot drop weapon or no item found in selected slot.");
             return;
@@ -239,7 +239,7 @@ public class PlayerInventory : MonoBehaviour
         uiManager.UpdateUI();
 
         ItemSO currentItem = GetItemAtSlot(lastSelectedIndex);
-        if (currentItem != null && currentItem.itemType == ItemType.Material && GetItemCount(currentItem) > 0)
+        if (currentItem != null && currentItem.ItemType == ItemType.Material && GetItemCount(currentItem) > 0)
         {
             uiManager.SelectInventorySlot(lastSelectedIndex);
         }
@@ -251,7 +251,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void EquipWeapon(int slot, ItemSO weapon)
     {
-        if (weapon.itemType != ItemType.Weapon)
+        if (weapon.ItemType != ItemType.Weapon)
         {
             Debug.LogWarning("Cannot equip a non-weapon item in a weapon slot.");
             return;
@@ -282,7 +282,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void EquipArmor(ItemSO armor)
     {
-        if (armor.itemType != ItemType.Armor)
+        if (armor.ItemType != ItemType.Armor)
         {
             Debug.LogWarning("Cannot equip a non-armor item as armor.");
             return;
@@ -361,10 +361,10 @@ public class PlayerInventory : MonoBehaviour
         return IsWeaponEquippedInSlot(0) || IsWeaponEquippedInSlot(1); 
     }
 
-    public bool IsSlotOccupied(int slot, ItemType itemType)
+    public bool IsSlotOccupied(int slot, ItemType ItemType)
     {
-        if (slot == 1) return weaponSlots[0] != null && weaponSlots[0].itemType == itemType;
-        if (slot == 2) return weaponSlots[1] != null && weaponSlots[1].itemType == itemType;
+        if (slot == 1) return weaponSlots[0] != null && weaponSlots[0].ItemType == ItemType;
+        if (slot == 2) return weaponSlots[1] != null && weaponSlots[1].ItemType == ItemType;
         return false;
     }
 
@@ -480,7 +480,7 @@ public class PlayerInventory : MonoBehaviour
 
         foreach (var slot in inventoryItems)
         {
-            if (slot.Item.itemType == ItemType.Tool)
+            if (slot.Item.ItemType == ItemType.Tool)
             {
                 CraftingRecipe recipe = alreadyCraftedRecipes.Find(r => r.result == slot.Item);
                 if (recipe != null)

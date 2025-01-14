@@ -139,7 +139,7 @@ public class UIManager : MonoBehaviour
             ShowInventorySlot(otherSlotIndex);
             ShowInventoryIcon(otherSlotIndex, slot.Item.inventoryIcon);
 
-            if (slot.Item.itemType == ItemType.Material && slot.Quantity > 0)
+            if (slot.Item.ItemType == ItemType.Material && slot.Quantity > 0)
             {
                 itemCounts[otherSlotIndex].text = slot.Quantity.ToString();
                 itemCounts[otherSlotIndex].gameObject.SetActive(true);

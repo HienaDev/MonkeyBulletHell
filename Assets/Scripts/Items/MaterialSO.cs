@@ -3,9 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Material", menuName = "Items/Material")]
 public class MaterialSO : ItemSO
 {
-    private void Awake()
+    protected override ItemType GetItemType()
     {
-        itemType = ItemType.Material;
+        return ItemType.Material;
     }
 }
-
