@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 
 public class RunSummaryScreen : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class RunSummaryScreen : MonoBehaviour
 
     public void DisplaySummary()
     {
-        collectedMaterials = new List<InventorySlot>(playerInventory.GetInventory());
+        collectedMaterials = playerInventory.GetInventory().Where(slot => slot.Item.ItemType == ItemType.Material).ToList();
 
         if (collectedMaterials.Count == 0)
         {
