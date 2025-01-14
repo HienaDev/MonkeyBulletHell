@@ -273,22 +273,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764b17213b5487c409fdb220550730b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastDistance: 1
   stepsSound: []
-  stepsMixer: {fileID: 0}
+  stepsMixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd1Sound:
   - {fileID: 8300000, guid: 2dfef79e5c8cd8a499337ff4cd3d9c1c, type: 3}
   - {fileID: 8300000, guid: ada46c0ff2beee549a649926fc8ae798, type: 3}
   - {fileID: 8300000, guid: ff8aaa436a57c174383465a28f50d9f5, type: 3}
   Snd1Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd2Sound: []
-  Snd2Mixer: {fileID: 0}
+  Snd2Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd3Sound: []
-  Snd3Mixer: {fileID: 0}
+  Snd3Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd4Sound: []
-  Snd4Mixer: {fileID: 0}
+  Snd4Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd5Sound: []
-  Snd5Mixer: {fileID: 0}
+  Snd5Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!1 &5155797091492486646
 GameObject:
   m_ObjectHideFlags: 0

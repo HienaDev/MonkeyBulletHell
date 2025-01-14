@@ -2034,8 +2034,6 @@ MonoBehaviour:
   fadeScreen: {fileID: 3710228865241805200}
   objectsToFade:
   - {fileID: 0}
-  fadeDuration: 1
-  blackDuration: 1.5
 --- !u!1 &4423199417024013751
 GameObject:
   m_ObjectHideFlags: 0
@@ -3713,7 +3711,6 @@ MonoBehaviour:
   left: 97
   right: 100
   movementSpeed: 10
-  rotationSpeed: 10
   cameraPlayer: {fileID: 0}
   downwardForce: 100
 --- !u!95 &8399052254779561960
@@ -3838,6 +3835,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 838625fc2a2e13b4dbb2fa2331b54131, type: 2}
   - {fileID: 2100000, guid: 6cb3e8b3ad4c0ab4dbe48392b3df6438, type: 2}
   - {fileID: 2100000, guid: 64da1ed3a3328c6449bc8a6e6f1f0226, type: 2}
+  DashSounds: []
 --- !u!114 &5811922884974725835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3863,7 +3861,8 @@ AudioSource:
   m_GameObject: {fileID: 6976084960997700239}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -3964,19 +3963,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepsSound: []
-  stepsMixer: {fileID: 0}
-  takePictureSound: []
-  takePictureMixer: {fileID: 0}
-  stepsGravelSound: []
-  stepsGravelMixer: {fileID: 0}
-  blockBreakingSound:
-  - {fileID: 8300000, guid: 54596e6c9ae0b96428862f272361d483, type: 3}
-  blockBreakingMixer: {fileID: 0}
-  pickUpSound: []
-  pickUpMixer: {fileID: 0}
-  menuSound: []
-  menuMixer: {fileID: 0}
-  timeBetweenSteps: 0
+  stepsMixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
+  Snd1Sound: []
+  Snd1Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
+  Snd2Sound: []
+  Snd2Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
+  Snd3Sound: []
+  Snd3Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
+  Snd4Sound: []
+  Snd4Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
+  Snd5Sound: []
+  Snd5Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!1 &7103562583341371292
 GameObject:
   m_ObjectHideFlags: 0
@@ -4100,6 +4097,7 @@ MonoBehaviour:
   boatTravel: Go to the \n easter island
   killMoai: Destroy the \nMOAI SENTINEL
   fullBoardAnimator: {fileID: 9043389469732680858}
+  TaskSounds: []
 --- !u!114 &686796486613149675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5012,6 +5010,7 @@ MonoBehaviour:
   boatTravel: Go to the \n easter island
   killMoai: Destroy the \nMOAI SENTINEL
   fullBoardAnimator: {fileID: 4651587185601987133}
+  TaskSounds: []
 --- !u!114 &8456995468472600130
 MonoBehaviour:
   m_ObjectHideFlags: 0
