@@ -35683,9 +35683,9 @@ MonoBehaviour:
   Snd5Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd6Sound:
   - {fileID: 8300000, guid: 2094a30419a33de44afa8563251dce2b, type: 3}
-  Snd6Mixer: {fileID: 0}
+  Snd6Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd7Sound: []
-  Snd7Mixer: {fileID: 0}
+  Snd7Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!1 &1881776113
 GameObject:
   m_ObjectHideFlags: 0
