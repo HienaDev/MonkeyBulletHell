@@ -28,7 +28,7 @@ public abstract class CraftingStation : MonoBehaviour
     protected virtual void Start()
     {
         chest = FindFirstObjectByType<Chest>();
-        playerInventory = player.GetComponent<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
         craftingUICanvasGroup = craftingUI.GetComponent<CanvasGroup>();
 
         if (craftingUICanvasGroup == null)

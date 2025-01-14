@@ -9,7 +9,7 @@ public class MaterialOnGround : MonoBehaviour
 
     private void Start()
     {
-        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
     }
 
     public void GatherMaterial()

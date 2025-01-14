@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private int maxInventoryMaterialsAndToolsSlots = 6;
     [SerializeField] private Transform armorAnchor;
+    [SerializeField] private GameObject weaponHolder;
 
     private ItemSO[] weaponSlots;
     private List<InventorySlot> inventoryItems;
@@ -13,10 +14,20 @@ public class PlayerInventory : MonoBehaviour
     private ShootingPlayer shootingPlayerScript;
     private ItemSO equippedArmor;
     private GameObject currentArmorModel;
-
     private Tutorial tutorial;
 
-    [SerializeField] private GameObject weaponHolder;
+    public static PlayerInventory Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     private void Start()
     {

@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         selectedSlot = 0;
-        playerInventory = FindAnyObjectByType<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
         wasEmpty = true;
         HideInventoryIcons();
         HideInventoryNumbers();
