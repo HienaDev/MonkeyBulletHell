@@ -12,6 +12,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private GameObject settingsMenu;
 
     private Resolution[] resolutions;
     private const string SensitivityKey = "CameraSensitivity";
@@ -20,8 +21,6 @@ public class SettingsMenu : MonoBehaviour
 
     private void Start()
     {
-        LoadSettings();
-
         resolutions = Screen.resolutions
             .Where(resolution => Mathf.Approximately((float)resolution.width / resolution.height, 16f / 9f))
             .Select(resolution => new Resolution { width = resolution.width, height = resolution.height })
@@ -54,6 +53,8 @@ public class SettingsMenu : MonoBehaviour
         sensitivitySlider.onValueChanged.AddListener(SetSensitive);
         volumeSlider.onValueChanged.AddListener(SetVolume);
         fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
+
+        LoadSettings();
     }
 
     public void SetQuality(int qualityIndex)
@@ -113,6 +114,6 @@ public class SettingsMenu : MonoBehaviour
 
     public void BackButton()
     {
-        this.gameObject.SetActive(false);
+        settingsMenu.SetActive(false);
     }
 }
