@@ -155,6 +155,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d6b231d74e1b84d46a8135aa0fcbef41, type: 3}
   - {fileID: 8300000, guid: 6c942aa4993f4184bb80f0d244fe365b, type: 3}
   - {fileID: 8300000, guid: 63f07fc4b86112d4298ddc3044062bc8, type: 3}
+  audioMixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!114 &7318671507883303504
 MonoBehaviour:
   m_ObjectHideFlags: 0

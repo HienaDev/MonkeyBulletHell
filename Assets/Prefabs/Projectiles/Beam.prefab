@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   audioClips: []
+  audioMixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!1 &7748450013598549278
 GameObject:
   m_ObjectHideFlags: 0
