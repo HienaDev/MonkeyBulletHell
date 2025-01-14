@@ -3902,6 +3902,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chest: {fileID: 1291030347}
+  slingShot: {fileID: 0}
+  moaiCannon: {fileID: 0}
   playerInventory: {fileID: 919132149385261831}
   playerHealthSystem: {fileID: 1137208365}
   materials:
@@ -3915,6 +3917,8 @@ MonoBehaviour:
   axe: {fileID: 11400000, guid: 820e22fa817581545b86c00cec936781, type: 2}
   moaiHealth: {fileID: 1757500185}
   runSummaryScreen: {fileID: 1602993037}
+  bossStartPosition: {fileID: 0}
+  player: {fileID: 0}
 --- !u!4 &206531655
 Transform:
   m_ObjectHideFlags: 0
@@ -31426,8 +31430,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeScreen: {fileID: 2063744973}
   fadeDuration: 1
-  travelingUI: {fileID: 1365003794}
+  travelingUItext: {fileID: 0}
   travellingText: Traveling to hub island
+  travelingUI: {fileID: 0}
   blackDuration: 3
   inventory: {fileID: 0}
   needsWeapons: 0
@@ -31465,6 +31470,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  mapUI: {fileID: 0}
 --- !u!135 &1177720505
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -33151,8 +33157,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeScreen: {fileID: 2063744973}
   fadeDuration: 1
-  travelingUI: {fileID: 1365003794}
+  travelingUItext: {fileID: 0}
   travellingText: Traveling to easter island
+  travelingUI: {fileID: 0}
   blackDuration: 3
   inventory: {fileID: 919132149385261831}
   needsWeapons: 0
@@ -33190,6 +33197,7 @@ MonoBehaviour:
   onTeleportComplete:
     m_PersistentCalls:
       m_Calls: []
+  mapUI: {fileID: 0}
 --- !u!114 &1239952968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40687,18 +40695,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 844f848045643ea4e801782fe31c5b1b, type: 3}
---- !u!114 &1365003794 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5599792753540844288, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
-    type: 3}
-  m_PrefabInstance: {fileID: 6453353849572812570}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1365593963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50087,7 +50083,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 1
-  animator: {fileID: 1691096900}
   defaultPoint: {fileID: 778934245}
   fightingPoint: {fileID: 1444453053}
   goUpDuration: 3
@@ -50936,12 +50931,14 @@ MonoBehaviour:
   - {fileID: 779091545665026175, guid: f97ad7d507f2572479c699cd14245954, type: 3}
   spawnCooldown: 6
   spawnRadius: 90
+  positionToBeBias: {fileID: 0}
   terrain: {fileID: 112987476}
   groundCheckDistance: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   player: {fileID: 919132149385261832}
+  enemiesToSpawnRightAway: 10
 --- !u!4 &1736035699
 Transform:
   m_ObjectHideFlags: 0
@@ -51100,7 +51097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1741624152}
   m_Layer: 0
-  m_Name: '########### HUB ISLAND ############ '
+  m_Name: '############ HUB ISLAND ############# '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
