@@ -136,4 +136,9 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd5.Play();
     }
 
+    public void ResetSnd5()
+    {
+        audioSourceSnd5.Stop();
+    }
+
 }
