@@ -22,7 +22,7 @@ public class Interactable : MonoBehaviour
     {
         justInteracted = float.MinValue;
         outline = GetComponent<Outline>();
-        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
         materialSource = GetComponent<MaterialSource>();
     }
 

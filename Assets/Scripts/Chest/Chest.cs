@@ -30,7 +30,7 @@ public class Chest : MonoBehaviour
 
     private void Start()
     {
-        playerInventory = player.GetComponent<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
 

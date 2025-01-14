@@ -18,7 +18,7 @@ public class MaterialSource : MonoBehaviour
     private void Start()
     {
         hitsRemaining = materialSource.hitsToBreak;
-        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
         originalPosition = transform.localPosition;
 
         audioSource = GetComponent<AudioSource>();

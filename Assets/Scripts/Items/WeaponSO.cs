@@ -11,8 +11,8 @@ public class WeaponSO : ItemSO
     public float laserDuration = 0f;
     public AudioClip[] shootingSounds;
 
-    private void Awake()
+    protected override ItemType GetItemType()
     {
-        itemType = ItemType.Weapon;
+        return ItemType.Weapon;
     }
 }

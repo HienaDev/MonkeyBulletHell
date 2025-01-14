@@ -5,8 +5,8 @@ public class ToolSO : ItemSO
 {
     public int efficiency;
 
-    private void Awake()
+    protected override ItemType GetItemType()
     {
-        itemType = ItemType.Tool;
+        return ItemType.Tool;
     }
 }

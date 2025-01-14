@@ -45,7 +45,7 @@ public class SaveManager : MonoBehaviour
     {
         if (playerInventory == null)
         {
-            playerInventory = FindFirstObjectByType<PlayerInventory>();
+            playerInventory = PlayerInventory.Instance;
         }
 
         if (chest == null)

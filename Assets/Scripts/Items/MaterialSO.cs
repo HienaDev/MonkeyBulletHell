@@ -6,9 +6,8 @@ public class MaterialSO : ItemSO
 
     public AudioClip[] pickupSounds;
 
-    private void Awake()
+        protected override ItemType GetItemType()
     {
-        itemType = ItemType.Material;
+        return ItemType.Material;
     }
 }
-

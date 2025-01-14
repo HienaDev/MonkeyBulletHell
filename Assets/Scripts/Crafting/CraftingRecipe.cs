@@ -7,7 +7,7 @@ public class CraftingRecipe : ScriptableObject
     public ItemSO result;
     public List<ItemRequirement> requiredMaterials;
     public bool IsUnlocked { get; private set; }
-    public ItemType ItemType => result.itemType;
+    public ItemType ItemType => result.ItemType;
 
     public void Unlock()
     {

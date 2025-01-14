@@ -10,7 +10,7 @@ public class ToolOnGround : MonoBehaviour
 
     private void Start()
     {
-        playerInventory = FindFirstObjectByType<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
     }
 
     public void GatherTool()

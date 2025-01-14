@@ -5,10 +5,8 @@ public class ArmorSO : ItemSO
 {
     public float damageReduction;
 
-    //public SpecialAbility specialAbility;
-
-    private void Awake()
+    protected override ItemType GetItemType()
     {
-        itemType = ItemType.Armor;
+        return ItemType.Armor;
     }
 }

@@ -33,21 +33,24 @@ public abstract class CraftingStation : MonoBehaviour
     protected virtual void Start()
     {
         chest = FindFirstObjectByType<Chest>();
-        playerInventory = player.GetComponent<PlayerInventory>();
+        playerInventory = PlayerInventory.Instance;
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
         craftingUICanvasGroup = craftingUI.GetComponent<CanvasGroup>();
         audioSource = GetComponent<AudioSource>();
         audioClips = StationSounds;
+
         if (craftingUICanvasGroup == null)
         {
             craftingUICanvasGroup = craftingUI.AddComponent<CanvasGroup>();
         }
+
         craftingUICanvasGroup.alpha = 0;
         craftingUICanvasGroup.interactable = false;
         craftingUICanvasGroup.blocksRaycasts = false;
 
         LoadRecipes();
+
         if (nothingToCraftMessage != null)
         {
             nothingToCraftMessage.gameObject.SetActive(false);
