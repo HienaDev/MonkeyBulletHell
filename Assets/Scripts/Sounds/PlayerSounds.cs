@@ -5,9 +5,6 @@ using UnityEngine.Audio;
 
 public class PlayerSounds : MonoBehaviour
 {
-    [SerializeField] private float raycastDistance = 1f;  // The distance of the downward raycast
-    [SerializeField] private LayerMask gravelLayer;  // Layer mask for the gravel layer
-
     [SerializeField] private AudioClip[] stepsSound;
     private AudioSource audioSourceSteps;
     [SerializeField] private AudioMixerGroup stepsMixer;
@@ -39,7 +36,6 @@ public class PlayerSounds : MonoBehaviour
     private float justStep;
     public bool OnGravel = false;
 
-    [SerializeField] private bool isMonter = false;
 
     // Start is called before the first frame update
     void Start()

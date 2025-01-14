@@ -34,7 +34,6 @@ public class AttackPatterns : MonoBehaviour
     [Header("ChasePlayer"), SerializeField] private float walkMovSpeedPhase1 = 3f;
     [SerializeField] private float walkMovSpeedPhase2 = 6f;
     [SerializeField] private float flyMovSpeed = 5f;
-    [SerializeField] private float flyMovSpeed2 = 10f;
 
     [Header("Stomp"), SerializeField] private GameObject moaiPhysicalCollider;
     [SerializeField] private Renderer[] meshRenderers;

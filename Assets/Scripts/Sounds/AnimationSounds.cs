@@ -6,8 +6,6 @@ using UnityEngine.Audio;
 public class AnimationSounds : MonoBehaviour
 {
 
-    [SerializeField] private float raycastDistance = 1f;  // The distance of the downward raycast
-
     [SerializeField] private AudioClip[] stepsSound;
     private AudioSource audioSourceSteps;
     [SerializeField] private AudioMixerGroup stepsMixer;

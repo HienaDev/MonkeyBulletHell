@@ -6,8 +6,6 @@ public class FadeScreen : MonoBehaviour
 {
     [SerializeField] private Image fadeScreen;
     [SerializeField] private GameObject[] objectsToFade;
-    [SerializeField] private float fadeDuration = 1f;
-    [SerializeField] private float blackDuration = 3f;
 
     public void TriggerFade(float fadeDuration, float blackDuration)
     {

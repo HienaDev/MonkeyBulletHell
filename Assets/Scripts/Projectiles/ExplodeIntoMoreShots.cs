@@ -7,7 +7,6 @@ public class ExplodeIntoMoreShots : MonoBehaviour
     [SerializeField] private GameObject shotPrefab;
     [SerializeField] private float timerToExplode;
     [SerializeField] private float shotSpeed = 10f;
-    [SerializeField] private float blinkSpeed = 0.2f;
 
     [SerializeField] private Material whiteMaterial;  
 
