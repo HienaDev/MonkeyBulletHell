@@ -29,6 +29,7 @@ public class AnimationSounds : MonoBehaviour
     [SerializeField] private AudioMixerGroup Snd4Mixer;
 
     [SerializeField] private AudioClip[] Snd5Sound;
+    public AudioSource BossMusic => audioSourceSnd5;
     private AudioSource audioSourceSnd5;
     [SerializeField] private AudioMixerGroup Snd5Mixer;
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoaiCallMethodsInAnimation : MonoBehaviour
@@ -9,6 +10,12 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
     [SerializeField] private MoaiBoss dropMaterials;
     [SerializeField] private GameObject moaiObject;
     [SerializeField] private GameObject returnToIslandPopUp;
+    private AnimationSounds sound;
+
+    private void Start()
+    {
+        sound = GetComponent<AnimationSounds>();
+    }
     public void HandStomp()
     {
         cameraShake.TriggerShakeCamera();
@@ -37,9 +44,21 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
     private IEnumerator BossScaledToDeath()
     {
 
+        float lerp = 0f;
+        float currentVolume = sound.BossMusic.volume;
+
+        while (lerp < 1f)
+        {
+            lerp += Time.deltaTime / 3f;
+
+            sound.BossMusic.volume = Mathf.Lerp(currentVolume, 0f, lerp);
+            yield return null;
+        }
+
+        
         yield return new WaitForSeconds(10f);
         returnToIslandPopUp.SetActive(true);
-        float lerp = 0f;
+        lerp = 0f;
         Vector3 currentScale = moaiObject.transform.localScale;
 
         while(lerp < 1f)

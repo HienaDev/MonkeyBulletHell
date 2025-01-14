@@ -59,6 +59,8 @@ public class AttackPatterns : MonoBehaviour
     private int currentPhase = 1;
     public int CurrentPhase => currentPhase;
 
+    public bool bossDead = false;
+
     public void ChangePhase(int phase)
     {
         currentPhase = phase;
@@ -133,6 +135,13 @@ public class AttackPatterns : MonoBehaviour
 
     private void Attacks()
     {
+
+        if(bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
+
         switch (currentPhase)
         {
             case 1:
@@ -155,6 +164,11 @@ public class AttackPatterns : MonoBehaviour
 
     private void Phase1Attacks()
     {
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         int attack = Random.Range(0, 4);
 
         // if last attack was walking, we hand stomp
@@ -198,6 +212,11 @@ public class AttackPatterns : MonoBehaviour
 
     private void Phase2Attacks()
     {
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         int attack = Random.Range(0, 4);
 
         // if last attack was walking, we hand stomp
@@ -240,6 +259,11 @@ public class AttackPatterns : MonoBehaviour
 
     private void Phase3Attacks()
     {
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         int attack = Random.Range(0, 4);
 
         // if last attack was walking, we hand stomp
@@ -321,11 +345,17 @@ public class AttackPatterns : MonoBehaviour
         //}
 
         //lastAttack = attack;
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         animator.SetTrigger("HandStomp Faster");
     }
 
     private IEnumerator FlyAndStompPhases(int phase)
     {
+
         animator.SetTrigger("Jump");
         yield return new WaitForSeconds(2f);
         foreach (Renderer mesh in meshRenderers)
@@ -396,6 +426,11 @@ public class AttackPatterns : MonoBehaviour
 
     public void FlyAndStomp()
     {
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         switch (currentPhase)
         {
             case 1:
@@ -470,11 +505,21 @@ public class AttackPatterns : MonoBehaviour
 
     private void HandStomp()
     {
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         animator.SetTrigger("HandStomp");
     }
 
     public void HandStompCalledInAnimation()
     {
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         switch (currentPhase)
         {
             case 1:
@@ -537,7 +582,12 @@ public class AttackPatterns : MonoBehaviour
 
     public void FastStomp()
     {
-        if(currentPhase == 2)
+        if (bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
+        if (currentPhase == 2)
         {
             AoeAttackOnHead(firePointOnLeftHand.transform, enemyShotPrefab, 6, initialAngle: 45f);
             AoeAttackOnHead(firePointOnRightHand.transform, enemyShotPrefab, 6);
@@ -653,6 +703,11 @@ public class AttackPatterns : MonoBehaviour
 
     public void AoeAttackOnHead(Transform position, GameObject projectile, int numberOfProjectiles, bool halfProjectiles = false, GameObject secondProjectile = null, float initialAngle = 0f)
     {
+        if(bossDead)
+        {
+            animator.SetTrigger("Death");
+            return;
+        }
         float degreeIteration = 360 / numberOfProjectiles;
 
         if (halfProjectiles)

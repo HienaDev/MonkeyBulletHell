@@ -166,6 +166,11 @@ public class HealthSystem : MonoBehaviour
                 if (health <= 0)
                 {
                     health = 0;
+
+                    if(attackPatterns != null)
+                    {
+                        attackPatterns.bossDead = true;
+                    }
                     if (doOnDeath != null)
                     {
                         doOnDeath.Invoke();
@@ -183,6 +188,7 @@ public class HealthSystem : MonoBehaviour
                     {
                         DestroyObject();
                     }
+
                 }
                 else
                 {
