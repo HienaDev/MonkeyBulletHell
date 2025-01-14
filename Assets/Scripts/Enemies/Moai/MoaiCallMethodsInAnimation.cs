@@ -57,7 +57,7 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
 
         
         yield return new WaitForSeconds(10f);
-        returnToIslandPopUp.SetActive(true);
+
         lerp = 0f;
         Vector3 currentScale = moaiObject.transform.localScale;
 
@@ -67,6 +67,13 @@ public class MoaiCallMethodsInAnimation : MonoBehaviour
             lerp += Time.deltaTime;
             yield return null;
         }
+
+
+
+        yield return new WaitForSeconds(5f);
+        returnToIslandPopUp.SetActive(true);
+
+        yield return null;
 
         Destroy(moaiObject);
     }
