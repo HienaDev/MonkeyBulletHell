@@ -31,12 +31,15 @@ public class AnimationSounds : MonoBehaviour
     private AudioSource audioSourceSnd5;
     [SerializeField] private AudioMixerGroup Snd5Mixer;
 
-    
 
-   
-  
+    [SerializeField] private AudioClip[] Snd6Sound;
 
-    
+    private AudioSource audioSourceSnd6;
+    [SerializeField] private AudioMixerGroup Snd6Mixer;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +67,9 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd5 = gameObject.AddComponent<AudioSource>();
         audioSourceSnd5.outputAudioMixerGroup = Snd5Mixer;
         //AudioManager.instance.audioSources.Add(audioSourceSnd5);
+        audioSourceSnd6 = gameObject.AddComponent<AudioSource>();
+        audioSourceSnd6.outputAudioMixerGroup = Snd6Mixer;
+        //AudioManager.instance.audioSources.Add(audioSourceSnd6);
 
         audioSourceSnd1.spatialBlend = 0f;
         audioSourceSteps.spatialBlend = 0f;
@@ -71,6 +77,7 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd3.spatialBlend = 0f;
         audioSourceSnd4.spatialBlend = 0f;
         audioSourceSnd5.spatialBlend = 0f;
+        audioSourceSnd6.spatialBlend = 0f;
 
         audioSourceSnd5.loop = true;
 
@@ -83,6 +90,7 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd3.volume = 1f;
         audioSourceSnd4.volume = 1f;
         audioSourceSnd5.volume = 1f;
+        audioSourceSnd6.volume = 1f;
 
 
         //audioSourceSnd4.clip = Snd4Sound;
@@ -139,6 +147,14 @@ public class AnimationSounds : MonoBehaviour
     public void ResetSnd5()
     {
         audioSourceSnd5.Stop();
+    }
+
+    public void PlaySnd6Sound()
+    {
+        audioSourceSnd6.clip = Snd6Sound[Random.Range(0, Snd6Sound.Length)];
+        audioSourceSnd6.pitch = Random.Range(0.95f, 1.05f);
+
+        audioSourceSnd6.Play();
     }
 
 }
