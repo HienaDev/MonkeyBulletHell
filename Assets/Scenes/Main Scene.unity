@@ -35732,21 +35732,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepsSound: []
-  stepsMixer: {fileID: 0}
+  stepsMixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd1Sound: []
-  Snd1Mixer: {fileID: 0}
+  Snd1Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd2Sound:
   - {fileID: 8300000, guid: e37419147e1b70948b6ca3183eec95a6, type: 3}
-  Snd2Mixer: {fileID: 0}
+  Snd2Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd3Sound:
   - {fileID: 8300000, guid: 6e7a9d542e77bb64389417b2cce5997e, type: 3}
-  Snd3Mixer: {fileID: 0}
+  Snd3Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd4Sound:
   - {fileID: 8300000, guid: 58cd3c2c968af90419673219239d42dd, type: 3}
-  Snd4Mixer: {fileID: 0}
+  Snd4Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
   Snd5Sound:
   - {fileID: 8300000, guid: c64cc5c3dcd08d743a8c836119b5ca3d, type: 3}
-  Snd5Mixer: {fileID: 0}
+  Snd5Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
 --- !u!1 &1881776113
 GameObject:
   m_ObjectHideFlags: 0
@@ -47443,6 +47443,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -219484038981535600, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: Snd1Mixer
+      value: 
+      objectReference: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7,
+        type: 2}
+    - target: {fileID: -219484038981535600, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: Snd2Mixer
+      value: 
+      objectReference: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7,
+        type: 2}
+    - target: {fileID: -219484038981535600, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: Snd3Mixer
+      value: 
+      objectReference: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7,
+        type: 2}
+    - target: {fileID: -219484038981535600, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: Snd4Mixer
+      value: 
+      objectReference: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7,
+        type: 2}
+    - target: {fileID: -219484038981535600, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: Snd5Mixer
+      value: 
+      objectReference: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7,
+        type: 2}
+    - target: {fileID: -219484038981535600, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
+        type: 3}
+      propertyPath: stepsMixer
+      value: 
+      objectReference: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7,
+        type: 2}
     - target: {fileID: -219484038981535600, guid: 37b3da96d70b3334e8bfec73e6ffa81a,
         type: 3}
       propertyPath: Snd1Sound.Array.size
