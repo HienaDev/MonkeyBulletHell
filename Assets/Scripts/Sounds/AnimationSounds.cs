@@ -37,6 +37,11 @@ public class AnimationSounds : MonoBehaviour
     private AudioSource audioSourceSnd6;
     [SerializeField] private AudioMixerGroup Snd6Mixer;
 
+    [SerializeField] private AudioClip[] Snd7Sound;
+
+    private AudioSource audioSourceSnd7;
+    [SerializeField] private AudioMixerGroup Snd7Mixer;
+
 
 
 
@@ -71,6 +76,10 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd6.outputAudioMixerGroup = Snd6Mixer;
         //AudioManager.instance.audioSources.Add(audioSourceSnd6);
 
+        audioSourceSnd6 = gameObject.AddComponent<AudioSource>();
+        audioSourceSnd6.outputAudioMixerGroup = Snd7Mixer;
+        //AudioManager.instance.audioSources.Add(audioSourceSnd6);
+
         audioSourceSnd1.spatialBlend = 0f;
         audioSourceSteps.spatialBlend = 0f;
         audioSourceSnd2.spatialBlend = 0f;
@@ -78,6 +87,7 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd4.spatialBlend = 0f;
         audioSourceSnd5.spatialBlend = 0f;
         audioSourceSnd6.spatialBlend = 0f;
+        audioSourceSnd7.spatialBlend = 0f;
 
         audioSourceSnd5.loop = true;
 
@@ -91,6 +101,7 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd4.volume = 1f;
         audioSourceSnd5.volume = 1f;
         audioSourceSnd6.volume = 1f;
+        audioSourceSnd7.volume = 1f;
 
 
         //audioSourceSnd4.clip = Snd4Sound;
@@ -150,6 +161,14 @@ public class AnimationSounds : MonoBehaviour
     }
 
     public void PlaySnd6Sound()
+    {
+        audioSourceSnd6.clip = Snd6Sound[Random.Range(0, Snd6Sound.Length)];
+        audioSourceSnd6.pitch = Random.Range(0.95f, 1.05f);
+
+        audioSourceSnd6.Play();
+    }
+
+     public void PlaySnd7Sound()
     {
         audioSourceSnd6.clip = Snd6Sound[Random.Range(0, Snd6Sound.Length)];
         audioSourceSnd6.pitch = Random.Range(0.95f, 1.05f);
