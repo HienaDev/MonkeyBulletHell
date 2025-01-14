@@ -6,6 +6,7 @@ public class SpawnMoaiOnCollision : MonoBehaviour
     [SerializeField] private TriggerCameraShake rockDoor;
     [SerializeField] private LayerMask monkeyLayer;
     [SerializeField] private SpawnEnemy enemySpawner;
+    
 
     private void OnTriggerEnter(Collider other)
     {

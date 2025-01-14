@@ -116,7 +116,7 @@ public class AttackPatterns : MonoBehaviour
         currentPhase = 1;
 
         jointsMaterial.SetColor("_Color", phaseColor1);
-
+        bossDead = false;
         ClearProjectiles();
 
         animator.SetBool("Nothing", true);
@@ -473,6 +473,7 @@ public class AttackPatterns : MonoBehaviour
 
     public IEnumerator StartCombatCR()
     {
+        animator.SetBool("Nothing", false);
         animator.SetTrigger("Spawn");
         yield return new WaitForSeconds(5f);
 
