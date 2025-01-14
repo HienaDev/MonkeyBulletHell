@@ -25,6 +25,11 @@ public abstract class CraftingStation : MonoBehaviour
     private Rigidbody playerRigidbody;
     private Animator playerAnimator;
 
+    public AudioClip[] StationSounds;
+    private AudioSource audioSource;
+    private AudioClip[] audioClips;
+
+
     protected virtual void Start()
     {
         chest = FindFirstObjectByType<Chest>();
@@ -32,6 +37,8 @@ public abstract class CraftingStation : MonoBehaviour
         playerRigidbody = player.GetComponent<Rigidbody>();
         playerAnimator = player.GetComponent<Animator>();
         craftingUICanvasGroup = craftingUI.GetComponent<CanvasGroup>();
+        audioSource = GetComponent<AudioSource>();
+        audioClips = StationSounds;
         if (craftingUICanvasGroup == null)
         {
             craftingUICanvasGroup = craftingUI.AddComponent<CanvasGroup>();
@@ -60,10 +67,16 @@ public abstract class CraftingStation : MonoBehaviour
         if (craftingUI.activeSelf)
         {
             CloseUI();
+            audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.Play();
         }
         else
         {
             OpenUI();
+            audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.Play();
         }
     }
 

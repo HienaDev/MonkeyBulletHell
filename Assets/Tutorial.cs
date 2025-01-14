@@ -48,6 +48,10 @@ public class Tutorial : MonoBehaviour
 
     [SerializeField] private Animator fullBoardAnimator;
 
+    public AudioClip[] TaskSounds;
+    private AudioSource audioSource;
+    private AudioClip[] audioClips;
+
     private void Awake()
     {
         Instance = this;
@@ -57,6 +61,8 @@ public class Tutorial : MonoBehaviour
     void Start()
     {
         ActivateCollectionTasks();
+        audioSource = GetComponent<AudioSource>();
+        audioClips = TaskSounds;
     }
 
     private void ActivateCollectionTasks()
@@ -100,6 +106,9 @@ public class Tutorial : MonoBehaviour
             {
                 stoneTaskComplete = true;
                 stoneTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+                audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+                audioSource.pitch = Random.Range(0.9f, 1.1f);
+                audioSource.Play();
             }
         }
 
@@ -112,6 +121,9 @@ public class Tutorial : MonoBehaviour
             {
                 stickTaskComplete = true;
                 stickTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+                audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+                audioSource.pitch = Random.Range(0.9f, 1.1f);
+                audioSource.Play();
             }
         }
 
@@ -123,6 +135,9 @@ public class Tutorial : MonoBehaviour
             {
                 leafTaskComplete = true;
                 leafTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+                audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+                audioSource.pitch = Random.Range(0.9f, 1.1f);
+                audioSource.Play();
             }
         }
 
@@ -139,6 +154,9 @@ public class Tutorial : MonoBehaviour
         if (storageInteractionComplete) return;
         storageInteractionComplete = true;
         storageTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
 
         CheckPart2Tasks();
     }
@@ -150,6 +168,9 @@ public class Tutorial : MonoBehaviour
         if (weapon != slingShotSO) return;
         craftSlingshotComplete = true;
         craftSlingshotTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
 
         CheckPart2Tasks();
     }
@@ -160,6 +181,9 @@ public class Tutorial : MonoBehaviour
         if(boatTravelComplete) return;
         boatTravelComplete = true;
         boatTravelTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
 
         CheckPart2Tasks();
     }
@@ -170,6 +194,9 @@ public class Tutorial : MonoBehaviour
         if(killMoaiComplete) return;
         killMoaiComplete = true;
         killMoaiTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
 
         CheckPart2Tasks();
     }
@@ -243,6 +270,10 @@ public class Tutorial : MonoBehaviour
         {
             stoneTask.GetComponent<TextMeshProUGUI>().text = stoneCollectTask + $" {stoneCount}/{stoneQuantity}";
             stoneTask.GetComponent<Animator>().SetBool("TaskComplete", true);
+
+            audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.Play();
         }
 
         if (leafTaskComplete)

@@ -17,3 +17,6 @@ MonoBehaviour:
   inventoryIcon: {fileID: 21300000, guid: d3c89c5e64fcae5409425b7814725368, type: 3}
   itemPrefab: {fileID: 9074866883454138722, guid: fce8d61f1b1382e438fb8470e4e2158c,
     type: 3}
+  pickupSounds:
+  - {fileID: 8300000, guid: cd2fb7ad72b34504089c6304202eaab2, type: 3}
+  - {fileID: 8300000, guid: 89fc349e265348c47b038bb4d39c706c, type: 3}

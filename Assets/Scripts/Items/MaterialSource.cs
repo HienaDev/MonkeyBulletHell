@@ -11,11 +11,17 @@ public class MaterialSource : MonoBehaviour
     private PlayerInventory playerInventory;
     private Vector3 originalPosition;
 
+    
+    private AudioSource audioSource;
+    private AudioClip[] audioClips;
+
     private void Start()
     {
         hitsRemaining = materialSource.hitsToBreak;
         playerInventory = FindFirstObjectByType<PlayerInventory>();
         originalPosition = transform.localPosition;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void GatherResource()
@@ -39,6 +45,12 @@ public class MaterialSource : MonoBehaviour
                         if (!playerInventory.MaterialAndToolSlotsFull() || playerInventory.ContainsMaterial(material))
                         {
                             playerInventory.AddItem(material);
+
+                            audioClips = materialSource.HitSounds;
+
+                            audioSource.clip = audioClips[Random.Range(1, audioClips.Length)];
+                            audioSource.pitch = Random.Range(0.9f, 1.1f);
+                            audioSource.Play();
                         }
                         else
                         {
@@ -51,7 +63,9 @@ public class MaterialSource : MonoBehaviour
 
                 if (hitsRemaining <= 0)
                 {
-                    Destroy(gameObject);
+                    
+                    Invoke("Move_object",1);
+                    Invoke("Destroy_object",3);
                 }
             }
         }
@@ -61,6 +75,21 @@ public class MaterialSource : MonoBehaviour
         }
     }
 
+    
+    private void Destroy_object()
+    {
+        Destroy(gameObject);
+    }
+
+    private void Move_object()
+    {
+        audioClips = materialSource.HitSounds;
+
+        audioSource.clip = audioClips[0];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
+        transform.position = new Vector3(1.0f, 1.0f, 1.0f);
+    }
 
     public bool CanToolBreakMaterial(ToolSO tool)
     {

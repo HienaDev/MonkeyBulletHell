@@ -55,6 +55,7 @@ public class AttackPatterns : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
+  
     private int currentPhase = 1;
     public int CurrentPhase => currentPhase;
 
@@ -98,6 +99,7 @@ public class AttackPatterns : MonoBehaviour
 
 
         jointsMaterial.SetColor("_Color", phaseColor1);
+       
     }
 
     public void ResetBoss()
@@ -576,6 +578,7 @@ public class AttackPatterns : MonoBehaviour
 
     private IEnumerator LaserAttack(float laserAngle, float laserDuration)
     {
+        
 
         animator.SetTrigger("Beam");
 

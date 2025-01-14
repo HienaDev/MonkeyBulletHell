@@ -49,8 +49,10 @@ public class Interactable : MonoBehaviour
             {
                 Instantiate(hitEffect, transform);
             }
+
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

@@ -18,3 +18,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8ba248b8a0e10642a5c41a4bb79c2c2, type: 2}
   materialAmountPerHit: 1
   canBeBrokenWith: []
+  HitSounds:
+  - {fileID: 8300000, guid: d1261a491edb4624e9105b7bee1b5a17, type: 3}
+  - {fileID: 8300000, guid: 89e1dcf6657048a479eb15e16d07eb87, type: 3}
+  - {fileID: 8300000, guid: b38184bef9c326a40b16941c5852407a, type: 3}
+  - {fileID: 8300000, guid: dc7475d30311cb141a0b606e4a36bb8f, type: 3}

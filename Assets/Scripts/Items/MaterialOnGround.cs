@@ -7,13 +7,23 @@ public class MaterialOnGround : MonoBehaviour
 
     private PlayerInventory playerInventory;
 
+    private AudioSource audioSource;
+    private AudioClip[] audioClips;
+
     private void Start()
     {
         playerInventory = FindFirstObjectByType<PlayerInventory>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void GatherMaterial()
     {
+        audioClips = material.pickupSounds;
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
+
         if (playerInventory.ContainsMaterial(material))
         {
             playerInventory.AddItem(material);
@@ -28,8 +38,17 @@ public class MaterialOnGround : MonoBehaviour
         {
             playerInventory.AddItem(material);
             Debug.Log($"Gathered {material.itemName}");
+            
         }
 
+        transform.position = new Vector3(1.0f, 1.0f, 1.0f);
+        Invoke("Destroy_object",3);
+        
+        
+    }
+
+    private void Destroy_object()
+    {
         Destroy(gameObject);
     }
 

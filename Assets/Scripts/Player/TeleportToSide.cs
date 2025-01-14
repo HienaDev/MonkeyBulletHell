@@ -27,6 +27,11 @@ public class DashInDirection : MonoBehaviour
 
     [SerializeField] private Material[] dashMaterials;
     [SerializeField] private Material[] normalMaterials;
+    
+    public AudioClip[] DashSounds;
+
+    private AudioSource audioSource;
+    private AudioClip[] audioClips;
 
     private Vector3 startPosition;
 
@@ -37,6 +42,8 @@ public class DashInDirection : MonoBehaviour
         trailRenderer.emitting = false;
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
+        audioSource = GetComponent<AudioSource>();
+        audioClips = DashSounds;
     }
 
     private void Update()
@@ -46,6 +53,9 @@ public class DashInDirection : MonoBehaviour
         {
             justDashed = Time.time;
             StartCoroutine(Dash());
+            audioSource.clip = audioClips[0];
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.Play();
         }
     }
 

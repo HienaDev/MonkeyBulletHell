@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 764b17213b5487c409fdb220550730b2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - stepsMixer: {instanceID: 0}
+  - takePictureMixer: {instanceID: 0}
+  - stepsGravelMixer: {instanceID: 0}
+  - blockBreakingMixer: {instanceID: 0}
+  - pickUpMixer: {instanceID: 0}
+  - menuMixer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

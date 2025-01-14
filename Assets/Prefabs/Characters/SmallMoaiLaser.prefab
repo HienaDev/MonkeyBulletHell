@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 5006807519298367251}
   - component: {fileID: 8698947155658468831}
   - component: {fileID: 8984568882316774184}
+  - component: {fileID: 4637946098249892606}
   m_Layer: 0
   m_Name: MoaiStomperPivot
   m_TagString: Untagged
@@ -197,6 +198,7 @@ MonoBehaviour:
   attackPatterns: {fileID: 0}
   dropOnPhaseChange: {fileID: 0}
   renderers: {fileID: 0}
+  destroySelfWhenDeath: 1
 --- !u!114 &879702174461100619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +261,34 @@ MonoBehaviour:
   materialsToDrop:
   - {fileID: 9074866883454138722, guid: fce8d61f1b1382e438fb8470e4e2158c, type: 3}
   - {fileID: 1384634223423584380, guid: 2eb9762132256db4eaa928139e88f0c0, type: 3}
+--- !u!114 &4637946098249892606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3831295876134205284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764b17213b5487c409fdb220550730b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastDistance: 1
+  stepsSound: []
+  stepsMixer: {fileID: 0}
+  Snd1Sound:
+  - {fileID: 8300000, guid: 2dfef79e5c8cd8a499337ff4cd3d9c1c, type: 3}
+  - {fileID: 8300000, guid: ada46c0ff2beee549a649926fc8ae798, type: 3}
+  - {fileID: 8300000, guid: ff8aaa436a57c174383465a28f50d9f5, type: 3}
+  Snd1Mixer: {fileID: 24300002, guid: a4d736a83d98e784b9244aecadab34c7, type: 2}
+  Snd2Sound: []
+  Snd2Mixer: {fileID: 0}
+  Snd3Sound: []
+  Snd3Mixer: {fileID: 0}
+  Snd4Sound: []
+  Snd4Mixer: {fileID: 0}
+  Snd5Sound: []
+  Snd5Mixer: {fileID: 0}
 --- !u!1 &5155797091492486646
 GameObject:
   m_ObjectHideFlags: 0

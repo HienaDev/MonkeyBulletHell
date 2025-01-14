@@ -8,4 +8,6 @@ public class MaterialSourceSO : ScriptableObject
     public MaterialSO [] droppedMaterial;
     public int materialAmountPerHit;
     public ToolSO[] canBeBrokenWith;
+
+    public AudioClip[] HitSounds;
 }

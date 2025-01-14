@@ -3662,6 +3662,7 @@ GameObject:
   - component: {fileID: 2550914904599775477}
   - component: {fileID: 5811922884974725835}
   - component: {fileID: 4237296619480919455}
+  - component: {fileID: -219484038981535600}
   m_Layer: 8
   m_Name: Monkroose
   m_TagString: Untagged
@@ -3950,6 +3951,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-219484038981535600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6976084960997700239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764b17213b5487c409fdb220550730b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepsSound: []
+  stepsMixer: {fileID: 0}
+  takePictureSound: []
+  takePictureMixer: {fileID: 0}
+  stepsGravelSound: []
+  stepsGravelMixer: {fileID: 0}
+  blockBreakingSound:
+  - {fileID: 8300000, guid: 54596e6c9ae0b96428862f272361d483, type: 3}
+  blockBreakingMixer: {fileID: 0}
+  pickUpSound: []
+  pickUpMixer: {fileID: 0}
+  menuSound: []
+  menuMixer: {fileID: 0}
+  timeBetweenSteps: 0
 --- !u!1 &7103562583341371292
 GameObject:
   m_ObjectHideFlags: 0
@@ -4743,6 +4770,7 @@ MonoBehaviour:
   attackPatterns: {fileID: 0}
   dropOnPhaseChange: {fileID: 0}
   renderers: {fileID: 0}
+  destroySelfWhenDeath: 1
 --- !u!136 &878930441459896093
 CapsuleCollider:
   m_ObjectHideFlags: 0

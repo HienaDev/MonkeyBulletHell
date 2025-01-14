@@ -13,6 +13,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private TextMeshProUGUI nothingHereMessage;
     [SerializeField] private Animator animator;
+    public AudioClip[] ChestSounds;
 
     private float fadeDuration = 0.1f;
     private CanvasGroup chestUICanvasGroup;
@@ -22,6 +23,10 @@ public class Chest : MonoBehaviour
 
     private Rigidbody playerRigidbody;
     private Animator playerAnimator;
+
+    
+    private AudioSource audioSource;
+    private AudioClip[] audioClips;
 
     private void Start()
     {
@@ -44,6 +49,9 @@ public class Chest : MonoBehaviour
         }
 
         chestUI.SetActive(false);
+
+        audioSource = GetComponent<AudioSource>();
+        audioClips = ChestSounds;
     }
 
     public void FillChestWithMaterials(MaterialSO[] materials)
@@ -80,6 +88,9 @@ public class Chest : MonoBehaviour
     private void OpenUI()
     {
         if (chestUI.activeSelf) return;
+        audioSource.clip = audioClips[0];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
 
         StoreAllMaterials();
         chestUI.SetActive(true);
@@ -92,6 +103,9 @@ public class Chest : MonoBehaviour
     private void CloseUI()
     {
         if (!chestUI.activeSelf) return;
+        audioSource.clip = audioClips[1];
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.Play();
 
         StartCoroutine(FadeOutUI());
     }
