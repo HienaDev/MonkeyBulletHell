@@ -29,12 +29,18 @@ public abstract class CraftingStation : MonoBehaviour
     {
         chest = FindFirstObjectByType<Chest>();
         playerInventory = PlayerInventory.Instance;
+        playerRigidbody = player.GetComponent<Rigidbody>();
+        playerAnimator = player.GetComponent<Animator>();
         craftingUICanvasGroup = craftingUI.GetComponent<CanvasGroup>();
 
         if (craftingUICanvasGroup == null)
         {
             craftingUICanvasGroup = craftingUI.AddComponent<CanvasGroup>();
         }
+
+        craftingUICanvasGroup.alpha = 0;
+        craftingUICanvasGroup.interactable = false;
+        craftingUICanvasGroup.blocksRaycasts = false;
 
         LoadRecipes();
 
@@ -188,20 +194,15 @@ public abstract class CraftingStation : MonoBehaviour
 
     public virtual void PopulateItemGrid()
     {
-        foreach (Transform child in itemGrid)
-        {
-            Destroy(child.gameObject);
-        }
+        ClearItemGrid();
 
         foreach (var recipe in recipes)
         {
-            bool canDisplay = playerInventory.IsRecipeCrafted(recipe) ||
-                            recipe.requiredMaterials.All(req => chest.GetItemCount(req.material) >= req.quantity);
+            bool canDisplay = recipe.requiredMaterials.All(req =>
+                chest.GetItemCount(req.material) >= 1) ||
+                playerInventory.IsRecipeCrafted(recipe);
 
-            if (!canDisplay)
-            {
-                continue;
-            }
+            if (!canDisplay) continue;
 
             var itemButton = Instantiate(itemButtonPrefab, itemGrid);
             var buttonImage = itemButton.GetComponent<Image>();
@@ -209,7 +210,6 @@ public abstract class CraftingStation : MonoBehaviour
 
             buttonImage.sprite = recipe.result.inventoryIcon;
             buttonImage.color = playerInventory.IsRecipeCrafted(recipe) ? Color.white : new Color(0, 0, 0);
-
             button.onClick.AddListener(() => OnItemButtonClicked(recipe));
         }
     }
