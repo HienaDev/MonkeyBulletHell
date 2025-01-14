@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class AnimationSounds : MonoBehaviour
 {
-
     [SerializeField] private AudioClip[] stepsSound;
     private AudioSource audioSourceSteps;
     [SerializeField] private AudioMixerGroup stepsMixer;
@@ -31,7 +28,6 @@ public class AnimationSounds : MonoBehaviour
     private AudioSource audioSourceSnd5;
     [SerializeField] private AudioMixerGroup Snd5Mixer;
 
-
     [SerializeField] private AudioClip[] Snd6Sound;
 
     private AudioSource audioSourceSnd6;
@@ -42,11 +38,6 @@ public class AnimationSounds : MonoBehaviour
     private AudioSource audioSourceSnd7;
     [SerializeField] private AudioMixerGroup Snd7Mixer;
 
-
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         audioSourceSteps = gameObject.AddComponent<AudioSource>();
@@ -103,17 +94,8 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd6.volume = 1f;
         audioSourceSnd7.volume = 1f;
 
-
         //audioSourceSnd4.clip = Snd4Sound;
-
-
-
-
-
     }
-
-
-    
 
     public void PlaySnd1Sound()
     {
@@ -175,5 +157,4 @@ public class AnimationSounds : MonoBehaviour
 
         audioSourceSnd6.Play();
     }
-
 }
