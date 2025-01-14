@@ -38,6 +38,27 @@ public class AnimationSounds : MonoBehaviour
     private AudioSource audioSourceSnd7;
     [SerializeField] private AudioMixerGroup Snd7Mixer;
 
+    [SerializeField] private AudioClip[] Snd8Sound;
+
+    private AudioSource audioSourceSnd8;
+    [SerializeField] private AudioMixerGroup Snd8Mixer;
+
+    [SerializeField] private AudioClip[] Snd9Sound;
+
+    private AudioSource audioSourceSnd9;
+    [SerializeField] private AudioMixerGroup Snd9Mixer;
+
+    [SerializeField] private AudioClip[] Snd10Sound;
+
+    private AudioSource audioSourceSnd10;
+    [SerializeField] private AudioMixerGroup Snd10Mixer;
+
+    [SerializeField] private AudioClip[] Snd11Sound;
+
+    private AudioSource audioSourceSnd11;
+    [SerializeField] private AudioMixerGroup Snd11Mixer;
+
+
     void Start()
     {
         audioSourceSteps = gameObject.AddComponent<AudioSource>();
@@ -67,8 +88,24 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd6.outputAudioMixerGroup = Snd6Mixer;
         //AudioManager.instance.audioSources.Add(audioSourceSnd6);
 
-        audioSourceSnd6 = gameObject.AddComponent<AudioSource>();
-        audioSourceSnd6.outputAudioMixerGroup = Snd7Mixer;
+        audioSourceSnd7 = gameObject.AddComponent<AudioSource>();
+        audioSourceSnd7.outputAudioMixerGroup = Snd7Mixer;
+        //AudioManager.instance.audioSources.Add(audioSourceSnd6);
+
+        audioSourceSnd8 = gameObject.AddComponent<AudioSource>();
+        audioSourceSnd8.outputAudioMixerGroup = Snd8Mixer;
+        //AudioManager.instance.audioSources.Add(audioSourceSnd6);
+
+        audioSourceSnd9 = gameObject.AddComponent<AudioSource>();
+        audioSourceSnd9.outputAudioMixerGroup = Snd9Mixer;
+        //AudioManager.instance.audioSources.Add(audioSourceSnd6);
+
+        audioSourceSnd10 = gameObject.AddComponent<AudioSource>();
+        audioSourceSnd10.outputAudioMixerGroup = Snd10Mixer;
+        //AudioManager.instance.audioSources.Add(audioSourceSnd6);
+
+        audioSourceSnd11 = gameObject.AddComponent<AudioSource>();
+        audioSourceSnd11.outputAudioMixerGroup = Snd11Mixer;
         //AudioManager.instance.audioSources.Add(audioSourceSnd6);
 
         audioSourceSnd1.spatialBlend = 0f;
@@ -79,6 +116,10 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd5.spatialBlend = 0f;
         audioSourceSnd6.spatialBlend = 0f;
         audioSourceSnd7.spatialBlend = 0f;
+        audioSourceSnd8.spatialBlend = 0f;
+        audioSourceSnd9.spatialBlend = 0f;
+        audioSourceSnd10.spatialBlend = 0f;
+        audioSourceSnd11.spatialBlend = 0f;
 
         audioSourceSnd5.loop = true;
 
@@ -93,8 +134,13 @@ public class AnimationSounds : MonoBehaviour
         audioSourceSnd5.volume = 1f;
         audioSourceSnd6.volume = 1f;
         audioSourceSnd7.volume = 1f;
+        audioSourceSnd8.volume = 1f;
+        audioSourceSnd9.volume = 1f;
+        audioSourceSnd10.volume = 1f;
+        audioSourceSnd11.volume = 1f;
 
-        //audioSourceSnd4.clip = Snd4Sound;
+
+        
     }
 
     public void PlaySnd1Sound()
@@ -152,9 +198,44 @@ public class AnimationSounds : MonoBehaviour
 
      public void PlaySnd7Sound()
     {
-        audioSourceSnd6.clip = Snd6Sound[Random.Range(0, Snd6Sound.Length)];
-        audioSourceSnd6.pitch = Random.Range(0.95f, 1.05f);
+        audioSourceSnd7.clip = Snd7Sound[Random.Range(0, Snd7Sound.Length)];
+        audioSourceSnd7.pitch = Random.Range(0.95f, 1.05f);
 
-        audioSourceSnd6.Play();
+        audioSourceSnd7.Play();
     }
+
+    public void PlaySnd8Sound()
+    {
+        audioSourceSnd8.clip = Snd8Sound[Random.Range(0, Snd8Sound.Length)];
+        audioSourceSnd8.pitch = Random.Range(0.95f, 1.05f);
+
+        audioSourceSnd8.Play();
+        
+    }
+    public void PlaySnd9Sound()
+    {
+        audioSourceSnd9.clip = Snd9Sound[Random.Range(0, Snd9Sound.Length)];
+        audioSourceSnd9.pitch = Random.Range(0.95f, 1.05f);
+
+        audioSourceSnd9.Play();
+        
+    }
+    public void PlaySnd10Sound()
+    {
+        audioSourceSnd10.clip = Snd10Sound[Random.Range(0, Snd10Sound.Length)];
+        audioSourceSnd10.pitch = Random.Range(0.95f, 1.05f);
+
+        audioSourceSnd10.Play();
+        
+    }
+
+    public void PlaySnd11Sound()
+    {
+        audioSourceSnd11.clip = Snd11Sound[Random.Range(0, Snd11Sound.Length)];
+        audioSourceSnd11.pitch = Random.Range(0.95f, 1.05f);
+
+        audioSourceSnd11.Play();
+        
+    }
+    
 }

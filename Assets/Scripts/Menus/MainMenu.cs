@@ -19,11 +19,13 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI loadingText;
 
 
+
     private void Start()
     {
         if (!SaveManager.Instance.SaveFileExists())
         {
             continueButton.GetComponent<Button>().interactable = false;
+
         }
     }
 
